@@ -1,0 +1,31 @@
+<div class="hero-unit">
+  <h1>'Allo, 'Allo!</h1>
+  <p>You now have</p>
+  <ul>
+  <li class="dropdown">
+    <a class="dropdown-toggle">
+      Click me to see some awesome things!
+    </a>
+    <ul class="dropdown-menu">
+      <li ng-repeat="thing in awesomeThings">
+        <a>{{thing}}</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+ <p>Start point of the project </p>
+ <div ng-controller="MainCtrl">
+  <p><a ng-click="login()">Login post</a></p>
+<p><a ng-click="loginget()">Logout get</a></p>
+<p><a ng-click="logout()">Logout</a></p>
+</div>
+<p>
+<form action="/loginget" method="POST" id ="AJAXForm">
+    <input type="text" name="name" />
+    <input type="hidden" name="csrf_token" value="avor" />
+    <button type="submit">Send</button>
+</form>
+</p>
+</div>
+
+

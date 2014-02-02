@@ -1,0 +1,272 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+ 
+html,
+  body {
+    /*height: 100%;*/
+     opacity: 1;
+    -webkit-transition: opacity 1s ease;
+    -moz-transition: opacity 1s ease;
+    transition: opacity 1s;
+    padding: -top: 60px;
+    padding-bottom: 40px;
+  }
+ 
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 95%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -40px;
+}
+ 
+/* Set the fixed height of the footer here */
+/*#push,
+.footer {
+  height: 40px;
+  
+}*/
+
+/*.footer {
+  border-top: 1px solid #e5e5e5;
+  background-color: #f5f5f5;
+  background : #f5f5f5;
+}*/
+
+/*@media screen and (max-width: 1900px) {
+    .container {
+        max-width: (1900px - @grid-gutter-width);
+
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .container {
+        max-width: (1600px - @grid-gutter-width);
+
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .container {
+        max-width: (1200px - @grid-gutter-width);
+        margin-left: 50px;
+        margin-right: : 50px;
+
+    }
+}
+@media screen and (max-width: 767px) {
+    .container {
+        max-width: (767px - @grid-gutter-width);
+        margin-left: 20px;
+        margin-right: : 20px;
+    }
+}*/
+ 
+/* Lastly, apply responsive CSS fixes as necessary */
+/*@media (max-width: 767px) {
+#footer {
+  margin-left: -10px;
+  margin-right: -10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  }
+}*/
+ 
+ 
+ 
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+a {color: black;}
+
+.padded { 
+    padding: 2px; 
+}
+
+.container-fluid {
+  padding-top: 80px;
+}
+ 
+#wrap > .container {
+  padding-top: 80px;
+}
+.container .credit {
+margin: 20px 0;
+}
+ 
+.code {
+  font-size: 80%;
+}
+
+/*
+*/
+.peerTable {
+    float: left; 
+    margin: 5px;
+    margin-right: 6px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    background-color: #fffffe;
+    border: 1px solid #aaaaaa;
+    z-index: 1;
+    /* border-radius */
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    /* box-shadow */
+    -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+    box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+    margin-top: : 20px;
+}
+
+
+.statusHeader {
+    font-size: 0.7em;
+    font-weight: bold;
+    background-color: #dddddd;
+}
+
+.statusRegistered {
+    font-size: 1.0em;
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    background-color: #6AAF04;
+}
+
+.statusUnmonitored {
+    font-size: 1.0em;
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    background-color: orange;
+}
+
+.status1 {
+    font-size: 1.0em;
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    background-color: red;
+}
+
+.status0 {
+    font-size: 1.0em;
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    background-color: #fffffe;
+}
+
+.status {
+    font-size: 1.0em;
+    text-align: center;
+    /*border: 1px solid #aaaaaa;*/
+}
+
+.status a {
+    color: black;
+    text-decoration: none;
+}
+
+/** bridged status **/
+.statusDial {
+    font-size: 1.0em;
+    text-align: center;
+    color: black;
+}
+
+.statusLink {
+    font-size: 1.0em;
+    text-align: center;
+    color: green;
+}
+
+.statusRinging {
+    font-size: 1.0em;
+    text-align: center;
+    color: red;
+}
+
+.statusUp {
+    font-size: 1.0em;
+    text-align: center;
+    color: green;
+}
+
+.chartIncommingCalls {
+    width:100%; 
+    height:400px;
+}
+
+.lvl-over {
+                /* applied to a drop target when a draggable object is over it */
+                border: 2px dashed black !important;
+            }
+
+            .lvl-target {
+                /* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
+                background-color: #ddd;
+                opacity: .5;
+            }
+
+            [draggable] {
+                -moz-user-select: none;
+                -khtml-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+                /* Required to make elements draggable in old WebKit */
+                -khtml-user-drag: element;
+                -webkit-user-drag: element;
+                cursor: move;
+                border:1px solid black;
+            }
+
+            .peg {
+                text-align: center;
+                font-weight: bold;
+                border:1px black solid;
+                width: 75px;
+                margin: 10px;
+            }
+
+            .slot {
+                margin-right:2px;
+                margin-top:2px;
+                width:300;
+                height:300px;
+                display:inline-block;
+                border: 2px;
+            }
+
+            .red {
+                background-color: red;
+            }
+
+            .blue {
+                background-color: blue;
+            }
+
+            .green {
+                background-color: green;
+            }
+
+            .black {
+                background-color: black;
+                color: white;
+            }
+
+            .grey {
+                background-color: grey;
+            }
+
+            pre strong {
+                font-size:12pt;
+            }
+
+.ng-invalid { border: 1px solid red; } 
+body { font-family: Arial,Helvetica,sans-serif; }
+body, td, th { font-size: 14px; margin: 0; }
+table { border-collapse: separate; border-spacing: 2px; display: table; margin-bottom: 0; margin-top: 0; -moz-box-sizing: border-box; text-indent: 0; }
+a:link, a:visited, a:hover { color: #5D6DB6; text-decoration: none; }
+.error { color: red; }
+.ui-helper-hidden { display: none;}
