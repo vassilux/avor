@@ -139,7 +139,7 @@ angular.module('authentication.service', [
         console.debug("user requestCurrentUser isAuthenticated");
         return $q.when(currentUser);
       } else {
-        var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/currentUser';
+        var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/currentuser';
         console.debug("request the current user from the address : " + url);
         return $http.get(url).then(function(response) {
           console.log("user requestCurrentUser $http.get : " + JSON.stringify(response.data));
