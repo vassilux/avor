@@ -7,8 +7,8 @@ angular.module('app', ['ui.directives', 'localization', 'ui.bootstrap', 'ui.boot
   'services.breadcrumbs',
   'authentication',
   'services.i18nNotifications',
-  'services.localizedMessages',
-  'highcharts-ng'
+  'services.localizedMessages'
+  ,'highcharts-ng'
 ])
   .config(['$routeProvider', '$httpProvider',
     function($routeProvider, $httpProvider) {
