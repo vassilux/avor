@@ -1,10 +1,10 @@
 <div class="row-fluid">
-     <div class="span4">
-                <div >
-                    <highchart id="chart1" config="chartConfig"></highchart>
-                </div> 
-            </div>
-            
+    <div class="span4">
+        <div>
+            <highchart id="chart1" config="chartDIDConfig"></highchart>
+        </div>
+    </div>
+
     <!-- <div printablechart class="span4" style="height: 400px; margin: 10 auto">
         <div class="hc-Didcalls" items="chartDidSeriesDatas" categories="chartDidCategories" print-click="printChart()"></div>
     </div> -->
@@ -27,23 +27,31 @@
 <div class="row-fluid">
 
 
-    <div printablechart class="span4" style="height: 400px; margin: 10 auto">
+    <!-- <div printablechart class="span4" style="height: 400px; margin: 10 auto">
         <div class="hc-live" items="liveDatas" print-click="printChart()"></div>
     </div>
-
+    -->
     <div class="span4">
-
-        <table my-table="overrideOptions" aa-data="sampleProductCategories" ao-column-defs="columnDefs" fn-row-callback="myCallback">
+         <div class="row-fluid">
+        <button ng-click="fetchCdrDatasClickHandler()">Fetch Data</button>
+        </br>
+    </div>
+    <div class="row-fluid">
+        <table cdr-table="cdrOverrideOptions" aa-data="cdrCategories" ao-column-defs="columnDefs" fn-row-callback="myCallback">
+         <!--<table cdr-table options="cdrOptions"> -->
             <thead>
                 <tr>
-                    <th style="width:150px">Category</th>
-                    <th style="width:250px">Name</th>
-                    <th style="width:100px">Price</th>
+                    <th style="width:150px">Caller Name</th>
+                    <th style="width:250px">Caller Number</th>
+                    <th style="width:100px">Source</th>
+                    <th style="width:100px">Destination</th>
 
                 </tr>
-            </thead>
+            </thead> 
         </table>
+    </div>
         {{message}}
     </div>
+   
 
 </div>

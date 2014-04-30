@@ -1,92 +1,7 @@
 'use strict';
 
 angular.module('app')
-    .directive('hcLive', function() {
-        return {
-            restrict: 'C',
-            replace: true,
-            scope: {
-                items: '='
-            },
-
-            controller: function($scope, $element, $attrs) {
-
-            },
-            template: '<div><div id="liveChart" style="margin: 0 auto">not working</div>\
-                <button ng-click="printClick()">Print</button><button ng-click="exportPdf()">PDF</button></div>',
-            link: function(scope, element, attrs, controller) {
-
-                var liveChart = new Highcharts.Chart({
-                    chart: {
-                        renderTo: 'liveChart',
-                        type: 'spline',
-                        animation: Highcharts.svg, // don't animate in old IE
-                        marginRight: 10,
-                        events: {
-                            load: function() {}
-                        }
-                    },
-                    title: {
-                        text: 'Live random data'
-                    },
-                    xAxis: {
-                        type: 'datetime',
-                        tickPixelInterval: 150
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Value'
-                        },
-                        plotLines: [{
-                            value: 0,
-                            width: 1,
-                            color: '#808080'
-                        }]
-                    },
-                    tooltip: {
-                        formatter: function() {
-                            return '<b>' + this.series.name + '</b><br/>' +
-                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                                Highcharts.numberFormat(this.y, 2);
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    exporting: {
-                        enabled: false
-                    },
-
-                    series: [{
-                        type: 'spline',
-                        name: 'Random data',
-                        data: scope.items
-                    }]
-
-                });
-
-                scope.$watch("items", function(newValue) {
-                    liveChart.series[0].setData(newValue, true);
-                }, true);
-
-                scope.printClick = function() {
-                    liveChart.print();
-                }
-
-                scope.exportPdf = function() {
-                    liveChart.exportChart({
-                        type: 'application/pdf',
-                        filename: 'my-pdf'
-                    }, {
-                        subtitle: {
-                            text: ''
-                        }
-                    });
-                }
-            }
-        };
-    })
-//
+   
 .directive('hcDidcalls', function() {
     return {
         restrict: 'C',
@@ -516,20 +431,42 @@ angular.module('app')
     }
 })
 
-.directive('myTable', function() {
-    return function(scope, element, attrs) {
+.directive('cdrTable1', function() {
+    return{
+        restrict: 'E, A, C',
+        link : function(scope, element, attrs, controller){
+            var dataTable = element.dataTable(scope.options);
 
+            scope.$watch('options.aaData', handleModelUpdates, true);
+
+            function handleModelUpdates(newData){
+                var data = newData || null;
+                if(data){
+                    dataTable.fnClearTable();
+                    dataTable.fnAddData(data);
+                }
+            }
+        },
+        scope: {
+            options: "="
+        }
+
+    };
+})
+
+.directive('cdrTable', function() {
+    return function(scope, element, attrs) {
         // apply DataTable options, use defaults if none specified by user
         var options = {};
-        if (attrs.myTable.length > 0) {
-            options = scope.$eval(attrs.myTable);
+        if (attrs.cdrTable.length > 0) {
+            options = scope.$eval(attrs.cdrTable);
         } else {
             options = {
                 "bStateSave": true,
                 "iCookieDuration": 2419200,
                 /* 1 month */
                 "bJQueryUI": true,
-                "bPaginate": false,
+                "bPaginate": true,
                 "bLengthChange": false,
                 "bFilter": false,
                 "bInfo": false,
@@ -566,6 +503,7 @@ angular.module('app')
         // watch for any changes to our data, rebuild the DataTable
         scope.$watch(attrs.aaData, function(value) {
             var val = value || null;
+            console.log("attrs.aaData " + value);
             if (val) {
                 dataTable.fnClearTable();
                 dataTable.fnAddData(scope.$eval(attrs.aaData));
