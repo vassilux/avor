@@ -22,9 +22,7 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
     //offer the configuration to others parts
     $rootScope.config = config;
     $scope.notifications = i18nNotifications;
-    /*$rootScope.asteriskStatus = asteriskStatus;
-    $rootScope.asteriskServersList = [];*/
-
+  
     localize.setLanguage('fr-FR');
 
     

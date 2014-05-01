@@ -10,7 +10,7 @@ angular.module('app')
             });
         }
     ])
-    .controller('DashboardCtrl', function($rootScope, $scope, $timeout, Poller, cdrService) {
+    .controller('DashboardCtrl', function($rootScope, $scope, $timeout, Poller) {
         //
         var seriesDataAnswered = {
             name: "Answered",
@@ -116,65 +116,7 @@ angular.module('app')
         //
 
 
-        $scope.message = '';
-
-        $scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            $('td:eq(2)', nRow).bind('click', function() {
-                $scope.$apply(function() {
-                    $scope.someClickHandler(aData);
-                });
-            });
-            return nRow;
-        };
-
-        $scope.someClickHandler = function(info) {
-            $scope.message = 'clicked: ' + info.price;
-        };
-
-        $scope.columnDefs = [{
-            "mDataProp": "clidName",
-            "aTargets": [0]
-        }, {
-            "mDataProp": "clidNumber",
-            "aTargets": [1]
-        }, {
-            "mDataProp": "src",
-            "aTargets": [2]
-        }, {
-            "mDataProp": "dst",
-            "aTargets": [3]
-        }];
-
-        $scope.cdrOverrideOptions = {
-            "bStateSave": true,
-            "iCookieDuration": 2419200,
-            /* 1 month */
-            "bJQueryUI": true,
-            "bPaginate": true,
-            "bLengthChange": false,
-            "bFilter": true,
-            "bInfo": true,
-            "bDestroy": true
-        };
-        $scope.cdrCategories = []
-             
-      
-        $scope.fetchCdrDatasClickHandler = function() {
-            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/cdrs/2013-02-01T00:00:00Z/2015-04-22T01:00:00Z';
-            $scope.cdrs = cdrService.fetch(url);
-            $scope.pollData = $scope.cdrs.then(function(response) {
-            var newCdrs = []; 
-                for (var i = 0; i < response.length; i++) {
-                    newCdrs.push(response[i]);
-                }
-                $scope.cdrCategories = newCdrs;
-                return response;
-            });
-
-        };
-
-
-        //Just to start
+         //Just to start
         var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/poll';
         $scope.myts = Poller.poll(url);
         $scope.pollData = $scope.myts.then(function(response) {
