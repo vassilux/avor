@@ -188,7 +188,7 @@ angular.module('app')
             $scope.$apply(function() {
                 $scope.myts = Poller.poll(url);
                 $scope.pollData = $scope.myts.then(function(response) {
-                    console.log("Poll response data : " + response.data);
+                    //console.log("Poll response data : " + response.data);
                     var jsonData = JSON.parse(response.data)
                     processDidData(jsonData.didCalls);
                     processPeerIncommingData(jsonData.peerInCalls);

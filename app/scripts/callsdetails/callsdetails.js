@@ -15,6 +15,9 @@ angular.module('app')
         $scope.dateFrom = new Date(); //$filter('date')(Date.now(),'dd-mm-yy'); 
         $scope.dateTo = new Date();
         $scope.txtFrom = $filter('date')($scope.dateFrom,'dd-mm-yy');
+        $scope.cdrDetails= []
+
+        $scope.searchShow=true;
 
         $scope.dateOptions = {
             changeYear: true,
@@ -25,46 +28,74 @@ angular.module('app')
        
         $scope.message = '';
 
-        $scope.myCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            $('td:eq(2)', nRow).bind('click', function() {
+        $scope.cdrSearchCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            console.log("$scope.cdrSearchCallback");
+            $('td:eq(0)', nRow).bind('dblclick', function() {
                 $scope.$apply(function() {
-                    $scope.someClickHandler(aData);
+                    $scope.fetchCdrDetailsClickHandler(aData);
                 });
             });
             return nRow;
         };
 
-        $scope.someClickHandler = function(info) {
-            $scope.message = 'clicked: ' + info.price;
+        $scope.fetchCdrDetailsClickHandler = function(cdr) {
+            if(cdr.uniqueId == undefined ){
+                console.log("Oups uniqueId is undefined.")
+            }
+            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrdetails/" + cdr.uniqueId;
+            $scope.cdrDetails = cdrService.fetchDetails(url);
+            $scope.pollcdrDetailsData = $scope.cdrDetails.then(function(response) {
+                console.log(" pollcdrDetailsData " + response)
+                var callDetails = response[0].callDetails;
+                $scope.cdrDetails.length = 0;
+                var newCdrDetails = [];
+                for (var i = 0; i < callDetails.length; i++) {
+                    newCdrDetails.push(callDetails[i]);
+                }
+                $scope.cdrDetails = newCdrDetails;
+                $scope.message = 'Get ' + $scope.cdrDetails.length + " details for the call with uniqueid " + cdr.uniqueId;
+                return response;
+            });
+            
         };
 
         $scope.columnDefs = [{
-            "mDataProp": "clidName",
-            "aTargets": [0]
-        }, {
-            "mDataProp": "clidNumber",
+            "mDataProp": "call_date",
+            "aTargets": [0],
+            "bSortable": true,
+            "fnRender": function(oObj){
+                var jsDate = new Date(oObj.aData.call_date);
+                jsDate = $filter('date')(jsDate,'dd-MM-yyyy HH:mm:ss'); 
+                return "<div class='date'>" + jsDate + "</div>";
+
+            }
+        },{
+            "mDataProp": "clid_name",
             "aTargets": [1]
         }, {
-            "mDataProp": "dst",
+            "mDataProp": "clid_number",
             "aTargets": [2]
         }, {
-            "mDataProp": "dnid",
+            "mDataProp": "dst",
             "aTargets": [3]
+        }, {
+            "mDataProp": "dnid",
+            "aTargets": [4]
         },{
             "mDataProp": "duration",
-            "aTargets": [4]
-        }, {
-            "mDataProp": "billSec",
             "aTargets": [5]
         }, {
-            "mDataProp": "answerWaitTime",
+            "mDataProp": "billsec",
             "aTargets": [6]
-        },{
-            "mDataProp": "disposition",
+        }, {
+            "mDataProp": "answer_wait_time",
             "aTargets": [7]
         },{
-            "mDataProp": "inoutStatus",
+            "mDataProp": "disposition",
             "aTargets": [8]
+        },{
+            "mDataProp": "inout_status",
+            "aTargets": [9]
         }];
 
         $scope.cdrOverrideOptions = {
@@ -73,7 +104,7 @@ angular.module('app')
             /* 1 month */
             "bJQueryUI": true,
             "bPaginate": true,
-            "bLengthChange": false,
+            "bLengthChange": true,
             "bFilter": true,
             "bInfo": true,
             "bDestroy": true
@@ -82,7 +113,9 @@ angular.module('app')
 
 
         $scope.fetchCdrDatasClickHandler = function() {
-            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/cdrs/2013-02-01T00:00:00Z/2015-04-22T01:00:00Z';
+            var stringDateFrom = $filter('date')($scope.dateFrom,'yyyy-MM-dd'); 
+            var stringDateTo = $filter('date')($scope.dateTo,'yyyy-MM-dd');
+            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrs/" + stringDateFrom + 'T00:00:00Z/' + stringDateTo + 'T23:59:59Z';
             $scope.cdrs = cdrService.fetch(url);
             $scope.pollData = $scope.cdrs.then(function(response) {
                 var newCdrs = [];
@@ -94,4 +127,8 @@ angular.module('app')
             });
 
         };
+
+        $scope.toggleShowSearch = function(){
+            $scope.searchShow = !$scope.searchShow;
+        }
     });
