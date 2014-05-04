@@ -78,3 +78,8 @@ caret {
     outline-color: #999 !important;
     width: 120px;   
 }
+
+.modal.cdrDetails {
+    width:700px;
+    margin-left:-350px
+}

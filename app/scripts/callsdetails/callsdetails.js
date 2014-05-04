@@ -5,19 +5,36 @@ angular.module('app')
         function($routeProvider) {
             $routeProvider.when('/callsdetails', {
                 templateUrl: 'scripts/callsdetails/callsdetails.tpl.html',
-                controller: 'CallsdetailsCtrl'
+                controller: 'CallsDetailsCtrl'
 
             });
         }
     ])
-    .controller('CallsdetailsCtrl', function($rootScope, $scope, $timeout, $filter, cdrService) {
+    .controller('CallsDetailsCtrl', function($rootScope, $scope, $timeout, $filter, $dialog, cdrService) {
+        //
+        $scope.dialogCallDetailsOptions = {
+            backdrop: true,
+            keyboard: true,
+            backdropClick: true,
+            resolve: {
+                items: function() {
+                    return $scope.cdrDetails;
+                },
+                cdr : function() {
+                    return $scope.currentCdr;
+                }
+            },
+            dialogClass: 'modal cdrDetails',
+            controller: 'CallDetailsCtrl',
+            templateUrl: 'scripts/callsdetails/calldetailsdialog.tpl.html'
+        };
         //
         $scope.dateFrom = new Date(); //$filter('date')(Date.now(),'dd-mm-yy'); 
         $scope.dateTo = new Date();
-        $scope.txtFrom = $filter('date')($scope.dateFrom,'dd-mm-yy');
-        $scope.cdrDetails= []
-
-        $scope.searchShow=true;
+        $scope.txtFrom = $filter('date')($scope.dateFrom, 'dd-mm-yy');
+        $scope.cdrDetails = []
+        $scope.currentCdr = {};
+        $scope.searchShow = true;
 
         $scope.dateOptions = {
             changeYear: true,
@@ -25,8 +42,27 @@ angular.module('app')
             yearRange: '1900:-0'
         };
 
-       
+
         $scope.message = '';
+       
+        function format(d) {
+            // `d` is the original data object for the row
+            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                '<tr>' +
+                '<td>Full name:</td>' +
+                '<td>' + d.name + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Extension number:</td>' +
+                '<td>' + d.extn + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>Extra info:</td>' +
+                '<td>And any further details here (images etc)...</td>' +
+                '</tr>' +
+                '</table>';
+        }
+
 
         $scope.cdrSearchCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
             console.log("$scope.cdrSearchCallback");
@@ -39,13 +75,12 @@ angular.module('app')
         };
 
         $scope.fetchCdrDetailsClickHandler = function(cdr) {
-            if(cdr.uniqueId == undefined ){
+            if (cdr.uniqueId == undefined) {
                 console.log("Oups uniqueId is undefined.")
             }
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrdetails/" + cdr.uniqueId;
             $scope.cdrDetails = cdrService.fetchDetails(url);
             $scope.pollcdrDetailsData = $scope.cdrDetails.then(function(response) {
-                console.log(" pollcdrDetailsData " + response)
                 var callDetails = response[0].callDetails;
                 $scope.cdrDetails.length = 0;
                 var newCdrDetails = [];
@@ -54,22 +89,34 @@ angular.module('app')
                 }
                 $scope.cdrDetails = newCdrDetails;
                 $scope.message = 'Get ' + $scope.cdrDetails.length + " details for the call with uniqueid " + cdr.uniqueId;
+                //
+                angular.copy(cdr, $scope.currentCdr);
+                //
+                var d = $dialog.dialog($scope.dialogCallDetailsOptions)
+                    d.open()
+                    .then(function(result) {
+
+                        newCdrDetails = undefined;
+                    });
+
+                //
                 return response;
             });
-            
+
         };
 
         $scope.columnDefs = [{
             "mDataProp": "call_date",
             "aTargets": [0],
             "bSortable": true,
-            "fnRender": function(oObj){
+            "class": 'details-control',
+            "fnRender": function(oObj) {
                 var jsDate = new Date(oObj.aData.call_date);
-                jsDate = $filter('date')(jsDate,'dd-MM-yyyy HH:mm:ss'); 
+                jsDate = $filter('date')(jsDate, 'dd-MM-yyyy HH:mm:ss');
                 return "<div class='date'>" + jsDate + "</div>";
 
             }
-        },{
+        }, {
             "mDataProp": "clid_name",
             "aTargets": [1]
         }, {
@@ -81,7 +128,7 @@ angular.module('app')
         }, {
             "mDataProp": "dnid",
             "aTargets": [4]
-        },{
+        }, {
             "mDataProp": "duration",
             "aTargets": [5]
         }, {
@@ -90,10 +137,10 @@ angular.module('app')
         }, {
             "mDataProp": "answer_wait_time",
             "aTargets": [7]
-        },{
+        }, {
             "mDataProp": "disposition",
             "aTargets": [8]
-        },{
+        }, {
             "mDataProp": "inout_status",
             "aTargets": [9]
         }];
@@ -113,8 +160,8 @@ angular.module('app')
 
 
         $scope.fetchCdrDatasClickHandler = function() {
-            var stringDateFrom = $filter('date')($scope.dateFrom,'yyyy-MM-dd'); 
-            var stringDateTo = $filter('date')($scope.dateTo,'yyyy-MM-dd');
+            var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-dd');
+            var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-dd');
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrs/" + stringDateFrom + 'T00:00:00Z/' + stringDateTo + 'T23:59:59Z';
             $scope.cdrs = cdrService.fetch(url);
             $scope.pollData = $scope.cdrs.then(function(response) {
@@ -128,7 +175,18 @@ angular.module('app')
 
         };
 
-        $scope.toggleShowSearch = function(){
+        $scope.toggleShowSearch = function() {
             $scope.searchShow = !$scope.searchShow;
         }
-    });
+    })
+
+.controller('CallDetailsCtrl', function($rootScope, $scope, $timeout, $filter, dialog, items, cdr) {
+    $scope.callDetails = items;
+    $scope.currentCdr = cdr;
+    console.log(" $scope.callDetails :  " + JSON.stringify($scope.callDetails))
+    console.log('CallDetailsCtrl create')
+
+    $scope.close = function() {
+        dialog.close(undefined);
+    };
+});

@@ -1,0 +1,28 @@
+<div class="modal-header">
+	<div class="alert alert-info"> Details for call from {{currentCdr.clid_number}} to {{currentCdr.dst}} </div>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered table-condensed table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Destination</th>
+            <th>Caller</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Peer</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="call in callDetails">
+            <td>{{call.cid_dnid}}</td>
+            <td>{{call.cid_num}}</td>
+            <td>{{call.event_time}}</td>
+            <td>{{call.event_type}}</td>
+            <td>{{call.peer}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<div class="modal-footer">
+  <button ng-click="close()" class="btn" >Close</button>
+</div>
