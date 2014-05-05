@@ -31,7 +31,6 @@ angular.module('app')
         //
         $scope.dateFrom = new Date(); //$filter('date')(Date.now(),'dd-mm-yy'); 
         $scope.dateTo = new Date();
-        $scope.txtFrom = $filter('date')($scope.dateFrom, 'dd-mm-yy');
         $scope.cdrDetails = []
         $scope.currentCdr = {};
         $scope.searchShow = true;
