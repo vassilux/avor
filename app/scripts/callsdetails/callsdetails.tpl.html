@@ -14,23 +14,28 @@
                   </div>  
                   <!-- hangupcause -->   
                   <div class="input-append" >     
-                   <label for="inputHangupCause">Hangup Cause</label>                   
-                    <input type-"text" id="inputDirection"></input>
-                    <select class="selectpicker"  id="choiseHangupCause" data-width="30px">
-                      <option>All</option>
-                      <option>Anwered</option>
-                      <option>Non Answered</option>
-                      <option>Failed</option>
+                   <label for="choiseHangupCause">Hangup Cause</label>                   
+                    <select class="selectpicker"  id="choiseHangupCause" data-width="30px" ng-model="hangupdCause">
+                      <option value="">All</option>
+                      <option value="16">Answer</option>
+                      <option value="19">Non Answer</option>
+                      <option value="17">Busy</option>
+                      <option value="21">Cancel</option>
+                      <option value="34">Congestion</option>
+                      <option value="47">Chanunaval</option>
+                      <option value="41">Failed</option>
                     </select>
                   </div> 
                   <!-- -->   
                    <div class="input-append" >     
                    <label for="inputDuration">Duration</label>                   
-                    <input type-"text" id="inputDuration"></input>
-                    <select class="selectpicker"  id="choiseDuration" data-width="30px">
-                      <option>=</option>
-                      <option><</option>
-                      <option>></option>
+                    <input type-"text" id="inputDuration" ng-model="duration"></input>
+                    <select class="selectpicker"  id="choiseDuration" data-width="30px" ng-model="durationCondition">
+                      <option value="">==</option>
+                      <option value="$lt"><</option>
+                      <option value="$lte"><=</option>
+                      <option value="$gt">></option>
+                      <option value="$gte">>=</option>
                     </select>
                   </div>            
                    
@@ -40,33 +45,34 @@
           
             <div class="control-group">              
                 <div class="controls controls-row">
-                  
+                  <!-- destination -->
                   <div class="input-append" >   
                   <label for="inputDestination">Destination</label>                    
-                    <input type-"text" id="inputDestination"></input>
-                    <select class="selectpicker"  id="choiseDestination" data-width="30px">
-                      <option>Equals</option>
-                      <option>Contents</option>
+                    <input type-"text" id="inputDestination" ng-model="destination"></input>
+                    <select class="selectpicker"  id="choiseDestination" data-width="30px" ng-model="destinationCondition">
+                      <option value="">Equals</option>
+                      <option value="beginswith">Begins with</option>
+                      <option value="endwith">End with</option>
                     </select>
                   </div>
                   <!-- callerd id -->
                    
                   <div class="input-append" >        
                   <label for="inputCallerId">Callerd Id</label>               
-                    <input type-"text" id="inputCallerId"></input>
-                    <select class="selectpicker"  id="choiseCallerId" data-width="30px">
-                      <option>Equals</option>
-                      <option>Contents</option>
+                    <input type-"text" id="inputCallerId" ng-model="callerId"></input>
+                    <select class="selectpicker"  id="choiseCallerId" data-width="30px" ng-model="callerIdCondition">
+                     <option value="">Equals</option>
+                      <option value="beginswith">Begins with</option>
+                      <option value="endwith">End with</option>
                     </select>
                   </div>
                  <!-- direction -->                 
                   <div class="input-append" >     
-                   <label for="inputDirection">Direction</label>                   
-                    <input type-"text" id="inputDirection"></input>
-                    <select class="selectpicker"  id="choiseDirection" data-width="30px">
-                      <option>All</option>
-                      <option>Incomming</option>
-                      <option>Outgoing</option>
+                   <label for="choiseDirection">Direction</label>                   
+                    <select class="selectpicker"  id="choiseDirection" data-width="30px" ng-model="choiseDirection">
+                      <option value="">All</option>
+                      <option value="2">Incomming</option>
+                      <option value="1">Outgoing</option>
                     </select>
                   </div>
                 </div>

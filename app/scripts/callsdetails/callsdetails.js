@@ -20,7 +20,7 @@ angular.module('app')
                 items: function() {
                     return $scope.cdrDetails;
                 },
-                cdr : function() {
+                cdr: function() {
                     return $scope.currentCdr;
                 }
             },
@@ -31,6 +31,14 @@ angular.module('app')
         //
         $scope.dateFrom = new Date(); //$filter('date')(Date.now(),'dd-mm-yy'); 
         $scope.dateTo = new Date();
+        $scope.hangupdCause = ""
+        $scope.duration = ""
+        $scope.durationCondition = ""
+        $scope.destination = ""
+        $scope.destinationCondition = ""
+        $scope.callerId = ""
+        $scope.callerIdCondition = ""
+        $scope.choiseDirection = ""
         $scope.cdrDetails = []
         $scope.currentCdr = {};
         $scope.searchShow = true;
@@ -43,7 +51,7 @@ angular.module('app')
 
 
         $scope.message = '';
-       
+
         function format(d) {
             // `d` is the original data object for the row
             return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
@@ -92,7 +100,7 @@ angular.module('app')
                 angular.copy(cdr, $scope.currentCdr);
                 //
                 var d = $dialog.dialog($scope.dialogCallDetailsOptions)
-                    d.open()
+                d.open()
                     .then(function(result) {
 
                         newCdrDetails = undefined;
@@ -157,11 +165,57 @@ angular.module('app')
         };
         $scope.cdrCategories = []
 
+        function helperRegExCondition(condition, value) {
+            //helper for build regular expression passed to the serveur side
+            var result = "";
+            if (condition == "beginswith") {
+                result = "^" + value
+            } else if (condition == "endwith") {
+                result = value + "$"
+            }else{
+                result = value
+            }
+            return result
+        }
 
         $scope.fetchCdrDatasClickHandler = function() {
             var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-dd');
             var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-dd');
-            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrs/" + stringDateFrom + 'T00:00:00Z/' + stringDateTo + 'T23:59:59Z';
+            var request = "/cdrs/startdate,$gte," + stringDateFrom + 'T00:00:00Z';
+            request += "&enddate,$lte," + stringDateTo + 'T23:59:59Z';
+            if ($scope.hangupdCause.length > 0) {
+                request += "&disposition,," + $scope.hangupdCause;
+            }
+
+            if($scope.choiseDirection.length > 0) {
+                request += "&direction,," + $scope.choiseDirection;
+            }
+            if ($scope.duration.length > 0) {
+                request += "&duration," + $scope.durationCondition + "," + $scope.duration;
+            }
+            if ($scope.destination.length > 0) {
+                console.log("$scope.destinationCondition : " + $scope.destinationCondition)
+                if ($scope.destinationCondition == "") {
+                    request += "&destination,," + $scope.destination;
+                } else {
+                    var value = helperRegExCondition($scope.destinationCondition, $scope.destination)
+                    request += "&destination,$regex," + value;
+                }
+
+            };
+            if ($scope.callerId.length > 0) {
+                console.log("$scope.callerId : " + $scope.callerId)
+                if ($scope.callerIdCondition == "") {
+                    request += "&callerid,," + $scope.callerId;
+                } else {
+                    var value = helperRegExCondition($scope.callerIdCondition, $scope.callerId)
+                    request += "&callerid,$regex," + value;
+                }
+
+            };
+            //
+            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
+            //"/cdrs/" + stringDateFrom + 'T00:00:00Z/' + stringDateTo + 'T23:59:59Z';
             $scope.cdrs = cdrService.fetch(url);
             $scope.pollData = $scope.cdrs.then(function(response) {
                 var newCdrs = [];
