@@ -1,7 +1,6 @@
 /* Sticky footer styles
 -------------------------------------------------- */
  html, body {
-    /*height: 100%;*/
     opacity: 1;
     -webkit-transition: opacity 1s ease;
     -moz-transition: opacity 1s ease;
@@ -23,12 +22,9 @@
 }
 
 .ng-invalid { border: 1px solid red; } 
-body { font-family: Arial,Helvetica,sans-serif; }
-body, td, th { font-size: 14px; margin: 0; }
-table { border-collapse: separate; border-spacing: 2px; display: table; margin-bottom: 0; margin-top: 0; -moz-box-sizing: border-box; text-indent: 0; }
-a:link, a:visited, a:hover { color: #5D6DB6; text-decoration: none; }
-.error { color: red; }
-.ui-helper-hidden { display: none;}
+
+div.DTTT { margin-bottom: 0.5em; float: right; }
+div.dataTables_wrapper { clear: both; }
 
 /* */
 caret {
@@ -83,3 +79,4 @@ caret {
     width:800px;
     margin-left:-350px
 }
+

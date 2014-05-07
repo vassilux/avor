@@ -29,7 +29,7 @@ angular.module('app')
             templateUrl: 'scripts/callsdetails/calldetailsdialog.tpl.html'
         };
         //
-        $scope.dateFrom = new Date(); //$filter('date')(Date.now(),'dd-mm-yy'); 
+        $scope.dateFrom = new Date();
         $scope.dateTo = new Date();
         $scope.hangupdCause = ""
         $scope.duration = ""
@@ -72,7 +72,6 @@ angular.module('app')
 
 
         $scope.cdrSearchCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            console.log("$scope.cdrSearchCallback");
             $('td:eq(0)', nRow).bind('dblclick', function() {
                 $scope.$apply(function() {
                     $scope.fetchCdrDetailsClickHandler(aData);
@@ -112,57 +111,7 @@ angular.module('app')
 
         };
 
-        $scope.columnDefs = [{
-            "mDataProp": "call_date",
-            "aTargets": [0],
-            "bSortable": true,
-            "class": 'details-control',
-            "fnRender": function(oObj) {
-                var jsDate = new Date(oObj.aData.call_date);
-                jsDate = $filter('date')(jsDate, 'dd-MM-yyyy HH:mm:ss');
-                return "<div class='date'>" + jsDate + "</div>";
-
-            }
-        }, {
-            "mDataProp": "clid_name",
-            "aTargets": [1]
-        }, {
-            "mDataProp": "clid_number",
-            "aTargets": [2]
-        }, {
-            "mDataProp": "dst",
-            "aTargets": [3]
-        }, {
-            "mDataProp": "dnid",
-            "aTargets": [4]
-        }, {
-            "mDataProp": "duration",
-            "aTargets": [5]
-        }, {
-            "mDataProp": "billsec",
-            "aTargets": [6]
-        }, {
-            "mDataProp": "answer_wait_time",
-            "aTargets": [7]
-        }, {
-            "mDataProp": "disposition",
-            "aTargets": [8]
-        }, {
-            "mDataProp": "inout_status",
-            "aTargets": [9]
-        }];
-
-        $scope.cdrOverrideOptions = {
-            "bStateSave": true,
-            "iCookieDuration": 2419200,
-            /* 1 month */
-            "bJQueryUI": true,
-            "bPaginate": true,
-            "bLengthChange": true,
-            "bFilter": true,
-            "bInfo": true,
-            "bDestroy": true
-        };
+ 
         $scope.cdrCategories = []
 
         function helperRegExCondition(condition, value) {
@@ -172,7 +121,7 @@ angular.module('app')
                 result = "^" + value
             } else if (condition == "endwith") {
                 result = value + "$"
-            }else{
+            } else {
                 result = value
             }
             return result
@@ -187,7 +136,7 @@ angular.module('app')
                 request += "&disposition,," + $scope.hangupdCause;
             }
 
-            if($scope.choiseDirection.length > 0) {
+            if ($scope.choiseDirection.length > 0) {
                 request += "&direction,," + $scope.choiseDirection;
             }
             if ($scope.duration.length > 0) {

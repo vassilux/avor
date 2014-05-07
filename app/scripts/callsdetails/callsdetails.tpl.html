@@ -4,83 +4,85 @@
             <div class="control-group">
 
                 <div class="controls controls-row">
-                  <div class="input-append" >
-                    <label for="inputDateFrom">From</label>
-                    <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateFrom" id="inputDateFrom" ></input>
-                  </div>
-                  <div class="input-append" >
-                    <label for="inputDateFrom">To</label>
-                    <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateTo" id="inputDateTo"></input>
-                  </div>  
-                  <!-- hangupcause -->   
-                  <div class="input-append" >     
-                   <label for="choiseHangupCause">Hangup Cause</label>                   
-                    <select class="selectpicker"  id="choiseHangupCause" data-width="30px" ng-model="hangupdCause">
-                      <option value="">All</option>
-                      <option value="16">Answer</option>
-                      <option value="19">Non Answer</option>
-                      <option value="17">Busy</option>
-                      <option value="21">Cancel</option>
-                      <option value="34">Congestion</option>
-                      <option value="47">Chanunaval</option>
-                      <option value="41">Failed</option>
-                    </select>
-                  </div> 
-                  <!-- -->   
-                   <div class="input-append" >     
-                   <label for="inputDuration">Duration</label>                   
-                    <input type-"text" id="inputDuration" ng-model="duration"></input>
-                    <select class="selectpicker"  id="choiseDuration" data-width="30px" ng-model="durationCondition">
-                      <option value="">==</option>
-                      <option value="$lt"><</option>
-                      <option value="$lte"><=</option>
-                      <option value="$gt">></option>
-                      <option value="$gte">>=</option>
-                    </select>
-                  </div>            
-                   
+                    <div class="input-append">
+                        <label for="inputDateFrom">From</label>
+                        <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateFrom" id="inputDateFrom"></input>
+                    </div>
+                    <div class="input-append">
+                        <label for="inputDateFrom">To</label>
+                        <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateTo" id="inputDateTo"></input>
+                    </div>
+                    <!-- hangupcause -->
+                    <div class="input-append">
+                        <label for="choiseHangupCause">Hangup Cause</label>
+                        <select class="selectpicker" id="choiseHangupCause" data-width="30px" ng-model="hangupdCause">
+                            <option value="">All</option>
+                            <option value="16">Answer</option>
+                            <option value="19">Non Answer</option>
+                            <option value="17">Busy</option>
+                            <option value="21">Cancel</option>
+                            <option value="34">Congestion</option>
+                            <option value="47">Chanunaval</option>
+                            <option value="41">Failed</option>
+                        </select>
+                    </div>
+                    <!-- -->
+                    <div class="input-append">
+                        <label for="inputDuration">Duration</label>
+                        <input type="text" id="inputDuration" ng-model="duration" integer></input>
+                        <select class="selectpicker" id="choiseDuration" data-width="30px" ng-model="durationCondition">
+                            <option value="">==</option>
+                            <option value="$lt">
+                                <</option>
+                                    <option value="$lte">
+                                        <=</option>
+                                            <option value="$gt">></option>
+                                            <option value="$gte">>=</option>
+                        </select>
+                    </div>
+
                 </div>
 
             </div>
-          
-            <div class="control-group">              
+
+            <div class="control-group">
                 <div class="controls controls-row">
-                  <!-- destination -->
-                  <div class="input-append" >   
-                  <label for="inputDestination">Destination</label>                    
-                    <input type-"text" id="inputDestination" ng-model="destination"></input>
-                    <select class="selectpicker"  id="choiseDestination" data-width="30px" ng-model="destinationCondition">
-                      <option value="">Equals</option>
-                      <option value="beginswith">Begins with</option>
-                      <option value="endwith">End with</option>
-                    </select>
-                  </div>
-                  <!-- callerd id -->
-                   
-                  <div class="input-append" >        
-                  <label for="inputCallerId">Callerd Id</label>               
-                    <input type-"text" id="inputCallerId" ng-model="callerId"></input>
-                    <select class="selectpicker"  id="choiseCallerId" data-width="30px" ng-model="callerIdCondition">
-                     <option value="">Equals</option>
-                      <option value="beginswith">Begins with</option>
-                      <option value="endwith">End with</option>
-                    </select>
-                  </div>
-                 <!-- direction -->                 
-                  <div class="input-append" >     
-                   <label for="choiseDirection">Direction</label>                   
-                    <select class="selectpicker"  id="choiseDirection" data-width="30px" ng-model="choiseDirection">
-                      <option value="">All</option>
-                      <option value="2">Incomming</option>
-                      <option value="1">Outgoing</option>
-                    </select>
-                  </div>
+                    <!-- destination -->
+                    <div class="input-append">
+                        <label for="inputDestination">Destination</label>
+                        <input type- "text" id="inputDestination" ng-model="destination"></input>
+                        <select class="selectpicker" id="choiseDestination" data-width="30px" ng-model="destinationCondition">
+                            <option value="">Equals</option>
+                            <option value="beginswith">Begins with</option>
+                            <option value="endwith">End with</option>
+                        </select>
+                    </div>
+                    <!-- callerd id -->
+
+                    <div class="input-append">
+                        <label for="inputCallerId">Callerd Id</label>
+                        <input type- "text" id="inputCallerId" ng-model="callerId"></input>
+                        <select class="selectpicker" id="choiseCallerId" data-width="30px" ng-model="callerIdCondition">
+                            <option value="">Equals</option>
+                            <option value="beginswith">Begins with</option>
+                            <option value="endwith">End with</option>
+                        </select>
+                    </div>
+                    <!-- direction -->
+                    <div class="input-append">
+                        <label for="choiseDirection">Direction</label>
+                        <select class="selectpicker" id="choiseDirection" data-width="30px" ng-model="choiseDirection">
+                            <option value="">All</option>
+                            <option value="2">Incomming</option>
+                            <option value="1">Outgoing</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
             <div class="form-footer">
                 <div class="controls">
-                    <button class="btn btn-success" ng-click="fetchCdrDatasClickHandler()" ng-disabled='form.$invalid'>Search</button>
+                    <button class="btn btn-success btn-large" ng-click="fetchCdrDatasClickHandler()" ng-disabled='form.$invalid'>Search</button>
                 </div>
             </div>
         </form>
@@ -88,7 +90,7 @@
 </div>
 
 <div class="row-fluid ">
-    <button class="btn btn-primary offset11" ng-click="toggleShowSearch()">Hide/Show search</button>
+    <button class="btn btn-success btn-large offset11" ng-click="toggleShowSearch()">Toogle search</button>
 </div>
 <div class="row-fluid">
     <br/>
@@ -96,14 +98,10 @@
 
 <div class="row-fluid">
 
-    <!-- <div printablechart class="span4" style="height: 400px; margin: 10 auto">
-        <div class="hc-live" items="liveDatas" print-click="printChart()"></div>
-    </div>
-    -->
     <div class="span12">
 
         <div class="row-fluid">
-            <table cdr-table="cdrOverrideOptions" aa-data="cdrCategories" ao-column-defs="columnDefs" fn-row-callback="cdrSearchCallback" class="table table-stripped table-bordered" id="cdrsTable">
+            <table cdr-table="cdrOverrideOptions" aa-data="cdrCategories" ao-column-defs="columnDefs" fn-row-callback="cdrSearchCallback" class="table table-stripped table-bordered display" id="cdrsTable">
                 <!--<table cdr-table options="cdrOptions"> -->
                 <thead>
                     <tr>
@@ -123,7 +121,7 @@
                 </thead>
             </table>
         </div>
-        {{message}}
+
     </div>
 
 

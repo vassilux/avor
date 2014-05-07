@@ -13,11 +13,16 @@
         <!-- build:css({.tmp,app}) styles/main.css -->
         <!-- <link href="styles/main.css "  rel="stylesheet"> -->
         <link href="bower_components/bootstrap-sass/bootstrap.bleu.min.css"  rel="stylesheet">   
-        <link href="bower_components/bootstrap-sass//bootstrap-responsive-2.3.2.css" rel="stylesheet"> 
-        <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/redmond/jquery-ui.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/css/jquery.dataTables.css">
-        <!-- <link rel="stylesheet" href="styles//rainbow.css"/>
-        <link rel="stylesheet" href="styles//select2.css"/> -->
+        <link href="bower_components/bootstrap-sass//bootstrap-responsive-2.3.2.css" rel="stylesheet">
+
+        <link type="text/css" href="bower_components/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="http://datatables.net/release-datatables/media/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/css/TableTools.css">
+        <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/css/TableTools_JUI.css">
+        <link rel="stylesheet" type="text/css" href="cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/3/dataTables.bootstrap.csss">
+
+        <link rel="stylesheet" href="bower_components/bootstrap-sass/rainbow.css"/>
+        <link rel="stylesheet" href="bower_components/bootstrap-sass/styles//select2.css"/> 
         <link rel="stylesheet" href="styles/app.css"/>
  
         <!-- endbuild -->
@@ -51,9 +56,20 @@
 
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script> 
+    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script> -->    
+    <!--<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>   -->
+    
     <!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.8.2/jquery.dataTables.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.3/jquery.dataTables.js"></script> 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/ZeroClipboard.js"></script>
+    <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/2/dataTables.bootstrap.js"></script>
+  
+    <!--<script href="http://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+    <script href="http://datatables.net/release-datatables/extensions/TableTools/js/dataTables.tableTools.js"></script> 
+    <script href="http://cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/2/dataTables.bootstrap.js"> </script> -->
+
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-date/src/date.js"></script>

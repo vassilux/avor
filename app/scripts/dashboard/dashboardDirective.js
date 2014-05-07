@@ -4,7 +4,7 @@ angular.module('app')
    
 .directive('hcDidcalls', function() {
     return {
-        restrict: 'C',
+        restrict: 'E',
         replace: true,
         scope: {
             items: '=',
@@ -40,7 +40,7 @@ angular.module('app')
                 },
                 series: [{
                     name: ' ',
-                    colorByPoint: false,
+                    colorByPoint: true,
                     data: scope.chartDidCategories
                 }],
                 title: {
@@ -160,6 +160,10 @@ angular.module('app')
                         }
                     }
                 },
+                colors: [
+                    '#CCC',
+                    '#CCB',
+                ],
                 series: [{
                     name: ' ',
                     colorByPoint: true,
@@ -210,7 +214,7 @@ angular.module('app')
                     enabled: false
                 },
                 exporting: {
-                    enabled: false
+                    enabled: true
                 },
                 tooltip: {
                     formatter: function() {
@@ -278,6 +282,10 @@ angular.module('app')
                         }
                     }
                 },
+                colors: [
+                    '#CCC',
+                    '#CCB',
+                ],
                 series: [{
                     name: ' ',
                     colorByPoint: true,
