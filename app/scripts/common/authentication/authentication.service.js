@@ -4,151 +4,163 @@ angular.module('authentication.service', [
 ])
 
 // The authentication is the public API for this module.  Application developers should only need to use this service and not any of the others here.
-.factory('authentication',
-          ['$rootScope', '$http', '$location', '$q', 'authenticationRetryQueue', 'currentUser', '$dialog',
-  function( $rootScope,   $http,   $location,   $q,   queue,                      currentUser,   $dialog) {
+.factory('authentication', ['$rootScope', '$http', '$cookieStore', '$location', '$q', 'authenticationRetryQueue', 'currentUser', '$dialog',
+  function($rootScope, $http, $cookieStore, $location, $q, queue, currentUser, $dialog) {
 
-  // We need a way to refresh the page to clear any data that has been loaded when the user logs out
-  //  a simple way is to redirect to the root of the application but this could be made more sophisticated
-  function redirect(url) {
-    url = url || '/';
-    $location.path(url);
-  }
-
-  var loginDialog = null;
-  function openLoginDialog() {
-    if ( !loginDialog ) {
-      loginDialog = $dialog.dialog();
-      loginDialog.open('scripts/common/authentication/login/form.tpl.html', 'LoginFormController').then(onLoginDialogClose);
+    // We need a way to refresh the page to clear any data that has been loaded when the user logs out
+    //  a simple way is to redirect to the root of the application but this could be made more sophisticated
+    function redirect(url) {
+      url = url || '/';
+      $location.path(url);
     }
-  }
-  function closeLoginDialog(success) {
-    if (loginDialog) {
-      loginDialog.close(success);
-      loginDialog = null;
-    }
-  }
 
-  function onLoginDialogClose(success) {
-    if ( success ) {
-      queue.retryAll();
-    } else {
-      queue.cancelAll();
-      redirect();
-    }
-  }
+    var loginDialog = null;
 
-  queue.onItemAdded = function() {
-    if ( queue.hasMore() ) {
-      service.showLogin();
-    }
-  };
-
-  var service = {
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // The following methods provide information you can bind to in the UI
-
-    // Get the first reason for needing a login
-    getLoginReason: function() {
-      return queue.retryReason();
-    },
-
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // The following methods provide handlers for actions that could be triggered in the UI
-
-    // Show the modal login dialog
-    showLogin: function() {
-      openLoginDialog();
-    },
-
-    // Attempt to authenticate a user by the given name and password
-    login: function(username, password) {
-      var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/login?" +
-        'username='+username + "&" + 'password=' + password;
-      var request = $http({
-          method: 'GET',
-          url: url,
-      });
-      return request.then(function(response) {
-        console.debug("login user " + JSON.stringify(response));
-        currentUser.update(response.data);
-        if ( currentUser.isAuthenticated() ) {
-          console.log("user authentificate");
-          closeLoginDialog(true);
-          $rootScope.$broadcast('userLogon', currentUser);
-        }
-      });
-    },
-
-    cancelLogin: function() {
-      closeLoginDialog(false);
-      redirect();
-    },
-
-    // Logout the current user
-    logout: function(redirectTo) {
-      var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/logout?" +
-        'username='+ currentUser.info.username;
-      var request = $http({
-          method: 'GET',
-          url: url,
-          
-      });
-
-      request.then(function() {
-        //broadcat for the other to notify disconnection , used for send user:left message to the server 
-        $rootScope.$broadcast('userLogout', currentUser);
-        currentUser.clear();
-       
-        redirect(redirectTo);
-      });
-    },
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-    // The following methods support AngularJS routes.
-    // You can add them as resolves to routes to require authorization levels before allowing
-    // a route change to complete
-
-    // Require that there is an authenticated user
-    // (use this in a route resolve to prevent non-authenticated users from entering that route)
-    requireAuthenticatedUser: function() {
-      var promise = service.requestCurrentUser().then(function(currentUser) {
-        if ( !currentUser.isAuthenticated() ) {
-          return queue.pushRetryFn('unauthenticated-client', service.requireAuthenticatedUser);
-        }
-      });
-      return promise;
-    },
-
-    // Require that there is an administrator logged in
-    // (use this in a route resolve to prevent non-administrators from entering that route)
-    requireAdminUser: function() {
-      var promise = service.requestCurrentUser().then(function(currentUser) {
-        if ( !currentUser.isAdmin() ) {
-          return queue.pushRetryFn('unauthorized-client', service.requireAdminUser);
-        }
-      });
-      return promise;
-    },
-
-    // Ask the backend to see if a user is already authenticated - this may be from a previous session.
-    requestCurrentUser: function() {
-      if ( currentUser.isAuthenticated() ) {
-        console.debug("user requestCurrentUser isAuthenticated");
-        return $q.when(currentUser);
-      } else {
-        var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/currentuser';
-        console.debug("request the current user from the address : " + url);
-        return $http.get(url).then(function(response) {
-          console.log("user requestCurrentUser $http.get : " + JSON.stringify(response.data));
-          currentUser.update(response.data);
-          $rootScope.$broadcast('userLogon', currentUser);
-          return currentUser;
-        });
+    function openLoginDialog() {
+      if (!loginDialog) {
+        loginDialog = $dialog.dialog();
+        loginDialog.open('scripts/common/authentication/login/form.tpl.html', 'LoginFormController').then(onLoginDialogClose);
       }
     }
-  };
-  return service;
-}]);
+
+    function closeLoginDialog(success) {
+      if (loginDialog) {
+        loginDialog.close(success);
+        loginDialog = null;
+      }
+    }
+
+    function onLoginDialogClose(success) {
+      if (success) {
+        queue.retryAll();
+      } else {
+        queue.cancelAll();
+        redirect();
+      }
+    }
+
+    queue.onItemAdded = function() {
+      if (queue.hasMore()) {
+        service.showLogin();
+      }
+    };
+
+    var service = {
+
+      //////////////////////////////////////////////////////////////////////////////////////////
+      // The following methods provide information you can bind to in the UI
+
+      // Get the first reason for needing a login
+      getLoginReason: function() {
+        return queue.retryReason();
+      },
+
+
+      //////////////////////////////////////////////////////////////////////////////////////////
+      // The following methods provide handlers for actions that could be triggered in the UI
+
+      // Show the modal login dialog
+      showLogin: function() {
+        openLoginDialog();
+      },
+
+      // Attempt to authenticate a user by the given name and password
+      login: function(username, password) {
+        var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/login?" +
+          'username=' + username + "&" + 'password=' + password;
+        var request = $http({
+          method: 'GET',
+          url: url,
+        });
+        return request.then(function(response) {
+          console.debug("login user " + JSON.stringify(response));
+          currentUser.update(response.data);
+          if (currentUser.isAuthenticated()) {
+            console.log("user authentificate");
+
+              $cookieStore.put('avoruser', currentUser.userInfo);
+       
+            closeLoginDialog(true);
+            $rootScope.$broadcast('userLogon', currentUser);
+          }
+        });
+      },
+
+      cancelLogin: function() {
+        closeLoginDialog(false);
+        redirect();
+      },
+
+      // Logout the current user
+      logout: function(redirectTo) {
+        var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/logout?" +
+          'username=' + currentUser.info.username;
+        var request = $http({
+          method: 'GET',
+          url: url,
+
+        });
+
+        request.then(function() {
+          //broadcat for the other to notify disconnection , used for send user:left message to the server 
+          $rootScope.$broadcast('userLogout', currentUser);
+          currentUser.clear();
+          $cookieStore.remove('avoruser');
+          redirect(redirectTo);
+        });
+      },
+
+      //////////////////////////////////////////////////////////////////////////////////////////
+      // The following methods support AngularJS routes.
+      // You can add them as resolves to routes to require authorization levels before allowing
+      // a route change to complete
+
+      // Require that there is an authenticated user
+      // (use this in a route resolve to prevent non-authenticated users from entering that route)
+      requireAuthenticatedUser: function() {
+        var promise = service.requestCurrentUser().then(function(currentUser) {
+          if (!currentUser.isAuthenticated()) {
+            return queue.pushRetryFn('unauthenticated-client', service.requireAuthenticatedUser);
+          }
+        });
+        return promise;
+      },
+
+      // Require that there is an administrator logged in
+      // (use this in a route resolve to prevent non-administrators from entering that route)
+      requireAdminUser: function() {
+        var promise = service.requestCurrentUser().then(function(currentUser) {
+          if (!currentUser.isAdmin()) {
+            return queue.pushRetryFn('unauthorized-client', service.requireAdminUser);
+          }
+        });
+        return promise;
+      },
+
+      // Ask the backend to see if a user is already authenticated - this may be from a previous session.
+      requestCurrentUser: function() {
+        if (currentUser.isAuthenticated()) {
+          return $q.when(currentUser);
+        } else {
+          var userData = $cookieStore.get('avoruser');
+          if (userData != undefined) {
+            currentUser.update(userData);
+            return currentUser;
+
+          }
+          var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/currentuser';
+          return $http.get(url).then(function(response) {
+            console.log("user requestCurrentUser $http.get : " + JSON.stringify(response.data));
+            currentUser.update(response.data);
+             if (currentUser.isAuthenticated()){
+              $cookieStore.put('avoruser', currentUser.userInfo);
+             }
+            $rootScope.$broadcast('userLogon', currentUser);
+            return currentUser;
+          });
+        }
+      }
+    };
+    return service;
+  }
+]);

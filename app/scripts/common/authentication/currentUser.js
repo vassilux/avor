@@ -7,8 +7,13 @@ angular.module('authentication.currentUser', [])
     update: function(info) { currentUser.userInfo = info; },
     clear: function() { currentUser.userInfo = null; },
     info: function() { return currentUser.userInfo; },
-    isAuthenticated: function(){ return !!currentUser.userInfo; },
-    isAdmin: function() { return !!(currentUser.userInfo && currentUser.userInfo.admin); }
+    isAuthenticated: function(){ 
+    	if(currentUser.userInfo != undefined && currentUser.userInfo.token != undefined && currentUser.userInfo.token != ""){
+    		return true;
+    	}
+    	return false;
+    },
+    isAdmin: function() { return !!(currentUser.userInfo && currentUser.userInfo.admin ); }
   };
   return currentUser;
 });

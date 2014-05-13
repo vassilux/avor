@@ -4,7 +4,9 @@
             <span class="brand" >&nbsp;</span>
             <a class="brand" ng-click="home()">AVOR v<span app-version></span></a>
             <ul class="nav" ng-show="currentUser.isAuthenticated()">
-               <li ng-class="{active:isNavbarActive('dashboard')}" ><a href="/dashboard" data-i18n="_header.menu.dashboard_">Dashboard</a></li>
+               
+               <li ng-class="{active:isNavbarActive('dashboard')}" >
+               <a href="/dashboard" data-i18n="_header.menu.dashboard_">Dashboard</a></li>
 
                <li ng-class="{active:isNavbarActive('callsdetails')}" ><a href="/callsdetails">Calls details record</a></li>
                

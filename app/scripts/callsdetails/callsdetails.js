@@ -176,10 +176,6 @@ angular.module('app')
             });
 
         };
-
-        $scope.toggleShowSearch = function() {
-            $scope.searchShow = !$scope.searchShow;
-        }
     })
 
 .controller('CallDetailsCtrl', function($rootScope, $scope, $timeout, $filter, dialog, items, cdr) {

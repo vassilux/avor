@@ -12,10 +12,16 @@ angular.module('app')
         },
 
         controller: function($scope, $element, $attrs) {
+            $scope.printDidCallsClick = function(){
 
+            }
+
+            $scope.exportPdfDidCallsClick = function(){
+
+            }
         },
         template: '<div><div id="callsDidChart" style="margin: 0 auto">not working</div>\
-                <button ng-click="printClick()">Print</button><button ng-click="exportPdf()">PDF</button></div>',
+                <button ng-click="printDidCallsClick()">Print</button><button ng-click="exportPdfDidCallsClick()">PDF</button></div>',
         link: function(scope, element, attrs, controller) {
             var didCallsChart = new Highcharts.Chart({
                 chart: {

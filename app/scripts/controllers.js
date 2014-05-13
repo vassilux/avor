@@ -6,10 +6,10 @@
  *
  */
 
-angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurationService', 'currentUser', 'i18nNotifications', 
+angular.module('app').controller('AppCtrl', ['$rootScope', '$cookieStore', '$scope', 'configurationService', 'currentUser', 'i18nNotifications', 
   'localizedMessages', 
   'networkNotificaitonService', 'localize', 'authentication', 'configuration',
-  function($rootScope, $scope, configurationService, currentUser, i18nNotifications, localizedMessages,  
+  function($rootScope, $cookieStore, $scope, configurationService, currentUser, i18nNotifications, localizedMessages,  
     networkNotificaitonService, localize, authentication, configuration) {
     console.log("create AppCtrl");
     var config = configurationService.doStuff();
@@ -24,8 +24,7 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
     $scope.notifications = i18nNotifications;
   
     localize.setLanguage('fr-FR');
-
-    
+     
 
     $scope.removeNotification = function(notification) {
       i18nNotifications.remove(notification);
@@ -43,17 +42,16 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
     });
 
     $scope.$on('userLogon', function(event, data) {
+      console.log("userLogon event : " + currentUser.isAuthenticated())
       if (currentUser.isAuthenticated()) {
+        
        
       }
     });
 
     $scope.$on('userLogout', function(event, data) {
-      var data = {
-        username: currentUser.userInfo.username,
-        isAdmin: currentUser.isAdmin()
-      };
-     
+      $cookieStore.remove('avoruser')
+           
       $scope.setWindowTitle("AVor : Please login");
     });
 
@@ -71,14 +69,10 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
 
 
   }
-]);
-
-
-angular.module('app').controller('HeaderCtrl', ['$rootScope' ,'$scope', '$location', '$route', 'currentUser', 'breadcrumbs', 'notifications', 'localize',
-  function($rootScope, $scope, $location, $route, currentUser, breadcrumbs, notifications, localize) {
-    console.log("create HeaderCtrl");
+])
+.controller('HeaderCtrl', ['$rootScope' ,'$scope', '$location', '$route', 'currentUser', 'notifications', 'localize',
+  function($rootScope, $scope, $location, $route, currentUser, notifications, localize) {
     $rootScope.loadingView = true;
-
     $scope.location = $location;
     $scope.currentUser = currentUser;
 
@@ -92,19 +86,23 @@ angular.module('app').controller('HeaderCtrl', ['$rootScope' ,'$scope', '$locati
 
     $scope.home = function() {
       if ($scope.currentUser.isAuthenticated()) {
-        console.log("HeaderCtrl $scope.home user Authenticated")
         $location.path('/dashboard');
         $scope.windowTitle = "AVor : home";
       } else {
-        console.log("HeaderCtrl $scope.home user not Authenticated")
-        $location.path('/home');
-        $scope.windowTitle = "Vor : home";
+        $location.path('/');
+        $scope.windowTitle = "AVor : home";
       }
     };
 
     $scope.$on('userLogon', function(event, data) {
       if (currentUser.isAuthenticated()) {
         $location.path('/dashboard');
+      }
+    });
+
+    $scope.$on('userLogout', function(event, data) {
+      if (currentUser.isAuthenticated()) {
+        $location.path('/');
       }
     });
 
@@ -118,11 +116,8 @@ angular.module('app').controller('HeaderCtrl', ['$rootScope' ,'$scope', '$locati
       return false;
     };
   }
-]);
-
-
-
-angular.module('app').controller('ConfigCtrl', ['$scope', '$location',
+])
+.controller('ConfigCtrl', ['$scope', '$location',
   function($scope, $location) {
    
   }

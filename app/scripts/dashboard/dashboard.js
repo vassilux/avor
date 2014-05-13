@@ -23,6 +23,7 @@ angular.module('app')
             type: "column"
         };
 
+
         $scope.chartDidSeriesDatas = [];
         $scope.chartDidCategories = [];
 
@@ -34,20 +35,35 @@ angular.module('app')
                 chart: {
                     marginRight: 10,
                     events: {
-                        load: function() {}
+                        load: function() {
+
+                        }
                     }
                 },
-
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'column',
-                    dataLabels: {
-                        enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                        style: {
-                            textShadow: '0 0 3px black, 0 0 3px black'
+                plotOptions: {
+                    series: {
+                        cursor: 'ns-resize'
+                    },
+                    stickyTracking: false,
+                    column: {
+                        stacking: 'column',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                            style: {
+                                textShadow: '0 0 3px black, 0 0 3px black'
+                            }
                         }
+                    },
+                    tooltip: {
+                        yDecimals: 2
+                    }
+
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            'Calls : ' + this.y + ' <br/> Total : ' + this.point.stackTotal;
                     }
                 }
             },
@@ -94,29 +110,222 @@ angular.module('app')
                 borderColor: '#CCC',
                 borderWidth: 1,
                 shadow: false,
-                enabled: false
+                enabled: true
             },
             exporting: {
                 enabled: false
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b> DID : ' + $scope.chartDidCategories[this.x] + '</b><br/>' +
-                        'Calls : ' + this.y + ' <br/> Total : ' + this.point.stackTotal;
-                }
             }
 
         };
         //
+        var seriesDataInCallsAnswered = {
+            name: "Answered",
+            data: [],
+            type: "column"
+        };
+        var seriesDataInCallsNonAnswered = {
+            name: "Non Answered",
+            data: [],
+            type: "column"
+        };
+
+
         $scope.chartPeerInCallSeriesDatas = []
         $scope.chartPeerInCallCategories = [];
-        //
+
+        $scope.chartPeerInCallSeriesDatas.push(seriesDataInCallsAnswered);
+        $scope.chartPeerInCallSeriesDatas.push(seriesDataInCallsNonAnswered);
+
+        $scope.chartPeersInCallsConfig = {
+            options: {
+                chart: {
+                    marginRight: 10,
+                    events: {
+                        load: function() {
+
+                        }
+                    }
+                },
+                plotOptions: {
+                    stickyTracking: false,
+                    column: {
+                        stacking: 'column',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                            style: {
+                                textShadow: '0 0 3px black, 0 0 3px black'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        yDecimals: 2
+                    }
+
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            'Calls : ' + this.y + ' <br/> Total : ' + this.point.stackTotal;
+                    }
+                }
+            },
+            series: $scope.chartPeerInCallSeriesDatas,
+            title: {
+                text: 'Calls by Peer'
+            },
+            credits: {
+                enabled: true
+            },
+            loading: false,
+            xAxis: {
+                categories: $scope.chartPeerInCallCategories,
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Calls'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -70,
+                verticalAlign: 'top',
+                y: 20,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false,
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            }
+
+        };
+        //end of incall
+        var seriesDataOutCallsAnswered = {
+            name: "Answered",
+            data: [],
+            type: "column"
+        };
+        var seriesDataOutCallsNonAnswered = {
+            name: "Non Answered",
+            data: [],
+            type: "column"
+        };
+
         $scope.chartPeerOutCallSeriesDatas = []
         $scope.chartPeerOutCallCategories = [];
-        //
+
+        $scope.chartPeerOutCallSeriesDatas.push(seriesDataOutCallsAnswered);
+        $scope.chartPeerOutCallSeriesDatas.push(seriesDataOutCallsNonAnswered);
+
+        $scope.chartPeersOutCallsConfig = {
+            options: {
+                chart: {
+                    marginRight: 10,
+                    events: {
+                        load: function() {
+
+                        }
+                    }
+                },
+                plotOptions: {
+                    stickyTracking: false,
+                    column: {
+                        stacking: 'column',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                            style: {
+                                textShadow: '0 0 3px black, 0 0 3px black'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        yDecimals: 2
+                    }
+
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            'Calls : ' + this.y + ' <br/> Total : ' + this.point.stackTotal;
+                    }
+                }
+            },
+            series: $scope.chartPeerOutCallSeriesDatas,
+            title: {
+                text: 'Outgoing calls by peer'
+            },
+            credits: {
+                enabled: true
+            },
+            loading: false,
+            xAxis: {
+                categories: $scope.chartPeerOutCallCategories,
+                type: 'category',
+                labels: {
+                    rotation: -45,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif'
+                    }
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Calls'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -70,
+                verticalAlign: 'top',
+                y: 20,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false,
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            }
+
+        };
+        //end of out calls
 
 
-         //Just to start
+        //Just to start
         var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/poll';
         $scope.myts = Poller.poll(url);
         $scope.pollData = $scope.myts.then(function(response) {
@@ -128,25 +337,65 @@ angular.module('app')
             return response.data;
         });
 
+        function processPoolCallsRequest(calls) {
+            var categories = [];
+            var dataAnswered = [];
+            var dataNoAnswered = [];
+
+            for (var i = 0; i < calls.length; i++) {
+                var call = calls[i];
+                categories.push(call._id);
+                var dispositions = call.dispositions;
+                var answered = 0
+                var nonAnswered = 0;
+                for (var j = 0; j < dispositions.length; j++) {
+                    var disposition = dispositions[j]
+                    if (call.status == 16) {
+                        answered += call.callsCount;
+                    } else {
+                        nonAnswered += call.callsCount;
+                    }
+                }
+                dataAnswered.push(answered);
+                dataNoAnswered.push(nonAnswered);
+            }
+            return {
+                categories: categories,
+                dataAnswered: dataAnswered,
+                dataNoAnswered: dataNoAnswered,
+            }
+        }
+
         function processDidData(didCalls) {
             seriesDataAnswered.data.length = 0;
             seriesDataNonAnswered.data.length = 0;
             //
             $scope.chartDidCategories.length = 0;
             $scope.chartDidSeriesDatas.length = 0;
+            /*var values = processPoolCallsRequest(didCalls);
+            for (var i = 0; i < values.categories.length; i++) {
+                $scope.chartDidCategories.push(values.categories[i])
+                console.log("push categories " + values.categories[i])
+            }
+            //
+            $scope.chartDidSeriesDatas.push(values.dataAnswered);
+            $scope.chartDidSeriesDatas.push(values.dataNoAnswered);
+            console.log("values.dataAnswered " + JSON.stringify(values.dataAnswered));
+            console.log("values.dataNoAnswered " + JSON.stringify(values.dataNoAnswered));
+            $scope.chartDIDConfig.series = $scope.chartDidSeriesDatas;*/
+
             for (var i = 0; i < didCalls.length; i++) {
                 var did = didCalls[i];
                 $scope.chartDidCategories.push(did._id);
-                var status = did.status;
+                var dispositions = did.dispositions;
                 var answered = 0
                 var nonAnswered = 0;
-                var callsCount = did.callsCount;
-                for (var j = 0; j < status.length; j++) {
-                    var count = callsCount[j]
-                    if (status[j] == 16) {
-                        answered += count;
+                for (var j = 0; j < dispositions.length; j++) {
+                    var disposition = dispositions[j]
+                    if (disposition.status == 16) {
+                        answered += disposition.callsCount;
                     } else {
-                        nonAnswered += count;
+                        nonAnswered += disposition.callsCount;
                     }
                 }
                 seriesDataAnswered.data.push(answered);
@@ -159,29 +408,59 @@ angular.module('app')
         };
 
         function processPeerIncommingData(peerInCalls) {
+            seriesDataInCallsAnswered.data.length = 0;
+            seriesDataInCallsNonAnswered.data.length = 0;
             $scope.chartPeerInCallCategories.length = 0;
             $scope.chartPeerInCallSeriesDatas.length = 0;
             for (var i = 0; i < peerInCalls.length; i++) {
                 var peer = peerInCalls[i]
                 $scope.chartPeerInCallCategories.push(peer._id);
-                $scope.chartPeerInCallSeriesDatas.push({
-                    name: peer._id,
-                    y: peer.callsCount
-                });
+                var dispositions = peer.dispositions;
+                var answered = 0
+                var nonAnswered = 0;
+                for (var j = 0; j < dispositions.length; j++) {
+                    var disposition = dispositions[j]
+                    if (disposition.status == 16) {
+                        answered += disposition.callsCount;
+                    } else {
+                        nonAnswered += disposition.callsCount;
+                    }
+                }
+
+                seriesDataInCallsAnswered.data.push(answered);
+                seriesDataInCallsNonAnswered.data.push(nonAnswered);
             }
+            $scope.chartPeerInCallSeriesDatas.push(seriesDataInCallsAnswered);
+            $scope.chartPeerInCallSeriesDatas.push(seriesDataInCallsNonAnswered);
+            $scope.chartPeersInCallsConfig.series = $scope.chartPeerInCallSeriesDatas;
         };
 
         function processPeerOutgoingData(peerOutCalls) {
+            seriesDataOutCallsAnswered.data.length = 0;
+            seriesDataOutCallsNonAnswered.data.length = 0;
             $scope.chartPeerOutCallCategories.length = 0;
             $scope.chartPeerOutCallSeriesDatas.length = 0;
             for (var i = 0; i < peerOutCalls.length; i++) {
                 var peer = peerOutCalls[i]
                 $scope.chartPeerOutCallCategories.push(peer._id);
-                $scope.chartPeerOutCallSeriesDatas.push({
-                    name: peer._id,
-                    y: peer.callsCount
-                });
+                var dispositions = peer.dispositions;
+                var answered = 0
+                var nonAnswered = 0;
+                for (var j = 0; j < dispositions.length; j++) {
+                    var disposition = dispositions[j]
+                    if (disposition.status == 16) {
+                        answered += disposition.callsCount;
+                    } else {
+                        nonAnswered += disposition.callsCount;
+                    }
+                }
+
+                seriesDataOutCallsAnswered.data.push(answered);
+                seriesDataOutCallsNonAnswered.data.push(nonAnswered);
             }
+            $scope.chartPeerOutCallSeriesDatas.push(seriesDataOutCallsAnswered);
+            $scope.chartPeerOutCallSeriesDatas.push(seriesDataOutCallsNonAnswered);
+            $scope.chartPeersOutCallsConfig.series = $scope.chartPeerOutCallSeriesDatas;
         };
 
         var Repeater = function() {

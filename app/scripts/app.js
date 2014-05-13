@@ -1,14 +1,16 @@
 'use strict';
 // Declare app level module which depends on filters, and services
-angular.module('app', ['ngRoute', 'ui.date', 'ui.directives', 'localization', 'ui.bootstrap', 'ui.bootstrap.collapse', 'plunker',
+angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'localization', 'ui.bootstrap', 
+  'ui.bootstrap.collapse', 'plunker',
   'app.filters',
   'app.services',
   'app.directives',
   'services.breadcrumbs',
   'authentication',
   'services.i18nNotifications',
-  'services.localizedMessages'
-  ,'highcharts-ng'
+  'services.localizedMessages',
+  'highcharts-ng'
+
 ])
   .config(['$routeProvider', '$httpProvider',
     function($routeProvider, $httpProvider) {
@@ -44,9 +46,8 @@ angular.module('app', ['ngRoute', 'ui.date', 'ui.directives', 'localization', 'u
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if (currentUser.userInfo == null) {
-        // no logged user or the page relaoded with F5 
+        // no logged user or the page reloaded with F5 
         $location.path("/");
-
       }
     });
   });
