@@ -1,6 +1,6 @@
 /* Sticky footer styles
 -------------------------------------------------- */
-/*@import url("http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");*/
+@import url("http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css");
 
  html, body {
     opacity: 1;
@@ -89,7 +89,7 @@ caret {
   display: inline-block;
   width: 14px;
   height: 14px;
-  *margin-right: .3em;
+  margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
   background-image: url("../images/glyphicons-halflings.png");

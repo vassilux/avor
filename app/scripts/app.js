@@ -5,6 +5,8 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'loca
   'app.filters',
   'app.services',
   'app.directives',
+  'users',
+  'users.services',
   'services.breadcrumbs',
   'authentication',
   'services.i18nNotifications',

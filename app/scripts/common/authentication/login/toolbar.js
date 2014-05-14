@@ -10,7 +10,10 @@ angular.module('authentication.login.toolbar', [])
     replace: true,
     scope: true,
     link: function($scope, $element, $attrs, $controller) {
-      $scope.userInfo = currentUser.info;
+      $scope.userInfo = {};      
+      if(currentUser.isAuthenticated() && currentUser.info() != undefined){
+         $scope.userInfo = currentUser.info();
+      }     
       $scope.isAuthenticated = currentUser.isAuthenticated;
       $scope.logout = function() { authentication.logout(); };
       $scope.login = function() { authentication.showLogin(); };

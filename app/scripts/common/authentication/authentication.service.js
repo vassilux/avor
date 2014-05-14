@@ -76,10 +76,7 @@ angular.module('authentication.service', [
           console.debug("login user " + JSON.stringify(response));
           currentUser.update(response.data);
           if (currentUser.isAuthenticated()) {
-            console.log("user authentificate");
-
-              $cookieStore.put('avoruser', currentUser.userInfo);
-       
+            $cookieStore.put('avoruser', currentUser.userInfo);
             closeLoginDialog(true);
             $rootScope.$broadcast('userLogon', currentUser);
           }
@@ -94,7 +91,7 @@ angular.module('authentication.service', [
       // Logout the current user
       logout: function(redirectTo) {
         var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/logout?" +
-          'username=' + currentUser.info.username;
+          'username=' + currentUser.info.userName;
         var request = $http({
           method: 'GET',
           url: url,
@@ -150,11 +147,11 @@ angular.module('authentication.service', [
           }
           var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/currentuser';
           return $http.get(url).then(function(response) {
-            console.log("user requestCurrentUser $http.get : " + JSON.stringify(response.data));
+            //console.log("user requestCurrentUser $http.get : " + JSON.stringify(response.data));
             currentUser.update(response.data);
-             if (currentUser.isAuthenticated()){
+            if (currentUser.isAuthenticated()) {
               $cookieStore.put('avoruser', currentUser.userInfo);
-             }
+            }
             $rootScope.$broadcast('userLogon', currentUser);
             return currentUser;
           });
