@@ -10,7 +10,7 @@ angular.module('app')
             });
         }
     ])
-    .controller('DashboardCtrl', function($rootScope, $scope, $timeout, Poller) {
+    .controller('DashboardCtrl', function($rootScope, $scope, $timeout, $interval, Poller) {
         //
         var seriesDataAnswered = {
             name: "Answered",
@@ -464,18 +464,20 @@ angular.module('app')
         };
 
         var Repeater = function() {
-            $scope.$apply(function() {
-                $scope.myts = Poller.poll(url);
-                $scope.pollData = $scope.myts.then(function(response) {
-                    //console.log("Poll response data : " + response.data);
-                    var jsonData = JSON.parse(response.data)
-                    processDidData(jsonData.didCalls);
-                    processPeerIncommingData(jsonData.peerInCalls);
-                    processPeerOutgoingData(jsonData.peerOutCalls);
-                    return response.data;
-                });
+            $scope.myts = Poller.poll(url);
+            $scope.pollData = $scope.myts.then(function(response) {
+                var jsonData = JSON.parse(response.data)
+                processDidData(jsonData.didCalls);
+                processPeerIncommingData(jsonData.peerInCalls);
+                processPeerOutgoingData(jsonData.peerOutCalls);
+                return response.data;
             });
         };
-        var timer = setInterval(Repeater, 5000);
+        $scope.poller = $interval(Repeater, 5000);
+        //polling stop when leave controller scope
+        $scope.$on('$destroy', function() {
+
+            $interval.cancel($scope.poller);
+        });
 
     });

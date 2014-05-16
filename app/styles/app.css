@@ -82,6 +82,21 @@ caret {
     margin-left:-350px
 }
 
+  .bgcolor {
+        background-color: none;
+      }      
+      
+      .lightblue {
+       background-color: none;
+      }
+      
+   .form-horizontal .control-label {
+      width: 70px;
+      }
+      
+   .form-horizontal .controls {
+     margin-left: 90px;
+       }      
 
 
 [class^="icon-"],

@@ -6,7 +6,8 @@ angular.module('app')
             restrict: 'E, A, C',
             controller: function($scope, $element, $attrs, $filter) {
 
-                $scope.columnDefs = [{
+                $scope.columnDefs = [
+                {
                     "mDataProp": "call_date",
                     "aTargets": [0],
                     "bSortable": true,
@@ -14,7 +15,7 @@ angular.module('app')
                     "fnRender": function(oObj) {
                         var jsDate = new Date(oObj.aData.call_date);
                         jsDate = $filter('date')(jsDate, 'dd-MM-yyyy HH:mm:ss');
-                        return "<div class='date'>" + jsDate + "</div>";
+                        return "<div class='date'><i class='icon-zoom-in icon-white'></i>" + jsDate + "</div>";
 
                     }
                 }, {
