@@ -1,6 +1,24 @@
 'use strict';
 
 angular.module('app')
-  .service(['dailyService', function dailyService() {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  }]);
+  .factory('dailyService', function($http, $q) {
+     return {
+            fetchDidDatas: function(api) {
+                var deferred = $q.defer();
+                $http.get(api).then(function(response) {
+                    deferred.resolve(response.data);
+                });
+                return deferred.promise;
+            },
+
+            fetchPeerDatas: function(api) {
+                var deferred = $q.defer();
+                $http.get(api).then(function(response) {
+                    deferred.resolve(response.data);
+                });
+                return deferred.promise;
+            }
+
+        }
+  });
+ 
