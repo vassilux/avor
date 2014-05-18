@@ -84,7 +84,7 @@
                         <div class="span6 bgcolor">
                             <div class="control-group">
                                 <div class="controls">
-                                    <button class="btn btn-primary" ng-click="fetchPeersDatas()"  ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>Peer</button>
+                                    <button class="btn btn-primary" ng-click="fetchPeerDatas()"  ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>Peer</button>
                                 </div>
                             </div>
                         </div>
@@ -170,13 +170,13 @@
 
         <div class="span4">
             <div>
-                <highchart id="dailyChart2"></highchart>
+                <highchart id="dailyChart2" config="chartPeersInCallsConfig"></highchart>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <highchart id="dailyChart3"></highchart>
+                <highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart>
             </div>
         </div>
 
