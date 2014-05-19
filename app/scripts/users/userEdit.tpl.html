@@ -1,0 +1,33 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="alert alert-info"> 
+            <span  class="span2" data-i18n="_users.dialog.edit_user.title_">User edition </span> <span><h4>{{userToEdit.userName}}</h4></span>
+        </div>
+    </div>
+    <div class="modal-body">
+        <!-- <label data-i18n="_users.dialog.add_user.user_name_">User name</label>
+        <input class="span6" type="username" name="username" ng-model="userToEdit.userName" ng-disabled="0==0"> -->
+       
+        <label data-i18n="_users.dialog.add_user.last_name_">Last name</label>
+        <input class="span6" type="text" name="lastName" ng-model="userToEdit.lastName" required>
+        <span ng-show="showError('lastName', 'required')" class="help-inline">This field is required.</span>
+        <label data-i18n="_users.dialog.add_user.first_name_">First name</label>
+        <input class="span6" type="text" name="firstName" ng-model="userToEdit.firstName" required>
+        <span ng-show="showError('firstName', 'required')" class="help-inline">This field is required.</span>
+        <label data-i18n="_users.dialog.add_user.password_">Password</label>
+        <input class="span6" type="password" name="password" ng-model="userToEdit.password" required>
+        <span ng-show="showError('password', 'required')" class="help-inline">This field is required.</span>
+        <span ng-show="showError('passwordRepeat', 'equal')" class="help-inline">Passwords do not match.</span>
+        <label data-i18n="_users.dialog.add_user.password_repeat">Password (repeat)</label>
+        <input class="span6" type="password" name="passwordRepeat" ng-model="password" required validate-equals="userToEdit.password">
+        <span ng-show="showError('passwordRepeat', 'required')" class="help-inline">This field is required.</span>
+        <span ng-show="showError('passwordRepeat', 'equal')" class="help-inline">Passwords do not match.</span>
+        <label data-i18n="_users.dialog.add_user.admin_">Admin</label>
+        <input type="checkbox" ng-model="userToEdit.isAdmin">
+    </div>       
+    <div class="modal-footer">
+        <button ng-click="saveUser()" class="btn btn-primary" data-i18n="_users.dialog.edit_user.save_btn_">Save</button>
+        <button ng-click="closeEditUser()" class="btn" data-i18n="_users.dialog.add_user.cancel_btn_">Close</button>
+    </div>
+</form>
+

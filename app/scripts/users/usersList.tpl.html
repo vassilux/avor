@@ -1,0 +1,30 @@
+<div class="row">
+<div class = "span9">
+<table class="table table-bordered table-condensed table-striped table-hover">
+    <thead>
+        <tr>
+            <th data-i18n="_users.column.user_name_">Login</th>
+            <th data-i18n="_users.column.first_name_">First name</th>
+            <th data-i18n="_users.column.last_name_">Last name</th>           
+            <th data-i18n="_users.column.admin_">Administrator</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users">
+            <td>{{user.userName}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.isAdmin}}</td>
+            <td><button class="btn btn-info" ng-click="editUser(user)"><i class="icon-edit icon-white"></i></button></td>
+            <td><button class="btn btn-danger remove" ng-click="removeUser(user)"><i class="icon-trash icon-white"></i></button></td>
+        </tr>
+    </tbody>
+</table>
+<div class="well">
+    <button class="btn btn-primary" ng-click="addNewUser()"><i class="icon-plus icon-white"></i></button>
+</div>
+
+</div>
+</div>
