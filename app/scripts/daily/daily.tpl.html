@@ -164,19 +164,22 @@
     <div class="row-fluid">
         <div class="span4">
             <div>
-                <highchart id="dailyDidChart" config="chartDIDConfig"></highchart>
+                <!--<highchart id="dailyDidChart" config="chartDIDConfig"></highchart> -->
+                
+                <didcalls my-date='dailyDidDate' set-fn="setDidtCallsDirectiveFn(theDirFn)"></didcalls>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <highchart id="dailyChart2" config="chartPeersInCallsConfig"></highchart>
+                <peerincalls my-date='dailyPeerDate' set-fn="setInCallsDirectiveFn(theDirFn)"></peerincalls>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart>
+                <!-- <highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart> -->
+                <peeroutcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)"></peeroutcalls>
             </div>
         </div>
 
