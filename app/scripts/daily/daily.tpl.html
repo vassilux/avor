@@ -39,16 +39,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="choiseDid"></label>
                                 <div class="controls">
-                                    <select class="selectpicker" id="choiseDid" data-width="30px" ng-model="choiseDid">
-                                        <option value="">All</option>
-                                        <option value="1151">1151</option>
-                                        <option value="1152">1152</option>
-                                        <option value="1153">1153</option>
-                                        <option value="1154">1154</option>
-                                        <option value="1155">1155</option>
-                                        <option value="1156">1156</option>
-                                        <option value="1157">1157</option>
-                                    </select>
+                                    <selendpoints selected-value="choiseDid" given-type="didsTarget"></selendpoints>
                                     <span class="help-block">Choise did.</span>
                                 </div>
                             </div>
@@ -58,12 +49,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="choisePeer">SDA</label>
                                 <div class="controls">
-                                    <select class="selectpicker" id="choisePeer" data-width="30px" ng-model="choisePeer">
-                                        <option value="">All</option>
-                                        <option value="6000">6000</option>
-                                        <option value="6005">6005</option>
-                                        <option value="6006">6006</option>
-                                    </select>
+                                    <selendpoints selected-value="choisePeer" given-type="peersTarget"></selendpoints>
                                     <span class="help-block">Choise peer.</span>
                                 </div>
                             </div>
@@ -100,59 +86,6 @@
             <!--/row-->
     </form>
     </div>
-    <!--
-<div class="row-fluid" ng-show="searchShow">
-    <div class="span12">
-        <form class="form-horizontal form-actions" novalidate role="form">
-            <div class="control-group">
-                <div class="controls controls-row">
-                    <div class="input-append">
-                        <label for="dailyDate"><i class="icon-calendar"></i>From</label>
-                        <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dailyDate" id="dailyDate"></input>
-                    </div>
-                    <div class="input-append">
-                        <label for="choiseDid">DID</label>
-                        <select class="selectpicker" id="choiseDid" data-width="30px" ng-model="choiseDid">
-                            <option value="">All</option>
-                            <option value="1151">1151</option>
-                            <option value="1152">1152</option>
-                            <option value="1153">1153</option>
-                            <option value="1154">1154</option>
-                            <option value="1155">1155</option>
-                            <option value="1156">1156</option>
-                            <option value="1157">1157</option>
-                        </select>
-                    </div>
-                    <div class="input-append">
-                        <label for="choisePeer">SDA</label>
-                        <select class="selectpicker" id="choisePeer" data-width="30px" ng-model="choisePeer">
-                            <option value="">All</option>
-                            <option value="6000">6000</option>
-                            <option value="6005">6005</option>
-                            <option value="6006">6006</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls controls-row">
-                    <div class="input-append">
-                        <button class="btn btn-primary" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>DID</button>
-                    </div>
-                    <div class="input-append">
-                    </div>
-                    <div class="input-append">
-                        <button class="btn btn-primary" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>Peer</button>
-                    </div>
-
-                </div>
-            </div>
-        </form>
-
-    </div>
-
-</div>
- -->
     <div class="row-fluid ">
         <button class="btn pull-right" ng-class="{true: 'btn-info', false: 'btn-danger'}[!searchShow]" ng-click="searchShow = !searchShow"><i ng-class="{true: 'icon-arrow-down icon-white', false: 'icon-arrow-up icon-white'}[!searchShow]" class="icon-arrow-up icon-white"></i>{{!searchShow && 'Show' || 'Hide'}}</button>
     </div>
@@ -164,28 +97,28 @@
     <div class="row-fluid">
         <div class="span4">
             <div>
-                <!--<highchart id="dailyDidChart" config="chartDIDConfig"></highchart> -->
-                
-                <didcalls my-date='dailyDidDate' set-fn="setDidtCallsDirectiveFn(theDirFn)"></didcalls>
+                <!-- <didcalls my-date='dailyDidDate' set-fn="setDidCallsDirectiveFn(theDirFn)"></didcalls> -->
+                <chartcalls my-date='dailyDidDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartcalls>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <peerincalls my-date='dailyPeerDate' set-fn="setInCallsDirectiveFn(theDirFn)"></peerincalls>
+                <!-- <peerincalls my-date='dailyPeerDate' set-fn="setInCallsDirectiveFn(theDirFn)"></peerincalls> -->
+                <chartcalls my-date='dailyPeerDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls'></chartcalls>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <!-- <highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart> -->
-                <peeroutcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)"></peeroutcalls>
+                <!--<peeroutcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)"></peeroutcalls>-->
+                <chartcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls'></chartcalls>
             </div>
         </div>
 
 
     </div>
     <div class="row-fluid">
-        </br>
+	    </br>
         </br>
     </div>

@@ -63,6 +63,7 @@ angular.module('app')
                 processPeerIncommingData(peerInCalls);
                 udpateTitle();
             }
+            //set callback into the parent controller
             $scope.setFn({theDirFn: $scope.updateData});
         },
         template: '<highchart id="dailyinCallChart" config="chartPeersInCallsConfig"></highchart>',
@@ -221,7 +222,7 @@ angular.module('app')
                 processPeerOutgoingData(peerOutCalls);
                 updateTitle();
             }
-
+            //set callback into the parent controller
             $scope.setFn({theDirFn: $scope.updateData});
         },
         template: '<highchart id="dailyoutCallChart" config="chartPeersOutCallsConfig"></highchart>',
@@ -382,7 +383,7 @@ angular.module('app')
                 processDidData(didCalls);
                 updateTitle();
             }
-
+            //set callback into the parent controller
             $scope.setFn({theDirFn: $scope.updateData});
         },
         template: '<highchart id="dailydidCallChart" config="chartDIDConfig"></highchart>',
@@ -480,4 +481,4 @@ angular.module('app')
         }
     };
 }
-])
+]);

@@ -39,16 +39,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="choiseDid"></label>
                                 <div class="controls">
-                                    <select class="selectpicker" id="choiseDid" data-width="30px" ng-model="choiseDid">
-                                        <option value="">All</option>
-                                        <option value="1151">1151</option>
-                                        <option value="1152">1152</option>
-                                        <option value="1153">1153</option>
-                                        <option value="1154">1154</option>
-                                        <option value="1155">1155</option>
-                                        <option value="1156">1156</option>
-                                        <option value="1157">1157</option>
-                                    </select>
+                                    <selendpoints selected-value="choiseDid" given-type="didsTarget"></selendpoints>
                                     <span class="help-block">Choise did.</span>
                                 </div>
                             </div>
@@ -58,12 +49,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="choisePeer">SDA</label>
                                 <div class="controls">
-                                    <select class="selectpicker" id="choisePeer" data-width="30px" ng-model="choisePeer">
-                                        <option value="">All</option>
-                                        <option value="6000">6000</option>
-                                        <option value="6005">6005</option>
-                                        <option value="6006">6006</option>
-                                    </select>
+                                    <selendpoints selected-value="choisePeer" given-type="peersTarget"></selendpoints>
                                     <span class="help-block">Choise peer.</span>
                                 </div>
                             </div>

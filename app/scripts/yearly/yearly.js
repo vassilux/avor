@@ -12,8 +12,10 @@ angular.module('app')
     ])
     .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter', 'yearlyService' , function($rootScope, $scope, $filter, yearlyService) {
         //
-        $scope.choiseDid = "";
-        $scope.choisePeer = "";
+        $scope.didsTarget = "dids"
+        $scope.peersTarget = "peers"
+        $scope.choiseDid = {};
+        $scope.choisePeer = {};
         //
         $scope.didDate = new Date();
         $scope.peerDate = new Date();
@@ -425,8 +427,8 @@ angular.module('app')
         	var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/didincomming/';
         	var didDate = $filter('date')($scope.didDate, 'yyyy-MM-dd');
             url += didDate + 'T23:59:59Z';
-            if($scope.choiseDid != ""){
-            	url += "/" + $scope.choiseDid
+            if($scope.choiseDid.value != ""){
+            	url += "/" + $scope.choiseDid.value
             }
         	$scope.myts = yearlyService.fetchDidDatas(url);
             $scope.didDatas = $scope.myts.then(function(response) {
@@ -440,8 +442,8 @@ angular.module('app')
         	var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/peerdatas/';
             var peerDate = $filter('date')($scope.peerDate, 'yyyy-MM-dd');
             url += peerDate + 'T23:59:59Z';
-            if($scope.choisePeer != ""){
-                url += "/" + $scope.choisePeer
+            if($scope.choisePeer.value != ""){
+                url += "/" + $scope.choisePeer.value
             }
             $scope.myts = yearlyService.fetchPeerDatas(url);
             $scope.didDatas = $scope.myts.then(function(response) {
