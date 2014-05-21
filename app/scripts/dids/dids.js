@@ -71,9 +71,9 @@ $scope.removeDid = function(did) {
       }
     })).open().then(function(result) {
       if(result == 'ok') {
-        didsCrudService.deleteUser(didToRemove, function(status){
+        didsCrudService.deleteDid(didToRemove, function(status){
           didToRemove = undefined;
-          $scope.lisDids();
+          $scope.listDids();
         });
       }else{
         didToRemove = undefined;
