@@ -1,0 +1,25 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="alert alert-info" data-i18n="_users.dialog.add_did.title_"> Add new DID </div>
+    </div>
+    <div class="modal-body">
+        <label data-i18n="_users.dialog.add_did.did_">DID</label>
+        <input class="span6" type="username" name="didid" ng-model="didToAdd.id" required unique-email>
+        <span ng-show="showError('didid', 'required')" class="help-inline">This field is required.</span>
+        <span ng-show="showError('didid', 'didid')" class="help-inline">Please enter a valid id.</span>
+        <span ng-show="showError('didid', 'uniqueDid')" class="help-inline">This id is not available - please enter another.</span>
+        <label data-i18n="_users.dialog.add_did.value_">Value</label>
+        <input class="span6" type="text" name="didValue" ng-model="didToAdd.value" required>
+        <span ng-show="showError('didValue', 'required')" class="help-inline">This field is required.</span>
+
+        <label data-i18n="_users.dialog.add_did.comment_">Comment</label>
+        <input class="span6" type="text" name="didComment" ng-model="didToAdd.comment" required>
+        <span ng-show="showError('didComment', 'required')" class="help-inline">This field is required.</span>
+
+    </div>       
+    <div class="modal-footer">
+        <button ng-click="addDid()" class="btn btn-primary" data-i18n="_users.dialog.add_did.add_btn_">Add</button>
+        <button ng-click="close()" class="btn" data-i18n="_users.dialog.add_did.cancel_btn_">Cancel</button>
+    </div>
+</form>
+

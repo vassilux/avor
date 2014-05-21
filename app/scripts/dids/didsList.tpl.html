@@ -1,0 +1,28 @@
+<div class="row">
+<div class = "span9">
+<table class="table table-bordered table-condensed table-striped table-hover">
+    <thead>
+        <tr>
+            <th data-i18n="_dids.column.id_">DID</th>
+            <th data-i18n="_dids.column.value_">Value</th>
+            <th data-i18n="_dids.column.comment_">Comment</th>           
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="did in dids">
+            <td>{{did.id}}</td>
+            <td>{{did.value}}</td>
+            <td>{{did.comment}}</td>
+            <td><button class="btn btn-info" ng-click="editDid(did)"><i class="icon-edit icon-white"></i></button></td>
+            <td><button class="btn btn-danger remove" ng-click="removeDid(did)"><i class="icon-trash icon-white"></i></button></td>
+        </tr>
+    </tbody>
+</table>
+<div class="well">
+    <button class="btn btn-primary" ng-click="addNewDid()"><i class="icon-plus icon-white"></i></button>
+</div>
+
+</div>
+</div>

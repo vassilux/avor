@@ -1,0 +1,24 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="alert alert-info"> 
+            <span  class="span2" data-i18n="_users.dialog.edit_did.title_">DID edition </span> <span><h4>{{didToEdit.id}}</h4></span>
+        </div>
+    </div>
+    <div class="modal-body">
+        <!-- <label data-i18n="_users.dialog.add_did.user_did_">DID</label>
+        <input class="span6" type="did" name="did" ng-model="didToEdit.didName" ng-disabled="0==0"> -->
+       
+        <label data-i18n="_users.dialog.add_did.value_">Value</label>
+        <input class="span6" type="text" name="didValue" ng-model="didToEdit.value" required>
+        <span ng-show="showError('didValue', 'required')" class="help-inline">This field is required.</span>
+
+        <label data-i18n="_users.dialog.add_did.comment_">Comment</label>
+        <input class="span6" type="text" name="didComment" ng-model="didToEdit.comment" required>
+        <span ng-show="showError('didComment', 'required')" class="help-inline">This field is required.</span>
+    </div>       
+    <div class="modal-footer">
+        <button ng-click="saveDid()" class="btn btn-primary" data-i18n="_users.dialog.edit_did.save_btn_">Save</button>
+        <button ng-click="closeEditDid()" class="btn" data-i18n="_users.dialog.add_did.cancel_btn_">Close</button>
+    </div>
+</form>
+

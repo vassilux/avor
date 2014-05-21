@@ -7,6 +7,8 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'loca
   'app.directives',
   'users',
   'users.services',
+  'dids',
+  'dids.services',
   'services.breadcrumbs',
   'authentication',
   'services.i18nNotifications',

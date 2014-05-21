@@ -182,7 +182,7 @@ directive('chartcalls', ['$filter',
               column: {
                 stacking: 'column',
                 dataLabels: {
-                  enabled: true,
+                  enabled: false,
                   color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
                   style: {
                     textShadow: '0 0 3px black, 0 0 3px black'

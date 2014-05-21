@@ -27,7 +27,7 @@
                             <label class="control-label" for="dailyPeerDate"><i class="icon-calendar"></i>Peer</label>
                             <div class="controls ">
 
-                                <input yearlydatepicker ng-model="didDate" id="didDate" />
+                                <input yearlydatepicker ng-model="peerDate" id="peerDate" />
                                 <span class="help-block">Choise peer search date</span>
                             </div>
                         </div>
@@ -97,19 +97,22 @@
     <div class="row-fluid">
         <div class="span4">
             <div>
-                <highchart id="dailyDidChart" config="chartDIDConfig"></highchart>
+                <!--<highchart id="dailyDidChart" config="chartDIDConfig"></highchart>-->
+                <chartcalls my-date='didDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls' my-format="myFormat"></chartcalls>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <highchart id="dailyChart2" config="chartPeersInCallsConfig"></highchart>
+                <!--<highchart id="dailyChart2" config="chartPeersInCallsConfig"></highchart>-->
+                <chartcalls my-date='peerDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls' my-format="myFormat"></chartcalls>
             </div>
         </div>
 
         <div class="span4">
             <div>
-                <highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart>
+                <!--<highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart>-->
+                <chartcalls my-date='peerDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls' my-format="myFormat"></chartcalls>
             </div>
         </div>
 
