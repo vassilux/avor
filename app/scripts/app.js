@@ -9,6 +9,8 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'loca
   'users.services',
   'dids',
   'dids.services',
+  'peers',
+  'peers.services',
   'services.breadcrumbs',
   'authentication',
   'services.i18nNotifications',

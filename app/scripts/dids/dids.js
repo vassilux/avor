@@ -13,7 +13,7 @@ angular.module('dids', ['ui.bootstrap'])
   $scope.dids = [];
 
   var editDidDlgOpts = {
-    controller: 'EditDidCtrl',
+    controller: 'EditDidCtrl', 
     templateUrl: 'scripts/dids/didEdit.tpl.html'
   };
 

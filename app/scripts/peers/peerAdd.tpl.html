@@ -1,0 +1,25 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="alert alert-info" data-i18n="_users.dialog.add_peer.title_"> Add new Peer </div>
+    </div>
+    <div class="modal-body">
+        <label data-i18n="_users.dialog.add_peer.peer_">Peer</label>
+        <input class="span6" type="peerid" name="peerid" ng-model="peerToAdd.id" required unique-email>
+        <span ng-show="showError('peerid', 'required')" class="help-inline">This field is required.</span>
+        <span ng-show="showError('peerid', 'peerid')" class="help-inline">Please enter a valid id.</span>
+        <span ng-show="showError('peerid', 'uniquepeer')" class="help-inline">This id is not available - please enter another.</span>
+        <label data-i18n="_users.dialog.add_peer.value_">Value</label>
+        <input class="span6" type="text" name="peerValue" ng-model="peerToAdd.value" required>
+        <span ng-show="showError('peerValue', 'required')" class="help-inline">This field is required.</span>
+
+        <label data-i18n="_users.dialog.add_peer.comment_">Comment</label>
+        <input class="span6" type="text" name="peerComment" ng-model="peerToAdd.comment" required>
+        <span ng-show="showError('peerComment', 'required')" class="help-inline">This field is required.</span>
+
+    </div>       
+    <div class="modal-footer">
+        <button ng-click="addPeer()" class="btn btn-primary" data-i18n="_users.dialog.add_peer.add_btn_">Add</button>
+        <button ng-click="close()" class="btn" data-i18n="_users.dialog.add_peer.cancel_btn_">Cancel</button>
+    </div>
+</form>
+

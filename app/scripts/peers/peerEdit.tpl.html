@@ -1,0 +1,24 @@
+<form name="form">
+    <div class="modal-header">
+        <div class="alert alert-info"> 
+            <span  class="span2" data-i18n="_users.dialog.edit_peer.title_">Peer edition </span> <span><h4>{{peerToEdit.id}}</h4></span>
+        </div>
+    </div>
+    <div class="modal-body">
+        <!-- <label data-i18n="_users.dialog.add_peer.user_peer_">peer</label>
+        <input class="span6" type="peer" name="peer" ng-model="peerToEdit.peerName" ng-disabled="0==0"> -->
+       
+        <label data-i18n="_users.dialog.add_peer.value_">Value</label>
+        <input class="span6" type="text" name="peerValue" ng-model="peerToEdit.value" required>
+        <span ng-show="showError('peerValue', 'required')" class="help-inline">This field is required.</span>
+
+        <label data-i18n="_users.dialog.add_peer.comment_">Comment</label>
+        <input class="span6" type="text" name="peerComment" ng-model="peerToEdit.comment" required>
+        <span ng-show="showError('peerComment', 'required')" class="help-inline">This field is required.</span>
+    </div>       
+    <div class="modal-footer">
+        <button ng-click="savePeer()" class="btn btn-primary" data-i18n="_users.dialog.edit_peer.save_btn_">Save</button>
+        <button ng-click="closeEditPeer()" class="btn" data-i18n="_users.dialog.add_peer.cancel_btn_">Close</button>
+    </div>
+</form>
+

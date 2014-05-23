@@ -1,0 +1,12 @@
+<form>
+	<div class="modal-header">
+		<div class="alert alert-info"><span data-i18n="_users.dialog.remove_peer.title_"> Peer will be removed </span> : {{peerToRemove.id}}. </div>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-warning" data-i18n="_users.dialog.remove_peer.warning_"> Are you sure to remove Peer ?</div>
+	</div>
+	<div class="modal-footer">
+	<button ng-click="close('cancel')" class="btn btn-primary" data-i18n="_users.dialog.remove_peer.cancel_btn_">Cancel</button>
+	<button ng-click="close('ok')" class="btn btn-danger btn-primary" data-i18n="_users.dialog.remove_peer.ok_btn_">OK</button>
+	</div>
+</form>
