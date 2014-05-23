@@ -13,7 +13,14 @@ angular.module('authentication.currentUser', [])
     	}
     	return false;
     },
-    isAdmin: function() { return !!(currentUser.userInfo && currentUser.userInfo.isAdmin ); }
+    isAdmin: function() { return !!(currentUser.userInfo && currentUser.userInfo.isAdmin ); },
+    
+    hasRigthsFeature: function(feature){
+      if(isAdmin()){
+        return true
+      }
+      return false
+    }
   };
   return currentUser;
 });

@@ -5,19 +5,19 @@
             <a class="brand" ng-click="home()">AVOR v<span app-version></span></a>
             <ul class="nav" ng-show="currentUser.isAuthenticated()">
                
-               <li ng-class="{active:isNavbarActive('dashboard')}" >
+               <li ng-class="{active:isNavbarActive('dashboard')}" ng-show="currentUser.hasRigthsFeature(dashboard)">
                <a href="/dashboard" data-i18n="_header.menu.dashboard_">Dashboard</a></li>
 
-               <li ng-class="{active:isNavbarActive('daily')}" >
+               <li ng-class="{active:isNavbarActive('daily')}" ng-show="currentUser.hasRigthsFeature(daily)">
                <a href="/daily" data-i18n="_header.menu.daily_">Daily</a></li>
                
-               <li ng-class="{active:isNavbarActive('monthly')}" >
+               <li ng-class="{active:isNavbarActive('monthly')}" ng-show="currentUser.hasRigthsFeature(monthly)">
                <a href="/monthly" data-i18n="_header.menu.monthly_">Monthly</a></li>
 
-                <li ng-class="{active:isNavbarActive('yearly')}" >
+                <li ng-class="{active:isNavbarActive('yearly')}" ng-show="currentUser.hasRigthsFeature(yearly)">
                <a href="/yearly" data-i18n="_header.menu.yearly_">Yearly</a></li>
 
-               <li ng-class="{active:isNavbarActive('callsdetails')}" ><a href="/callsdetails">Calls details record</a></li>
+               <li ng-class="{active:isNavbarActive('callsdetails')}" ng-show="currentUser.hasRigthsFeature(callsdetails)"><a href="/callsdetails">Calls details record</a></li>
                
                <li class="dropdown">
                     <a id="languagemenu" role="button" class="dropdown-toggle" data-i18n="_header.menu.languages_">Language<b class="caret"></b></a>
