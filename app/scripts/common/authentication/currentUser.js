@@ -16,7 +16,7 @@ angular.module('authentication.currentUser', [])
     isAdmin: function() { return !!(currentUser.userInfo && currentUser.userInfo.isAdmin ); },
     
     hasRigthsFeature: function(feature){
-      if(isAdmin()){
+      if(currentUser.isAdmin()){
         return true
       }
       return false
