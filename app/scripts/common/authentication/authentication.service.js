@@ -2,8 +2,6 @@
 angular.module('authentication.service', [
   'authentication.currentUser', 'authentication.retryQueue', 'authentication.login', 'ui.bootstrap.dialog'
 ])
-
-// The authentication is the public API for this module.  Application developers should only need to use this service and not any of the others here.
 .factory('authentication', ['$rootScope', '$http', '$cookieStore', '$location', '$q', 'authenticationRetryQueue', 'currentUser', '$dialog',
   function($rootScope, $http, $cookieStore, $location, $q, queue, currentUser, $dialog) {
 
@@ -17,6 +15,7 @@ angular.module('authentication.service', [
     var loginDialog = null;
 
     function openLoginDialog() {
+      console.log("openLoginDialog")
       if (!loginDialog) {
         loginDialog = $dialog.dialog();
         loginDialog.open('scripts/common/authentication/login/form.tpl.html', 'LoginFormController').then(onLoginDialogClose);
@@ -31,6 +30,7 @@ angular.module('authentication.service', [
     }
 
     function onLoginDialogClose(success) {
+      closeLoginDialog(success)
       if (success) {
         queue.retryAll();
       } else {
@@ -73,7 +73,6 @@ angular.module('authentication.service', [
           url: url,
         });
         return request.then(function(response) {
-          console.debug("login user " + JSON.stringify(response));
           currentUser.update(response.data);
           if (currentUser.isAuthenticated()) {
             $cookieStore.put('avoruser', currentUser.userInfo);
