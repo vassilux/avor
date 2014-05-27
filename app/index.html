@@ -20,9 +20,17 @@
 
 
         <link type="text/css" href="bower_components/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />
+
+        vendor/datatables/css
+
+        <!--
         <link rel="stylesheet" type="text/css" href="http://datatables.net/release-datatables/media/css/jquery.dataTables.css">
         <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/css/TableTools.css">
         <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/css/TableTools_JUI.css">
+        -->
+        <link rel="stylesheet" type="text/css" href="vendor/datatables/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" href="vendor/datatables/css/TableTools.css">
+        <link rel="stylesheet" type="text/css" href="vendor/datatables/css/TableTools_JUI.css">
   
         <link rel="stylesheet" href="styles/app.css"/>
  
@@ -60,24 +68,30 @@
     <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
       
     <!-- DataTables -->
+    <!--
     <script src="http://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.3/jquery.dataTables.js"></script> 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/TableTools.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/js/ZeroClipboard.js"></script>
     <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/e9421181788/integration/bootstrap/2/dataTables.bootstrap.js"></script>
-  
+    -->
+     <script src="vendor/datatables/js/jquery.dataTables.js"></script> 
+    <script src="vendor/datatables/js/TableTools.js"></script>
+    <script src="vendor/datatables/js/ZeroClipboard.js"></script>
+    <script type="text/javascript" language="javascript" src="vendor/datatables/js/dataTables.bootstrap.js"></script>
+
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-date/src/date.js"></script>
 
    
-    <!-- <script src="vendor/highcharts/highcharts.js"></script>
+    <script src="vendor/highcharts/highcharts.js"></script>
     <script src="vendor/highcharts/modules/exporting.js"></script>
-    <script src="vendor/highcharts/highcharts-ng.min.js"></script> -->
-    
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/exporting.js"></script>
     <script src="vendor/highcharts/highcharts-ng.min.js"></script>
+    
+    <!-- <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/exporting.js"></script> 
+    <script src="vendor/highcharts/highcharts-ng.min.js"></script>-->
 
   
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
