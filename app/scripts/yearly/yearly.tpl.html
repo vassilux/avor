@@ -14,21 +14,21 @@
                 <div class="row-fluid">
                     <div class="span6 bgcolor">
                         <div class="control-group">
-                            <label class="control-label" for="dailyDidDate"><i class="icon-calendar"></i>DID</label>
+                            <label class="control-label" for="dailyDidDate"><i class="icon-calendar"></i></label>
                             <div class="controls ">
                                 <input yearlydatepicker ng-model="didDate" id="didDate" />
-                                <span class="help-block">Choise did search date</span>
+                                <span class="help-block" data-i18n="_search.common.choise_date_">Choise did search date</span>
                             </div>
                         </div>
                     </div>
                     <!--/span-->
                     <div class="span6 bgcolor">
                         <div class="control-group">
-                            <label class="control-label" for="dailyPeerDate"><i class="icon-calendar"></i>Peer</label>
+                            <label class="control-label" for="dailyPeerDate"><i class="icon-calendar"></i></label>
                             <div class="controls ">
 
                                 <input yearlydatepicker ng-model="peerDate" id="peerDate" />
-                                <span class="help-block">Choise peer search date</span>
+                                <span class="help-block" data-i18n="_search.common.choise_date_">Choise peer search date</span>
                             </div>
                         </div>
                         <!--/span-->
@@ -40,7 +40,7 @@
                                 <label class="control-label" for="choiseDid"></label>
                                 <div class="controls">
                                     <selendpoints selected-value="choiseDid" given-type="didsTarget"></selendpoints>
-                                    <span class="help-block">Choise did.</span>
+                                    <span class="help-block" data-i18n="_search.common.choise_did_">Choise did.</span>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <label class="control-label" for="choisePeer">SDA</label>
                                 <div class="controls">
                                     <selendpoints selected-value="choisePeer" given-type="peersTarget"></selendpoints>
-                                    <span class="help-block">Choise peer.</span>
+                                    <span class="help-block" data-i18n="_search.common.choise_peer_">Choise peer.</span>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                         <div class="span6 bgcolor">
                             <div class="control-group">
                                 <div class="controls">
-                                    <button class="btn btn-primary" ng-click="fetchDidDatas()" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>DID</button>
+                                    <button class="btn btn-primary" ng-click="fetchDidDatas()" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i><span data-i18n="_search.common.button_did_">DID</span></button>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="span6 bgcolor">
                             <div class="control-group">
                                 <div class="controls">
-                                    <button class="btn btn-primary" ng-click="fetchPeerDatas()" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>Peer</button>
+                                    <button class="btn btn-primary" ng-click="fetchPeerDatas()" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i><span data-i18n="_search.common.button_peer_">Peer</span></button>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,8 @@ angular.module('app')
             });
         }
     ])
-    .controller('CallsDetailsCtrl', function($rootScope, $scope, $timeout, $filter, $dialog, cdrService) {
+    .controller('CallsDetailsCtrl', ['$rootScope', '$scope', '$timeout', '$filter', '$dialog', 'cdrService' ,
+     function($rootScope, $scope, $timeout, $filter, $dialog, cdrService) {
         //
         $scope.dialogCallDetailsOptions = {
             backdrop: true,
@@ -176,9 +177,11 @@ angular.module('app')
             });
 
         };
-    })
+    }
+    ])
 
-.controller('CallDetailsCtrl', function($rootScope, $scope, $timeout, $filter, dialog, items, cdr) {
+.controller('CallDetailsCtrl',['$rootScope','$scope', '$timeout', '$filter', 'dialog', 'items', 'cdr',
+    function($rootScope, $scope, $timeout, $filter, dialog, items, cdr) {
     $scope.callDetails = items;
     $scope.currentCdr = cdr;
     console.log(" $scope.callDetails :  " + JSON.stringify($scope.callDetails))
@@ -187,4 +190,5 @@ angular.module('app')
     $scope.close = function() {
         dialog.close(undefined);
     };
-});
+}
+]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-  .factory('yearlyService', function($http, $q) {
+  .factory('yearlyService',['$http', '$q', function($http, $q) {
      return {
             fetchDidDatas: function(api) {
                 var deferred = $q.defer();
@@ -20,5 +20,5 @@ angular.module('app')
             }
 
         }
-  });
+  }]);
  

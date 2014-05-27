@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-.directive('cdrTable1', function() {
+.directive('cdrTable1',[function() {
     return{
         restrict: 'E, A, C',
         link : function(scope, element, attrs, controller){
@@ -22,4 +22,4 @@ angular.module('app')
         }
 
     };
-});
+}]);

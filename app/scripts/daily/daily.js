@@ -10,14 +10,16 @@ angular.module('app')
             });
         }
     ])
-    .controller('DailyCtrl', ['$rootScope', '$scope', '$filter', 'dailyService',
-        function($rootScope, $scope, $filter, dailyService) {
+    .controller('DailyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'dailyService',
+        function($rootScope, $scope, $filter, localize, dailyService) {
             //set urls targes please check the backoffice routes configuration
             $scope.didsTarget = "dids"
             $scope.peersTarget = "peers"
-            $scope.titleDIDCalls = "Did calls";
-            $scope.titleInCalls =  "Incomming calls";
-            $scope.titleOutCalls = "Outgoingcalls";
+            //
+            $scope.titleDIDCalls =  localize.getLocalizedString("_chart.common.sda.title_");
+            $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
+            $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
+
             //
             $scope.choiseDid = {};
             $scope.choisePeer = {};

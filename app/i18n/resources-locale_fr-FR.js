@@ -15,97 +15,137 @@
         "description":"Dashboard menu text"
     },
     {
-        "key":"_header.menu.peers_",
-        "value":"Comptes",
-        "description":"Peers menu text"
+        "key":"_header.menu.daily_",
+        "value":"Quotidian",
+        "description":"Menu de statisitus par jour"
     },
     {
-        "key":"_header.menu.calls_",
-        "value":"Appels",
-        "description":"Menu d'appels"
+        "key":"_header.menu.monthly_",
+        "value":"Mensuel",
+        "description":"Menu de statisitus par mois"
     },
+    {
+        "key":"_header.menu.yearly_",
+        "value":"Annuel",
+        "description":"Menu de statisitus par an"
+    },
+    {
+        "key":"_header.menu.yearly_",
+        "value":"Annuel",
+        "description":"Menu de statisitus par an"
+    },
+    {
+        "key":"_header.menu.calls_details_",
+        "value":"Details d'appels",
+        "description":"Menu de details d'appel "
+    },   
     {
         "key":"_header.menu.languages_",
         "value":"Langues",
-        "description":"Languages menu text"
+        "description":"Menu de chox de langue"
     },
     {
         "key":"_header.menu.admin_",
         "value":"Administration",
-        "description":"Admin menu text"
+        "description":"Menu admin"
     },
     {
         "key":"_header.menu.admin.users_",
         "value":"Utilisateurs",
-        "description":"Users admin menu text"
+        "description":"Menu utilisateurs"
     },
     {
-        "key":"_header.menu.admin.configuration_",
-        "value":"Configuration",
-        "description":"Configuration admin menu text"
+        "key":"_header.menu.admin.dids_",
+        "value":"SDA",
+        "description":"Menu de SDA"
     },
     {
-        "key":"_dashboard.asterisk.info.title_",
-        "value":"Etats d'asterisk",
-        "description":"Asterisk info title"
-    },
-    {
-        "key":"_dashboard.asterisk.info.version_",
-        "value":"Asterisk version",
-        "description":"Asterisk info title"
-    },
-    {
-        "key":"_dashboard.asterisk.info.uptime_",
-        "value":"Temps de redémarrage ",
-        "description":"Asterisk uptime"
-    },
-    {
-        "key":"_dashboard.asterisk.info.lastreload_",
-        "value":"Temps de rechargement ",
-        "description":"Asterisk last reload"
-    },
-    {
-        "key":"_dashboard.asterisk.info.channels.used_",
-        "value":"Cannaux utilisés ",
-        "description":"Asterisk channels used"
-    },
-     {
-        "key":"_dashboard.asterisk.info.active_calls_",
-        "value":"Appels en cours ",
-        "description":"Asterisk active calls"
-    },
-    {
-        "key":"_dashboard.asterisk.info.processed_calls_",
-        "value":"Appels traités",
-        "description":"Asterisk processed calls since starting"
-    },
-    {
-        "key":"_dashboard.os.info.title_",
-        "value":"Operating system informations ",
-        "description":"Operating system informations title"
-    },
-    {
-        "key":"_dashboard.os.info.hostname_",
-        "value":"Nom d'hôte",
-        "description":"Name of asterisk host"
+        "key":"_header.menu.admin.peers_",
+        "value":"Peers",
+        "description":"Menu de utilisateur/peer"
     },
 
     {
-        "key":"_dashboard.os.info.uptime_",
-        "value":"Démarrage du système",
-        "description":"OS uptime"
+        "key":"_chart.common.answered_",
+        "value":"Repondu",
+        "description":"Nom de serie des apples repondu"
     },
     {
-        "key":"_dashboard.os.info.systemtime_",
-        "value":"Heure système",
-        "description":"System time"
+        "key":"_chart.common.non_answered_",
+        "value":"Non repondu",
+        "description":"Nom de serie des apples non repondu"
     },
 
     {
-        "key":"_dashboard.os.info.ram.total_",
-        "value":"Totale RAM",
-        "description":"Total RAM text"
+        "key":"_chart.common.y_",
+        "value":"Appels",
+        "description":"Y chart title"
     },
+
+    {
+        "key":"_chart.common.sda.title_",
+        "value":"Appel par SDA",
+        "description":"Title de chart par SDA"
+    },
+    {
+        "key":"_chart.common.peer.in.title_",
+        "value":"Appels entrant par Peer",
+        "description":"Appels entrant par Peer chart title"
+    },
+    {
+        "key":"_chart.common.peer.out.title_",
+        "value":"Appels sortant par Peer",
+        "description":"Appels sortant par Peer chart title"
+    },
+
+    {
+        "key":"_search.common.did_",
+        "value":"SDA",
+        "description":"Labelde recherche par SDA"
+    },
+
+    {
+        "key":"_search.common.peer_",
+        "value":"Peer",
+        "description":"Label de recherche par Peer"
+    },
+
+    {
+        "key":"_search.common.choise_date_",
+        "value":"Choix de la date",
+        "description":"Label de choix par SDA"
+    },
+
+    {
+        "key":"_search.common.choise_did_",
+        "value":"Choix de SDA",
+        "description":"Label de choix par SDA"
+    },
+
+    {
+        "key":"_search.common.choise_peer_",
+        "value":"Choix de Peer",
+        "description":"Label de choix par Peer"
+    },
+
+    {
+        "key":"_search.common.button_did_",
+        "value":"SDA",
+        "description":"Label de bouton recherche par SDA"
+    },
+
+    {
+        "key":"_search.common.button_peer_",
+        "value":"Peer",
+        "description":"Label de bouton recherche par Peer"
+    },
+    {
+        "key":"_search.common.cbx_all_",
+        "value":"Tous",
+        "description":"Combobox le premiere element tous"
+    },
+
+
     {
         "key":"_dashboard.os.info.ram.used_",
         "value":"RAM utilsiée",

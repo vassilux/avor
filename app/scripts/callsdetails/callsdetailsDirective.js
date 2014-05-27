@@ -6,8 +6,7 @@ angular.module('app')
             restrict: 'E, A, C',
             controller: function($scope, $element, $attrs, $filter) {
 
-                $scope.columnDefs = [
-                {
+                $scope.columnDefs = [{
                     "mDataProp": "call_date",
                     "aTargets": [0],
                     "bSortable": true,

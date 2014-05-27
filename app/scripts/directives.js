@@ -93,8 +93,8 @@ directive('context', [
     };
   }
 ]).
-directive('chartcalls', ['$filter',
-  function($filter) {
+directive('chartcalls', ['$filter', 'localize',
+  function($filter, localize) {
     return {
       restrict: 'E',
       scope: {
@@ -105,12 +105,12 @@ directive('chartcalls', ['$filter',
       },
       controller: function($scope, $element, $attrs) {
         var seriesDataAnswered = {
-          name: "Answered",
+          name: localize.getLocalizedString("_chart.common.answered_"), //"Answered",
           data: [],
           type: "column"
         };
         var seriesDataNonAnswered = {
-          name: "Non Answered",
+          name: localize.getLocalizedString("_chart.common.non_answered_"), //"Non Answered",
           data: [],
           type: "column"
         };
@@ -224,7 +224,7 @@ directive('chartcalls', ['$filter',
           yAxis: {
             min: 0,
             title: {
-              text: 'Calls'
+              text: localize.getLocalizedString("_chart.common.y_")
             },
             stackLabels: {
               enabled: true,
@@ -266,8 +266,8 @@ directive('chartcalls', ['$filter',
     };
   }
 ]).
-directive('selendpoints', ['$rootScope', 'appDataService',
-  function($rootScope, appDataService) {
+directive('selendpoints', ['$rootScope', 'localize','appDataService',
+  function($rootScope, localize, appDataService) {
     return {
       template: '<select ng-model="selectedValue" ng-options="c.id for c in values"></select>',
       restrict: 'E',
@@ -282,8 +282,9 @@ directive('selendpoints', ['$rootScope', 'appDataService',
           $scope.endpoints = appDataService.fetchEndPoints(endpoints);
                 $scope.datas = $scope.endpoints.then(function(response) {
                   $scope.values = angular.copy(response)
-                  console.log(" response : " + JSON.stringify($scope.values));
-                  $scope.values.unshift({"comment": "", "id":"All", "value": ""})
+                  //console.log(" response : " + JSON.stringify($scope.values));
+                  var title = localize.getLocalizedString("_search.common.cbx_all_");
+                  $scope.values.unshift({"comment": "", "id":title, "value": ""})
                   $scope.selectedValue = $scope.values[0];
                   return response;
                 });

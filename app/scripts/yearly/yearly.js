@@ -10,17 +10,17 @@ angular.module('app')
             });
         }
     ])
-    .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter', 'yearlyService',
-        function($rootScope, $scope, $filter, yearlyService) {
+    .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter','localize','yearlyService',
+        function($rootScope, $scope, $filter, localize, yearlyService) {
             //
             $scope.didsTarget = "dids"
             $scope.peersTarget = "peers"
             $scope.choiseDid = {};
             $scope.choisePeer = {};
             $scope.myFormat = "yyyy"
-            $scope.titleDIDCalls = "Did calls";
-            $scope.titleInCalls = "Incomming calls";
-            $scope.titleOutCalls = "Outgoingcalls";
+            $scope.titleDIDCalls =  localize.getLocalizedString("_chart.common.sda.title_");
+            $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
+            $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
 
             //
             $scope.didDate = new Date();
