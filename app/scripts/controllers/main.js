@@ -22,11 +22,7 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
     //offer the configuration to others parts
     $rootScope.config = config;
     $scope.notifications = i18nNotifications;
-    /*$rootScope.asteriskStatus = asteriskStatus;
-    $rootScope.asteriskServersList = [];*/
-
-    localize.setLanguage('fr-FR');
-    
+       
 
     $scope.removeNotification = function(notification) {
       i18nNotifications.remove(notification);
@@ -72,8 +68,8 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
 ]);
 
 
-angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route', 'currentUser', 'breadcrumbs', 'notifications', 'localize',
-  function($scope, $location, $route, currentUser, breadcrumbs, notifications, localize) {
+angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$cookieStore', '$route', 'currentUser', 'breadcrumbs', 'notifications', 'localize',
+  function($scope, $location, $cookieStore, $route, currentUser, breadcrumbs, notifications, localize) {
     console.log("create HeaderCtrl");
 
     $scope.location = $location;
@@ -85,7 +81,9 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$route',
 
     $scope.setFrenchLanguage = function() {
       localize.setLanguage('fr-FR');
+      
     };
+
 
     $scope.home = function() {
       if ($scope.currentUser.isAuthenticated()) {

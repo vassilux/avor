@@ -144,7 +144,178 @@
         "value":"Tous",
         "description":"Combobox le premiere element tous"
     },
+    
+    {
+        "key":"_cdrs.search.date.from_",
+        "value":"Date de debut de recherche",
+        "description":"Label de date de debut"
+    },
+    {
+        "key":"_cdrs.search.date.to_",
+        "value":"Date de la fin de recherche",
+        "description":"Label de date de fin"
+    },
+    {
+        "key":"_cdrs.search.haungup_cause_",
+        "value":"Cause de raccrochage",
+        "description":"Label de cause de raccrocher"
+    },
+    {
+        "key":"_cdrs.search.duration_",
+        "value":"Durée",
+        "description":"Label de la durée de communication"
+    },
+    {
+        "key":"_cdrs.search.destination_",
+        "value":"Destination",
+        "description":"Label de Destination"
+    },
+    {
+        "key":"_cdrs.search.caller_id_",
+        "value":"Appelant",
+        "description":"Label de l'appelant"
+    },
+    {
+        "key":"_cdrs.search.direction_",
+        "value":"Sens",
+        "description":"Label de sens d'appel"
+    },
+    {
+        "key":"_cdrs.search.button_search_",
+        "value":"Chercher",
+        "description":"Label de bouton recherche de cdrs"
+    },
+    {
+        "key":"_cdrs.search.cause.option.all_",
+        "value":"Tous",
+        "description":"Combox box option tous"
+    },
+    {
+        "key":"_cdrs.search.cause.option.answer_",
+        "value":"Repondu",
+        "description":"Combox box option Answer"
+    },
+    {
+        "key":"_cdrs.search.cause.option.non_answer_",
+        "value":"Non Repondu",
+        "description":"Combox box option Non Answer"
+    },
+    {
+        "key":"_cdrs.search.cause.option.busy_",
+        "value":"Occupé",
+        "description":"Combox box option Non Busy"
+    },
+    {
+        "key":"_cdrs.search.cause.option.cancel_",
+        "value":"Annuler",
+        "description":"Combox box option Non Cancel"
+    },
+    {
+        "key":"_cdrs.search.cause.option.congestion_",
+        "value":"Congestion",
+        "description":"Combox box option Congestion"
+    },
+    {
+        "key":"_cdrs.search.cause.option.chanunaval_",
+        "value":"Indisponible",
+        "description":"Combox box option Chanunaval"
+    },
+    {
+        "key":"_cdrs.search.cause.option.failed_",
+        "value":"Raté",
+        "description":"Combox box option Failed"
+    },
+    {
+        "key":"_cdrs.search.option.equals_",
+        "value":"Egal",
+        "description":"Combox box option Equals"
+    },
+    {
+        "key":"_cdrs.search.option.beginswith_",
+        "value":"Commence avec",
+        "description":"Combox box option Begins with"
+    },
+    {
+        "key":"_cdrs.search.option.endwith_",
+        "value":"Termine avec",
+        "description":"Combox box option End with"
+    },
 
+    {
+        "key":"_cdrs.search.direction.option.all_",
+        "value":"Tous",
+        "description":"Combox box option All"
+    },
+    {
+        "key":"_cdrs.search.direction.option.in_",
+        "value":"Entrant",
+        "description":"Combox box option incomming"
+    },
+    {
+        "key":"_cdrs.search.direction.option.out_",
+        "value":"Sortant",
+        "description":"Combox box option outgoing"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.call_date_",
+        "value":"Date d'appel",
+        "description":"Column Call date"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.caller_name_",
+        "value":"Nom d'appelant",
+        "description":"Column Caller Name"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.caller_number_",
+        "value":"Numèro d'appelant",
+        "description":"Column Caller Number"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.destination_",
+        "value":"Destination",
+        "description":"Column Destination"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.did_",
+        "value":"SDA",
+        "description":"Column SDA"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.duration_",
+        "value":"Durée",
+        "description":"Column Duration"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.bill_",
+        "value":"Facturable",
+        "description":"Column Bill"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.answer_wait_time_",
+        "value":"Temps d'attente",
+        "description":"Column Answer wait time"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.hangup_cause_",
+        "value":"Cause de raccroché",
+        "description":"Column Hangup cause"
+    },
+    {
+        "key":"_cdrs.search.datatables.column.direction_",
+        "value":"Sens",
+        "description":"Column Hangup Direction"
+    },
+    {
+        "key":"_cdrs.search.datatables.i18n.sProcessing_",
+        "value":"Traitement en cours...",
+        "description":""
+    },
+    {
+        "key":"_cdrs.search.datatables.i18n.sSearch_",
+        "value":"Rechercher&nbsp;:",
+        "description":""
+    },
 
     {
         "key":"_dashboard.os.info.ram.used_",

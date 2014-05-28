@@ -1,97 +1,140 @@
 <div class="row-fluid" ng-show="searchShow">
     <div class="span12">
         <form class="form-horizontal form-actions" novalidate role="form">
-            <div class="control-group">
+            <div class="row-fluid">
 
-                <div class="controls controls-row">
-                    
-                    <div class="input-append">
-                        <label for="inputDateFrom"><i class="icon-calendar"></i>From</label>
-                        <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateFrom" id="inputDateFrom"></input>
+                <div class="row-fluid">
+                    <div class="span3 bgcolor">
+                        <div class="control-group">
+
+                            <div class="controls ">
+                                <span><i class="icon-calendar"></i>
+                                </span>
+                                <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateFrom" id="inputDateFrom"></input>
+                                <label></label>
+                                <span class="help-block" data-i18n="_cdrs.search.date.from_">Choise start date</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="input-append">
-                        <label for="inputDateFrom"><i class="icon-calendar"></i>To</label>
-                        <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateTo" id="inputDateTo"></input>
+                    <div class="span3 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+                                <span><i class="icon-calendar"></i>
+                                </span>
+                                <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateTo" id="inputDateTo"></input>
+                                <label></label>
+                                <span class="help-block" data-i18n="_cdrs.search.date.to_">Choise end date</span>
+                            </div>
+                        </div>
                     </div>
-                    <!-- hangupcause -->
-                    <div class="input-append">
-                        <label for="choiseHangupCause">Hangup Cause</label>
-                        <select class="selectpicker" id="choiseHangupCause" data-width="30px" ng-model="hangupdCause">
-                            <option value="">All</option>
-                            <option value="16">Answer</option>
-                            <option value="19">Non Answer</option>
-                            <option value="17">Busy</option>
-                            <option value="21">Cancel</option>
-                            <option value="34">Congestion</option>
-                            <option value="47">Chanunaval</option>
-                            <option value="41">Failed</option>
-                        </select>
+                    <div class="span2 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+                                <select class="selectpicker" id="choiseHangupCause" data-width="30px" ng-model="hangupdCause">
+                                    <option value="" data-i18n="_cdrs.search.cause.option.all_">All</option>
+                                    <option value="16" data-i18n="_cdrs.search.cause.option.answer_">Answer</option>
+                                    <option value="19" data-i18n="_cdrs.search.cause.option.non_answer_">Non Answer</option>
+                                    <option value="17" data-i18n="_cdrs.search.cause.option.busy_">Busy</option>
+                                    <option value="21" data-i18n="_cdrs.search.cause.option.cancel_">Cancel</option>
+                                    <option value="34" data-i18n="_cdrs.search.cause.option.congestion_">Congestion</option>
+                                    <option value="47" data-i18n="_cdrs.search.cause.option.chanunaval_">Chanunaval</option>
+                                    <option value="41" data-i18n="_cdrs.search.cause.option.failed_">Failed</option>
+                                </select>
+                                <label for="choiseHangupCause" data-i18n="_cdrs.search.haungup_cause_">Hangup Cause</label>
+                            </div>
+                        </div>
                     </div>
-                    <!-- -->
-                    <div class="input-append">
-                        <label for="inputDuration">Duration</label>
-                        <input type="text" id="inputDuration" ng-model="duration" integer></input>
-                        <select class="selectpicker" id="choiseDuration" data-width="30px" ng-model="durationCondition">
-                            <option value="">==</option>
-                            <option value="$lt">
-                                <</option>
-                                    <option value="$lte">
-                                        <=</option>
-                                            <option value="$gt">></option>
-                                            <option value="$gte">>=</option>
-                        </select>
+                    <div class="span3 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+                                <input type="text" id="inputDuration" ng-model="duration" integer class="input-small"></input>
+                                <select class="selectpicker" id="choiseDuration" data-width="30px" ng-model="durationCondition">
+                                    <option value="">==</option>
+                                    <option value="$lt">
+                                        <</option>
+                                            <option value="$lte">
+                                                <=</option>
+                                                    <option value="$gt">></option>
+                                                    <option value="$gte">>=</option>
+                                </select>
+                                <label for="inputDuration" data-i18n="_cdrs.search.duration_">Duration</label>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
-
-            </div>
-
-            <div class="control-group">
-                <div class="controls controls-row">
-                    <!-- destination -->
-                    <div class="input-append">
-                        <label for="inputDestination">Destination</label>
-                        <input type- "text" id="inputDestination" ng-model="destination"></input>
-                        <select class="selectpicker" id="choiseDestination" data-width="30px" ng-model="destinationCondition">
-                            <option value="">Equals</option>
-                            <option value="beginswith">Begins with</option>
-                            <option value="endwith">End with</option>
-                        </select>
+                <!-- second row -->
+                <div class="row-fluid">
+                    <div class="span3 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+                               <input type- "text" id="inputDestination" ng-model="destination" class="input-small"></input>
+                                <select class="selectpicker" id="choiseDestination" data-width="30px" ng-model="destinationCondition">
+                                    <option value="" data-i18n="_cdrs.search.option.equals_">Equals</option>
+                                    <option value="beginswith" data-i18n="_cdrs.search.option.beginswith_">Begins with</option>
+                                    <option value="endwith" data-i18n="_cdrs.search.option.endwith_">End with</option>
+                                </select>
+                                <label for="inputDestination" data-i18n="_cdrs.search.destination_">Destination</label>
+                            </div>
+                        </div>
                     </div>
-                    <!-- callerd id -->
 
-                    <div class="input-append">
-                        <label for="inputCallerId">Callerd Id</label>
-                        <input type- "text" id="inputCallerId" ng-model="callerId"></input>
-                        <select class="selectpicker" id="choiseCallerId" data-width="30px" ng-model="callerIdCondition">
-                            <option value="">Equals</option>
-                            <option value="beginswith">Begins with</option>
-                            <option value="endwith">End with</option>
-                        </select>
+                    <div class="span3 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+                                <input type- "text" id="inputCallerId" ng-model="callerId" class="input-small"></input>
+                                <select class="selectpicker" id="choiseCallerId" data-width="30px" ng-model="callerIdCondition">
+                                    <option value="" data-i18n="_cdrs.search.option.equals_">Equals</option>
+                                    <option value="beginswith" data-i18n="_cdrs.search.option.beginswith_">Begins with</option>
+                                    <option value="endwith" data-i18n="_cdrs.search.option.endwith_">End with</option>
+                                </select>
+                                <label for="inputCallerId" data-i18n="_cdrs.search.caller_id_">Callerd Id</label>
+                            </div>
+                        </div>
                     </div>
-                    <!-- direction -->
-                    <div class="input-append">
-                        <label for="choiseDirection">Direction</label>
-                        <select class="selectpicker" id="choiseDirection" data-width="30px" ng-model="choiseDirection">
-                            <option value="">All</option>
-                            <option value="2">Incomming</option>
-                            <option value="1">Outgoing</option>
-                        </select>
+
+                    <div class="span2 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+
+                                <select class="selectpicker" id="choiseDirection" data-width="30px" ng-model="choiseDirection">
+                                    <option value="" data-i18n="_cdrs.search.direction.option.all_">All</option>
+                                    <option value="2" data-i18n="_cdrs.search.direction.option.in_">Incomming</option>
+                                    <option value="1" data-i18n="_cdrs.search.direction.option.out_">Outgoing</option>
+                                </select>
+                                <label for="choiseDirection" data-i18n="_cdrs.search.direction_">Direction</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span2 bgcolor">
+                        <div class="control-group">
+                            <div class="controls ">
+                                <label></label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- end of the second row -->
+            <div class="row-fluid">
+                <div class="controls">
+                    <button class="btn btn-primary btn-large" ng-click="fetchCdrDatasClickHandler()" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>
+                        <span data-i18n="_cdrs.search.button_search_">Search</span>
+                    </button>
+                </div>
+            </div>
+            <!-- end of command row-->
 
             <div class="form-footer">
-                <div class="controls">
-                    <button class="btn btn-primary btn-large" ng-click="fetchCdrDatasClickHandler()" ng-disabled='form.$invalid'><i class="icon-search icon-white"></i>Search</button>
-                </div>
+
             </div>
         </form>
     </div>
 </div>
 
 <div class="row-fluid ">
-   <button class="btn pull-right" ng-class="{true: 'btn-info', false: 'btn-danger'}[!searchShow]" ng-click="searchShow = !searchShow"><i ng-class="{true: 'icon-arrow-down icon-white', false: 'icon-arrow-up icon-white'}[!searchShow]" class="icon-arrow-up icon-white"></i>{{!searchShow && 'Show' || 'Hide'}}</button>
+    <button class="btn pull-right" ng-class="{true: 'btn-info', false: 'btn-danger'}[!searchShow]" ng-click="searchShow = !searchShow"><i ng-class="{true: 'icon-arrow-down icon-white', false: 'icon-arrow-up icon-white'}[!searchShow]" class="icon-arrow-up icon-white"></i>{{!searchShow && 'Show' || 'Hide'}}</button>
 </div>
 <div class="row-fluid">
     <br/>
@@ -106,17 +149,16 @@
                 <!--<table cdr-table options="cdrOptions"> -->
                 <thead>
                     <tr>
-                        <th style="width:250px">Call date</th>
-                        <th style="width:250px">Caller Name</th>
-                        <th style="width:250px">Caller Number</th>
-                        <th style="width:250px">Destination</th>
-                        <th style="width:100px">DID</th>
-                        <th style="width:100px">Duration</th>
-                        <th style="width:100px">Bill</th>
-                        <th style="width:200px">Answer wait time</th>
-                        <th style="width:200px">Hangup cause</th>
-                        <th style="width:200px">Direction</th>
-
+                        <th style="width:250px" data-i18n="_cdrs.search.datatables.column.call_date_">Call date1</th>
+                        <th style="width:250px" data-i18n="_cdrs.search.datatables.column.caller_name_">Caller Name1</th>
+                        <th style="width:250px" data-i18n="_cdrs.search.datatables.column.caller_number_">Caller Number</th>
+                        <th style="width:250px" data-i18n="_cdrs.search.datatables.column.destination_">Destination</th>
+                        <th style="width:100px" data-i18n="_cdrs.search.datatables.column.did_">DID</th>
+                        <th style="width:100px" data-i18n="_cdrs.search.datatables.column.duration_">Duration</th>
+                        <th style="width:100px" data-i18n="_cdrs.search.datatables.column.bill_">Bill</th>
+                        <th style="width:200px" data-i18n="_cdrs.search.datatables.column.answer_wait_time_">Answer wait time</th>
+                        <th style="width:200px" data-i18n="_cdrs.search.datatables.column.hangup_cause_">Hangup cause</th>
+                        <th style="width:200px" data-i18n="_cdrs.search.datatables.column.direction_">Direction</th>
 
                     </tr>
                 </thead>

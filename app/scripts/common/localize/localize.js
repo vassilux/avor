@@ -9,19 +9,20 @@
  */
 
 angular.module('localization', [])
-    // localization service responsible for retrieving resource files from the server and
-    // managing the translation dictionary
-    .factory('localize', ['$http', '$rootScope', '$window', '$filter', function ($http, $rootScope, $window, $filter) {
+// localization service responsible for retrieving resource files from the server and
+// managing the translation dictionary
+.factory('localize', ['$http', '$rootScope', '$window', '$filter', '$cookieStore',
+    function($http, $rootScope, $window, $filter, $cookieStore) {
         var localize = {
             // use the $window service to get the language of the user's browser
-            language:$window.navigator.userLanguage || $window.navigator.language,
+            language: $window.navigator.userLanguage || $window.navigator.language,
             // array to hold the localized resource string entries
-            dictionary:[],
+            dictionary: [],
             // flag to indicate if the service hs loaded the resource file
-            resourceFileLoaded:false,
+            resourceFileLoaded: false,
 
             // success handler for all server communication
-            successCallback:function (data) {
+            successCallback: function(data) {
                 // store the returned array in the dictionary
                 localize.dictionary = data;
                 // set the flag that the resource are loaded
@@ -32,20 +33,30 @@ angular.module('localization', [])
 
             // allows setting of language on the fly
             setLanguage: function(value) {
+                $cookieStore.put("avorLanguage", value);
                 localize.language = value;
                 localize.initLocalizedResources();
             },
 
             // loads the language resource file from the server
-            initLocalizedResources:function () {
+            initLocalizedResources: function() {
+
                 // build the url to retrieve the localized resource file
                 var url = 'i18n/resources-locale_' + localize.language + '.js';
                 // request the resource file
-                $http({ method:"GET", url:url, cache:false }).success(localize.successCallback).error(function () {
+                $http({
+                    method: "GET",
+                    url: url,
+                    cache: false
+                }).success(localize.successCallback).error(function() {
                     // the request failed set the url to the default resource file
                     var url = 'i18n/resources-locale_default.js';
                     // request the default resource file
-                    $http({ method:"GET", url:url, cache:false }).success(localize.successCallback);
+                    $http({
+                        method: "GET",
+                        url: url,
+                        cache: false
+                    }).success(localize.successCallback);
                 });
             },
 
@@ -59,9 +70,8 @@ angular.module('localization', [])
                     // use the filter service to only return those entries which match the value
                     // and only take the first result
                     var entry = $filter('filter')(localize.dictionary, function(element) {
-                            return element.key === value;
-                        }
-                    )[0];
+                        return element.key === value;
+                    })[0];
 
                     // set the result
                     result = entry.value;
@@ -70,29 +80,38 @@ angular.module('localization', [])
                 return result;
             }
         };
-
+        //forse langauge from cookies
+        var language = $cookieStore.get("avorLanguage");
+        //
+        if (language != undefined) {
+            localize.language = language
+        }
         // force the load of the resource file
         localize.initLocalizedResources();
 
         // return the local instance when called
         return localize;
-    } ])
-    // simple translation filter
-    // usage {{ TOKEN | i18n }}
-    .filter('i18n', ['localize', function (localize) {
-        return function (input) {
+    }
+])
+// simple translation filter
+// usage {{ TOKEN | i18n }}
+.filter('i18n', ['localize',
+    function(localize) {
+        return function(input) {
             return localize.getLocalizedString(input);
         };
-    }])
-    // translation directive that can handle dynamic strings
-    // updates the text value of the attached element
-    // usage <span data-i18n="TOKEN" ></span>
-    // or
-    // <span data-i18n="TOKEN|VALUE1|VALUE2" ></span>
-    .directive('i18n', ['localize', function(localize){
+    }
+])
+// translation directive that can handle dynamic strings
+// updates the text value of the attached element
+// usage <span data-i18n="TOKEN" ></span>
+// or
+// <span data-i18n="TOKEN|VALUE1|VALUE2" ></span>
+.directive('i18n', ['localize',
+    function(localize) {
         var i18nDirective = {
-            restrict:"EAC",
-            updateText:function(elm, token){
+            restrict: "EAC",
+            updateText: function(elm, token) {
                 var values = token.split('|');
                 if (values.length >= 1) {
                     // construct the tag to insert into the element
@@ -111,28 +130,30 @@ angular.module('localization', [])
                 }
             },
 
-            link:function (scope, elm, attrs) {
+            link: function(scope, elm, attrs) {
                 scope.$on('localizeResourcesUpdates', function() {
                     i18nDirective.updateText(elm, attrs.i18n);
                 });
 
-                attrs.$observe('i18n', function (value) {
+                attrs.$observe('i18n', function(value) {
                     i18nDirective.updateText(elm, attrs.i18n);
                 });
             }
         };
 
         return i18nDirective;
-    }])
-    // translation directive that can handle dynamic strings
-    // updates the attribute value of the attached element
-    // usage <span data-i18n-attr="TOKEN|ATTRIBUTE" ></span>
-    // or
-    // <span data-i18n-attr="TOKEN|ATTRIBUTE|VALUE1|VALUE2" ></span>
-    .directive('i18nAttr', ['localize', function (localize) {
+    }
+])
+// translation directive that can handle dynamic strings
+// updates the attribute value of the attached element
+// usage <span data-i18n-attr="TOKEN|ATTRIBUTE" ></span>
+// or
+// <span data-i18n-attr="TOKEN|ATTRIBUTE|VALUE1|VALUE2" ></span>
+.directive('i18nAttr', ['localize',
+    function(localize) {
         var i18NAttrDirective = {
             restrict: "EAC",
-            updateText:function(elm, token){
+            updateText: function(elm, token) {
                 var values = token.split('|');
                 // construct the tag to insert into the element
                 var tag = localize.getLocalizedString(values[0]);
@@ -148,16 +169,17 @@ angular.module('localization', [])
                     elm.attr(values[1], tag);
                 }
             },
-            link: function (scope, elm, attrs) {
+            link: function(scope, elm, attrs) {
                 scope.$on('localizeResourcesUpdated', function() {
                     i18NAttrDirective.updateText(elm, attrs.i18nAttr);
                 });
 
-                attrs.$observe('i18nAttr', function (value) {
+                attrs.$observe('i18nAttr', function(value) {
                     i18NAttrDirective.updateText(elm, value);
                 });
             }
         };
 
         return i18NAttrDirective;
-    }]);
+    }
+]);
