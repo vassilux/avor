@@ -38,7 +38,7 @@ angular.module('users', ['ui.bootstrap'])
 
   $scope.editUser = function(user) {
     var userToEdit = user;
-
+    userToEdit.repeatPassword = "";
     $dialog.dialog(angular.extend(editUserDlgOpts, {
       resolve: {
         userToEdit: function() {
@@ -61,7 +61,8 @@ angular.module('users', ['ui.bootstrap'])
 
 
 $scope.removeUser = function(user) {
-  var userToRemove = user;
+    var userToRemove = user;
+    console.log("[removeuser]" + JSON.stringify(user));
 
     $dialog.dialog(angular.extend(removeUserDlgOpts, {
       resolve: {
@@ -84,7 +85,8 @@ $scope.removeUser = function(user) {
 }
 
 $scope.addNewUser = function() {
-  var userToAdd = {userName: "", lastName: "", firstName: "", password: "", admin: false};
+  var userToAdd = {userName: "", lastName: "", firstName: "", password: "", repeatPassword: "", admin: false};
+  
   //
   $dialog.dialog(angular.extend(addUserDlgOpts, {
     resolve: {
@@ -95,6 +97,7 @@ $scope.addNewUser = function() {
   })).open().then(function(result) {
     if(result) {
       angular.copy(result, userToAdd);
+      
       usersCrudService.addUser(userToAdd, function(status){
           userToAdd = undefined;
           $scope.listUsers();
@@ -117,6 +120,11 @@ $scope.listUsers();
   console.log("EditUserCtrl user to edit : " + JSON.stringify($scope.userToEdit))
 
   $scope.saveUser = function(user) {
+    if(userToEdit.userName == "" || userToEdit.lastName == "" || userToEdit.firstName == "" ||
+        userToEdit.password == "" || 
+        userToEdit.repeatPassword != userToEdit.password ){
+        return;
+      }
     dialog.close($scope.userToEdit);
   }
 
@@ -137,10 +145,16 @@ $scope.listUsers();
 }])
 
 //dialog and userToAdd injected by UsersCtrl
-.controller('AddUserCtrl', ['$rootScope', '$scope', 'dialog', 'userToAdd' , function($rootScope, $scope, dialog, userToAdd ) {
+.controller('AddUserCtrl', ['$rootScope', '$scope', 'dialog', 'userToAdd' , 
+  function($rootScope, $scope, dialog, userToAdd ) {
   $scope.userToAdd = userToAdd;
 
   $scope.addUser=function(){
+    if(userToAdd.userName == "" || userToAdd.lastName == "" || userToAdd.firstName == "" ||
+        userToAdd.password == "" || 
+        userToAdd.repeatPassword != userToAdd.password ){
+        return;
+      }
     dialog.close($scope.userToAdd);
   }
 

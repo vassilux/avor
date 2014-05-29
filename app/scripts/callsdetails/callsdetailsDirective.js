@@ -89,25 +89,25 @@
                          },
                          "oLanguage": {
                              //"sUrl": langUrl
-                             "sProcessing": "Traitement en cours...",
+                             "sProcessing": localize.getLocalizedString("_cdrs.search.datatables.i18n.sProcessing_"),
                              "sSearch": localize.getLocalizedString("_cdrs.search.datatables.i18n.sSearch_"),
-                             "sLengthMenu": "Afficher _MENU_ &eacute;l&eacute;ments",
-                             "sInfo": "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-                             "sInfoEmpty": "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-                             "sInfoFiltered": "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                             "sLengthMenu": localize.getLocalizedString("_cdrs.search.datatables.i18n.sLengthMenu_"),
+                             "sInfo": localize.getLocalizedString("_cdrs.search.datatables.i18n.sInfo_"),
+                             "sInfoEmpty": localize.getLocalizedString("_cdrs.search.datatables.i18n.sInfoEmpty_"),
+                             "sInfoFiltered": localize.getLocalizedString("_cdrs.search.datatables.i18n.sInfoFiltered_"),
                              "sInfoPostFix": "",
-                             "sLoadingRecords": "Chargement en cours...",
-                             "sZeroRecords": "Aucun &eacute;l&eacute;ment &agrave; afficher",
-                             "sEmptyTable": "Aucune donnée disponible dans le tableau",
+                             "sLoadingRecords": localize.getLocalizedString("_cdrs.search.datatables.i18n.sLoadingRecords_"),
+                             "sZeroRecords": localize.getLocalizedString("_cdrs.search.datatables.i18n.sZeroRecords_"),
+                             "sEmptyTable": localize.getLocalizedString("_cdrs.search.datatables.i18n.sEmptyTable_"),
                              "oPaginate": {
-                                 "sFirst": "Premier",
-                                 "sPrevious": "Pr&eacute;c&eacute;dent",
-                                 "sNext": "Suivant",
-                                 "sLast": "Dernier"
+                                 "sFirst": localize.getLocalizedString("_cdrs.search.datatables.i18n.sFirst_"),
+                                 "sPrevious": localize.getLocalizedString("_cdrs.search.datatables.i18n.sPrevious_"),
+                                 "sNext": localize.getLocalizedString("_cdrs.search.datatables.i18n.sNext_"),
+                                 "sLast": localize.getLocalizedString("_cdrs.search.datatables.i18n.sLast_")
                              },
                              "oAria": {
-                                 "sSortAscending": ": activer pour trier la colonne par ordre croissant",
-                                 "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                                 "sSortAscending": localize.getLocalizedString("_cdrs.search.datatables.i18n.sSortAscending_"),
+                                 "sSortDescending": localize.getLocalizedString("_cdrs.search.datatables.i18n.sSortDescending_")
                              }
                          }
                      };

@@ -64,6 +64,56 @@
         "value":"Peers",
         "description":"Menu de utilisateur/peer"
     },
+    {
+        "key":"login.reason.notAuthorized",
+        "value": "Vous n'avez pas les autorisations d'accès nécessaires. Voulez-vous vous connecter en tant que quelqu'un d'autre?",
+        "description":"Login error raison"
+    },
+    {
+        "key":"login.reason.notAuthenticated",
+        "value": "Vous devez être connecté pour accéder à cette partie de la requête.",
+        "description":"Error to the application part access."
+    },
+    {
+        "key":"login.error.invalidCredentials",
+        "value": "Échec de la connexion. S'il vous plaît vérifier vos informations et réessayer.",
+        "description":"Login failed."
+    },
+    {
+        "key":"login.error.serverError",
+        "value": "Il y avait un problème avec l'authentification.",
+        "description":"Login failed on the server side."
+    },
+    {
+        "key":"_login.form.title_",
+        "value": "S'il vous plaît entrer vos informations de connexion.",
+        "description":"Login form message."
+    },
+    {
+        "key":"_login.form.username_",
+        "value": "Nom d'utilisateur",
+        "description":"username for login into the application."
+    },
+    {
+        "key":"_login.form.password_",
+        "value": "Mot de passe",
+        "description":"Password for login into the application."
+    },
+    {
+        "key":"_login.form.signin_",
+        "value": "Connexion",
+        "description":"Sign into the application."
+    },
+    {
+        "key":"_login.form.clear_",
+        "value": "Effacer",
+        "description":"Clear user's information."
+    },
+    {
+        "key":"_login.form.cancel_",
+        "value": "Annuler",
+        "description":"Cancel connection into the application."
+    },
 
     {
         "key":"_chart.common.answered_",
@@ -316,335 +366,73 @@
         "value":"Rechercher&nbsp;:",
         "description":""
     },
-
     {
-        "key":"_dashboard.os.info.ram.used_",
-        "value":"RAM utilsiée",
-        "description":"Used RAM text"
+        "key":"_cdrs.search.datatables.i18n.sLengthMenu_",
+        "value":"Afficher _MENU_ &eacute;l&eacute;ments",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.swap.total_",
-        "value":"SWAP totale",
-        "description":"Shared RAM text"
+        "key":"_cdrs.search.datatables.i18n.sInfo_",
+        "value":"Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.swap.used_",
-        "value":"SWAP utilisé",
-        "description":"SWAP used"
-    },
-
+        "key":"_cdrs.search.datatables.i18n.sInfoEmpty_",
+        "value":"Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+        "description":""
+    },    
     {
-        "key":"_dashboard.os.info.drive.device_",
-        "value": "Device",
-        "description":"Hard drive device"
-    },
-    {
-        "key":"_dashboard.os.info.drive.mount_",
-        "value": "Point de montage",
-        "description":"Hard drive device"
+        "key":"_cdrs.search.datatables.i18n.sInfoFiltered_",
+        "value":"(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.drive.type_",
-        "value": "Type",
-        "description":"Format type"
+        "key":"_cdrs.search.datatables.i18n.sLoadingRecords_",
+        "value":"Chargement en cours...",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.drive.total_",
-        "value": "Taille de disque",
-        "description":"Disk total size"
+        "key":"_cdrs.search.datatables.i18n.sZeroRecords_",
+        "value":"Aucun &eacute;l&eacute;ment &agrave; afficher",
+        "description":""
+    },  
+    {
+        "key":"_cdrs.search.datatables.i18n.sEmptyTable_",
+        "value":"Aucune donnée disponible dans le tableau",
+        "description":""
+    }, 
+    {
+        "key":"_cdrs.search.datatables.i18n.sFirst_",
+        "value":"Premier",
+        "description":""
+    }, 
+    {
+        "key":"_cdrs.search.datatables.i18n.sPrevious_",
+        "value": "Pr&eacute;c&eacute;dent",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.drive.free_",
-        "value": "Espace disponible",
-        "description":"Free disk space"
-    },
-     {
-        "key":"_dashboard.os.info.drive.precent_",
-        "value": "Precentage d'espace utilisé",
-        "description":"Percentage of used space"
+        "key":"_cdrs.search.datatables.i18n.sNext_",
+        "value":  "Suivant",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.inf.name_",
-        "value": "Nom",
-        "description":"name of the network interface"
+        "key":"_cdrs.search.datatables.i18n.sLast_",
+        "value":  "Dernier",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.inf.address_",
-        "value": "Adresse",
-        "description":"Addresse of the network interface"
+        "key":"_cdrs.search.datatables.i18n.sSortAscending_",
+        "value":  ": activer pour trier la colonne par ordre croissant",
+        "description":""
     },
     {
-        "key":"_dashboard.os.info.inf.packets_sent_",
-        "value": "Paquets envoyés",
-        "description":"Packets sent by the network interface"
-    },
-    {
-        "key":"_dashboard.os.info.inf.packets_recv_",
-        "value": "Paquets reçus",
-        "description":"Packets received sent by the network interface"
-    },
-    {
-        "key":"_dashboard.os.info.inf.errout_",
-        "value": "Erreurs sortants",
-        "description":"Errors for outbound packets for the network interface"
-    },
-    {
-        "key":"_dashboard.os.info.inf.errin_",
-        "value": "Erreurs entrants",
-        "description":"Errors for inbound packets for the network interface"
-    },
-    {
-        "key":"errors.route.changeError",
-        "value": "Route change error",
-        "description":"Route change error"
-    },
-    {
-        "key":"login.reason.notAuthorized",
-        "value": "You do not have the necessary access permissions.  Do you want to login as someone else?",
-        "description":"Login error raison"
-    },
-    {
-        "key":"login.reason.notAuthenticated",
-        "value": "Vous devez être connecté pour accéder à cette partie de la requête.",
-        "description":"Error to the application part access."
-    },
-    {
-        "key":"login.error.invalidCredentials",
-        "value": "Échec de la connexion. S'il vous plaît vérifier vos informations et réessayer.",
-        "description":"Login failed."
-    },
-    {
-        "key":"login.error.serverError",
-        "value": "Il y avait un problème avec l'authentification.",
-        "description":"Login failed on the server side."
-    },
-    {
-        "key":"_login.form.title_",
-        "value": "S'il vous plaît entrer vos informations de connexion.",
-        "description":"Login form message."
-    },
-    {
-        "key":"_login.form.username_",
-        "value": "Nom d'utilisateur",
-        "description":"username for login into the application."
-    },
-    {
-        "key":"_login.form.password_",
-        "value": "Mot de passe",
-        "description":"Password for login into the application."
-    },
-    {
-        "key":"_login.form.signin_",
-        "value": "Connexion",
-        "description":"Sign into the application."
-    },
-    {
-        "key":"_login.form.clear_",
-        "value": "Effacer",
-        "description":"Clear user's information."
-    },
-    {
-        "key":"_login.form.cancel_",
-        "value": "Annuler",
-        "description":"Cancel connection into the application."
+        "key":"_cdrs.search.datatables.i18n.sSortDescending_",
+        "value":  ": activer pour trier la colonne par ordre décroissant",
+        "description":""
     },
 
     {
-        "key":"_peers.title.sippeers_",
-        "value": "SIP pairs",
-        "description":"SIP peers part."
-    },
-    {
-        "key":"_peers.title.iax2peers_",
-        "value": "IAX2 pairs",
-        "description":"IAX2 peers part."
-    },
-    {
-        "key":"_peers.menu.originate_call_",
-        "value": "Faire un appel",
-        "description":"Originate(make) a call"
-    },
-    {
-        "key":"_peers.menu.show_info_",
-        "value": "Afficher des informations",
-        "description":"Show peer's informations"
-    },
-    {
-        "key":"_peers.menu.show_properties_",
-        "value": "Afficher les propriétés",
-        "description":"Show peer's properties"
-    },
-    {
-        "key":"_peers.dialog.info.title_",
-        "value": "Fiche pairs",
-        "description":"user or peer informations"
-    },
-    {
-        "key":"_peers.dialog.info.object_type_",
-        "value": "Type d'objet",
-        "description":"Object Type"
-    },
-    {
-        "key":"_peers.dialog.info.channel_type_",
-        "value": "Type de canal",
-        "description":"Channel type"
-    },
-    {
-        "key":"_peers.dialog.info.channel_",
-        "value": "Canal",
-        "description":"Channel"
-    },
-    {
-        "key":"_peers.dialog.info.status_",
-        "value": "Statut",
-        "description":"Status"
-    },
-    {
-        "key":"_peers.dialog.info.forced_cid_",
-        "value": "CID forcé",
-        "description":"Forced CID"
-    },
-    {
-        "key":"_peers.dialog.info.caller_id_",
-        "value": "Identification de l'appelant",
-        "description":"Caller ID"
-    },
-    {
-        "key":"_peers.dialog.info.context_",
-        "value": "Contexte",
-        "description":"Context"
-    },
-    {
-        "key":"_peers.dialog.info.close_",
-        "value": "Fermer",
-        "description":"Close dialog"
-    },
-     {
-        "key":"_peers.dialog.originate.title_",
-        "value": "Faire un appel",
-        "description":"Originate Call"
-    },
-    {
-        "key":"_peers.dialog.originate.from_",
-        "value": "Faire un appel à partir de",
-        "description":"Originate a call from internal extention"
-    },
-    {
-        "key":"_peers.dialog.originate.destination_prompt_",
-        "value": "S'il vous plaît entrer le numéro de destination :",
-        "description":"Prompt for a destination call number"
-    },
-    {
-        "key":"_peers.dialog.originate.destination_label_",
-        "value": "Numéro de destination",
-        "description":"Destination number"
-    },
-    {
-        "key":"_peers.dialog.originate.dial_",
-        "value": "Composez",
-        "description":"Dial button label"
-    },
-    {
-        "key":"_peers.dialog.originate.cancel_",
-        "value": "Annuler",
-        "description":"Cancel button label"
-    },
-    {
-        "key":"_peers.dialog.properties.title_",
-        "value": "Propriétés",
-        "description":"Cancel button label"
-    },
-    {
-        "key":"_peers.dialog.properties.close_",
-        "value": "Fermer",
-        "description":"Close button label"
-    },
-    {
-        "key":"_calls.channels.title_",
-        "value": "Canaux",
-        "description":"Channels table title"
-    },
-    {
-        "key":"_calls.channels.column.channel_",
-        "value": "Canaux",
-        "description":"Channels table column "
-    },
-    {
-        "key":"_calls.channels.column.state_",
-        "value": "Etat",
-        "description":"State_ table column "
-    },
-    {
-        "key":"_calls.channels.menu.transfer_",
-        "value": "Transférer",
-        "description":"Transfer a channel to an other destination(internal)"
-    },
-    {
-        "key":"_calls.channels.menu.hangup_",
-        "value": "Raccrochez",
-        "description":"Hangup a channel."
-    },
-    {
-        "key":"_calls.channels.menu.show_info_",
-        "value": "Afficher les informations de canal",
-        "description":"Hangup a channel."
-    },
-    {
-        "key":"_calls.calls.title_",
-        "value": "Appels",
-        "description":"Calls table title."
-    },
-    {
-        "key":"_calls.calls.column.source_",
-        "value": "Source",
-        "description":"Source column for the calls table"
-    },
-    {
-        "key":"_calls.calls.column.status_",
-        "value": "Etat",
-        "description":"Status column for the calls table"
-    },
-    {
-        "key":"_calls.calls.column.destination_",
-        "value": "Destination",
-        "description":"Destination column for the calls table"
-    },
-    {
-        "key":"_calls.calls.menu.park_",
-        "value": "Parquer",
-        "description":"Park menu"
-    },
-    {
-        "key":"_calls.calls.menu.hangup_",
-        "value": "Raccrochez",
-        "description":"Hangup menu"
-    },
-    {
-        "key":"_calls.calls.menu.show_info_",
-        "value": "Show call information",
-        "description":"Afficher les informations d'appel"
-    },
-    {
-        "key":"_calls.parkedcalls.title_",
-        "value": "Appels parqués",
-        "description":"Parked Calls  title"
-    },
-    {
-        "key":"_calls.parkedcalls.column.call_",
-        "value": "Appel parqué",
-        "description":"Parked Call column of the parked call table"
-    },
-    {
-        "key":"_calls.parkedcalls.column.extention_",
-        "value": "Extension",
-        "description":"Extension column of the parked call table"
-    },
-    {
-        "key":"_calls.parkedcalls.column.from_",
-        "value": "Parké à partir de",
-        "description":"Parked from column of the parked call table"
-    },
-     {
         "key":"_users.column.user_name_",
         "value": "Nom d'utilisateur",
         "description":"User name column of the users table"
@@ -705,9 +493,14 @@
         "description":"Password dialog field"
     },
     {
-        "key":"_users.dialog.add_user.password_repeat",
+        "key":"_users.dialog.add_user.repeat_password_",
         "value": "Mot de passe (bis)",
         "description":"Password (repeat) dialog field"
+    },
+    {
+        "key":"_users.dialog.add_user.repeat_password_placeholder_",
+        "value": "Répéter mot de passe",
+        "description":"Password (repeat) placeholder"
     },
     {
         "key":"_users.dialog.add_user.admin_",
@@ -726,7 +519,7 @@
     },
     {
         "key":"_users.dialog.edit_user.title_",
-        "value": "Modificaiton d'utilisateur",
+        "value": "Modificaiton d'utilisateur : ",
         "description":"User edition dialog title"
     },
     {
@@ -753,5 +546,38 @@
         "key":"_users.dialog.remove_user.ok_btn_",
         "value": "OK",
         "description":"OK dialog button"
+    },
+    {
+        "key":"_dids.column.id_",
+        "value": "SDA",
+        "description":"Column SDA"
+        
+    },
+    {
+        "key":"_dids.column.value_",
+        "value": "Value",
+        "description":"Column SDA"
+        
+    },
+    {
+        "key":"_dids.column.comment_",
+        "value": "Commentaire",
+        "description":"Commentaires"
+        
+    },
+    {
+        "key":"_dids.dialog.add_did.title_",
+        "value": "Ajouter un SDA ",
+        "description":"Ajout d'un SDA title"        
+    },
+    {
+        "key":" _dids.dialog.remove_did.title_",
+        "value": "Suppression de SDA ",
+        "description":"Suppression de SDA"        
+    },
+    {
+        "key":"_dids.dialog.remove_did.warning_",
+        "value": "Êtes-vous sûr de vouloir supprimer le SDA ?",
+        "description":"Suppression de SDA"        
     }
 ]
