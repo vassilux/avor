@@ -1,17 +1,17 @@
 <div class="modal-header">
-    <div class="alert alert-info">Details for call from {{currentCdr.clid_number}} to {{currentCdr.dst}}</div>
+    <div class="alert alert-info"><span  class="span2" data-i18n="_cdrs.details.title_">Details for call from </span><span> {{currentCdr.clid_number}} <-> {{currentCdr.dst}}</span></div>
 </div>
 <div class="modal-body">
     <table class="table table-bordered table-condensed table-striped table-hover">
         <thead>
             <tr>
-                <th>Caller</th>
-                <th>Destination</th>
+                <th data-i18n="_cdrs.details.column_caller_">Caller</th>
+                <th data-i18n="_cdrs.details.column_detination_">Destination</th>
 
-                <th>Time</th>
-                <th>Type</th>
-                <th>Context</th>
-                <th>Peer</th>
+                <th data--i18n="_cdrs.details.column_time_">Time</th>
+                <th data--i18n="_cdrs.details.column_type_">Type</th>
+                <th data--i18n="_cdrs.details.column_context_">Context</th>
+                <th data--i18n="_cdrs.details.column_peer_">Peer</th>
             </tr>
         </thead>
         <tbody>
@@ -28,5 +28,5 @@
     </table>
 </div>
 <div class="modal-footer">
-    <button ng-click="close()" class="btn">Close</button>
+    <button ng-click="close()" class="btn" data--i18n="_cdrs.details.btn_close_">Close</button>
 </div>

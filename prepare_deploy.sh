@@ -23,7 +23,7 @@ fi
 mkdir "$DEPLOY_DIR"
 cp -aR app "$DEPLOY_DIR"
 
-tar cvzf "${DEPLOY_FILE_NAME" "$DEPLOY_DIR"
+tar cvzf "${DEPLOY_FILE_NAME}" "${DEPLOY_DIR}"
 
 if [ ! -f "$DEPLOY_FILE_NAME" ]; then
     echo "Deploy build failed."

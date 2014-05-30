@@ -604,5 +604,45 @@
         "key":"_peers.dialog.remove_peer.warning_",
         "value": "Are you sure to remove Peer  ?",
         "description":"Title de dialog de suppression de peer"        
-    }   
+    },
+    {
+        "key":"_cdrs.details.title_",
+        "value": "Call details",
+        "description":"Title de dialog de details cdr"        
+    },
+    {
+        "key":"_cdrs.details.column_caller_",
+        "value": "Caller",
+        "description":"Column appelant"        
+    },
+    {
+        "key":"_cdrs.details.column_detination_",
+        "value": "Destination",
+        "description":"Column destination"        
+    },
+    {
+        "key":"_cdrs.details.column_time_",
+        "value": "Time",
+        "description":"Column temps d'appel"        
+    },
+    {
+        "key":"_cdrs.details.column_type_",
+        "value": "Type",
+        "description":"Column type d'appel"        
+    },
+    {
+        "key":"_cdrs.details.column_context_",
+        "value": "Context",
+        "description":"Column contexte d'appel"        
+    },
+    {
+        "key":"_cdrs.details.column_peer_",
+        "value": "Peer",
+        "description":"Column peer d'appel"        
+    },
+     {
+        "key":"_cdrs.details.btn_close_",
+        "value": "Close",
+        "description":"Button fermer"        
+    }      
 ]
