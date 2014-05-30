@@ -154,7 +154,7 @@ directive('chartcalls', ['$filter', 'localize',
         };
 
         function updateTitle() {
-          var format = $scope.myFormat == undefined ? "dd-MM-yyyy": $scope.myFormat
+          var format = $scope.myFormat == undefined ? "dd-MM-yyyy" : $scope.myFormat
           var text = $scope.myTitle + " " + $filter('date')($scope.myDate, format);
           $scope.chartConfig.title.text = text
         };
@@ -266,7 +266,7 @@ directive('chartcalls', ['$filter', 'localize',
     };
   }
 ]).
-directive('selendpoints', ['$rootScope', 'localize','appDataService',
+directive('selendpoints', ['$rootScope', 'localize', 'appDataService',
   function($rootScope, localize, appDataService) {
     return {
       template: '<select ng-model="selectedValue" ng-options="c.id for c in values"></select>',
@@ -278,45 +278,87 @@ directive('selendpoints', ['$rootScope', 'localize','appDataService',
       controller: function($scope, $element, $attrs) {
         $scope.values = []
 
-        $scope.fetchServerDatas = function(endpoints){
+        $scope.fetchServerDatas = function(endpoints) {
           $scope.endpoints = appDataService.fetchEndPoints(endpoints);
-                $scope.datas = $scope.endpoints.then(function(response) {
-                  $scope.values = angular.copy(response)
-                  //console.log(" response : " + JSON.stringify($scope.values));
-                  var title = localize.getLocalizedString("_search.common.cbx_all_");
-                  $scope.values.unshift({"comment": "", "id":title, "value": ""})
-                  $scope.selectedValue = $scope.values[0];
-                  return response;
-                });
+          $scope.datas = $scope.endpoints.then(function(response) {
+            $scope.values = angular.copy(response)
+            //console.log(" response : " + JSON.stringify($scope.values));
+            var title = localize.getLocalizedString("_search.common.cbx_all_");
+            $scope.values.unshift({
+              "comment": "",
+              "id": title,
+              "value": ""
+            })
+            $scope.selectedValue = $scope.values[0];
+            return response;
+          });
         }
       },
       link: function(scope, elem, attrs) {
-        console.log(" givenType : " + scope.givenType);
         scope.fetchServerDatas(scope.givenType);
-
-        
       }
     };
   }
 ])
-.directive("repeatPassword", function() {
-    return {
-        require: "ngModel",
-        link: function(scope, elem, attrs, ctrl) {
-            var otherInput = elem.inheritedData("$formController")[attrs.repeatPassword];
+  .directive('bnshowhide', ['$rootScope', 'localize',
+    function($rootScope, localize) {
+      return {
+        template: '<button ng-class="class" ng-click="onShowHide()"><i ng-class="iconClass"></i>{{!searchShow && showString || hideString}} </button>',
+        restrict: 'E',
+        scope: {
+          searchShow: '=value'
+        },
+        controller: function($scope, $element, $attrs) {
+          $scope.updateString = function(){
+            $scope.showString = localize.getLocalizedString("_common.label.show_");
+            $scope.hideString = localize.getLocalizedString("_common.label.hide_");
+          }
 
-            ctrl.$parsers.push(function(value) {
-                if(value === otherInput.$viewValue) {
-                    ctrl.$setValidity("repeat", true);
-                    return value;
-                }
-                ctrl.$setValidity("repeat", false);
-            });
+          $scope.class = "btn pull-right btn-info";
+          $scope.iconClass = "icon-arrow-up icon-white";
 
-            otherInput.$parsers.push(function(value) {
-                ctrl.$setValidity("repeat", value === ctrl.$viewValue);
-                return value;
-            });
+          $scope.onShowHide = function(){
+            $scope.searchShow = !$scope.searchShow;
+            if($scope.searchShow){
+              $scope.class = "btn pull-right btn-info";
+              $scope.iconClass = "icon-arrow-up icon-white";
+              
+            }else{
+               $scope.class = "btn pull-right btn-danger";
+               $scope.iconClass = "icon-arrow-down icon-white";
+            }
+          }
+          $scope.updateString();
+
+        },
+        link: function(scope, elem, attrs) {
+          
+          scope.$on('localizeResourcesUpdates', function() {
+            scope.updateString();
+          });
         }
-    };
+      };
+    }
+  ])
+
+.directive("repeatPassword", function() {
+  return {
+    require: "ngModel",
+    link: function(scope, elem, attrs, ctrl) {
+      var otherInput = elem.inheritedData("$formController")[attrs.repeatPassword];
+
+      ctrl.$parsers.push(function(value) {
+        if (value === otherInput.$viewValue) {
+          ctrl.$setValidity("repeat", true);
+          return value;
+        }
+        ctrl.$setValidity("repeat", false);
+      });
+
+      otherInput.$parsers.push(function(value) {
+        ctrl.$setValidity("repeat", value === ctrl.$viewValue);
+        return value;
+      });
+    }
+  };
 });

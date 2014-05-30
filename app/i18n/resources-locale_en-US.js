@@ -1,4 +1,15 @@
-[{
+[
+     {
+        "key":"_common.label.show_",
+        "value":"Show",
+        "description":"Label afficher"
+    },
+    {
+        "key":"_common.label.hide_",
+        "value":"Hide",
+        "description":"Label cacher"
+    },
+    {
         "key": "_toolbar.login_",
         "value": "Login",
         "description": "Login button text"
@@ -217,12 +228,12 @@
         "description": "Combox box oprion tous"
     }, {
         "key": "_cdrs.search.cause.option.answer_",
-        "value": "Answer",
+        "value": "Answered",
         "description": "Combox box option Answer"
     }, {
         "key": "_cdrs.search.cause.option.non_answer_",
         "value": "Non Answer",
-        "description": "Combox box option Non Answer"
+        "description": "Combox box option No Answer"
     }, {
         "key": "_cdrs.search.cause.option.busy_",
         "value": "Busy",
@@ -267,7 +278,14 @@
         "key": "_cdrs.search.direction.option.out_",
         "value": "Outgoing",
         "description": "Combox box option outgoing"
-    }, {
+    },
+    {
+        "key":"_cdrs.search.direction.option.internal_",
+        "value":"Internal",
+        "description":"direction des appels internts"
+    }, 
+
+    {
         "key": "_cdrs.search.direction.option.endwith_",
         "value": "Outgoing",
         "description": "Combox box option outgoing"
@@ -523,13 +541,68 @@
         
     },
     {
+        "key":"_dids.dialog.edit_did.title_",
+        "value": "Editer le SDA ",
+        "description":"Title d'edition de SDA "        
+    },
+    {
         "key":" _dids.dialog.remove_did.title_",
-        "value": "SuppreDID will be removed ",
+        "value": "DID will be removed ",
         "description":"Suppression de SDA"        
     },
     {
         "key":"_dids.dialog.remove_did.warning_",
         "value": "Are you sure to remove did ?",
         "description":"Suppression de SDA"        
-    }
+    },
+    {
+        "key":"_peers.column.id_",
+        "value": "Peer",
+        "description":"Column Peer"        
+    },
+    {
+        "key":"_peers.column.value_",
+        "value": "Value",
+        "description":"Column Value"        
+    },
+    {
+        "key":"_peers.column.comment_",
+        "value": "Comments",
+        "description":"Column Commentaires"        
+    },
+     {
+        "key":"_peers.dialog.add_peer.title_",
+        "value": "Add a new peer or peers group",
+        "description":"Title d'ajout de peer(s)"        
+    },
+    {
+        "key":"_peers.dialog.add_peer.peer_",
+        "value": "Peer",
+        "description":"Label de formulaire"        
+    },
+    {
+        "key":"_peers.dialog.add_peer.value_",
+        "value": "Value",
+        "description":"Label de formulaire"        
+    },
+    {
+        "key":"_peers.dialog.add_peer.comment_",
+        "value": "Comments",
+        "description":"Label de formulaire"        
+    },
+    {
+        "key":"_peers.dialog.edit_peer.title_",
+        "value": "Edit peer",
+        "description":"Title de dialog d'edition de peer"        
+    },
+    {
+        "key":"_peers.dialog.remove_peer.title_",
+        "value": "Peer will be removed",
+        "description":"Title de dialog de suppression de peer"        
+    },
+    {
+        "key":"_peers.dialog.remove_peer.warning_",
+        "value": "Are you sure to remove Peer  ?",
+        "description":"Title de dialog de suppression de peer"        
+    }   
 ]

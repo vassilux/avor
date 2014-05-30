@@ -7,6 +7,9 @@
                  restrict: 'E, A, C',
                  controller: function($rootScope, $scope, $element, $attrs, $filter) {
 
+                    //$scope.out = localize.getLocalizedString("_cdrs.search.direction.option.out_");
+                    //localize.getLocalizedString("_cdrs.search.direction.option.in_");
+                    //localize.getLocalizedString("_cdrs.search.direction.option.internal_"); 
                      $scope.columnDefs = [{
                          "mDataProp": "call_date",
                          "aTargets": [0],
@@ -41,19 +44,36 @@
                          "aTargets": [7]
                      }, {
                          "mDataProp": "disposition_str",
-                         "aTargets": [8]
+                         "aTargets": [8],
+                         "fnRender": function(oObj) { 
+                             if (oObj.aData.disposition_str == "ANSWERED") {
+                                 return localize.getLocalizedString("_cdrs.search.cause.option.answer_");
+                             }else if (oObj.aData.disposition_str == "NO ANSWER") {
+                                 return localize.getLocalizedString("_cdrs.search.cause.option.non_answer_");
+                             } else if (oObj.aData.disposition_str == "BUSY") {
+                                 return localize.getLocalizedString("_cdrs.search.cause.option.busy_");
+                             }else if (oObj.aData.disposition_str == "CANCEL") {
+                                 return localize.getLocalizedString("_cdrs.search.cause.option.cancel_");
+                             }else if (oObj.aData.disposition_str == "FAILED") {
+                                 return localize.getLocalizedString("_cdrs.search.cause.option.failed_");
+                             }else if (oObj.aData.disposition_str == "CONGESTION") {
+                                 return localize.getLocalizedString("_cdrs.search.cause.option.congestion_");
+                             } else {
+                                 return oObj.aData.disposition_str;
+                             }
+                         }
                      }, {
                          "mDataProp": "inout_status",
                          "aTargets": [9],
                          "fnRender": function(oObj) {
                              if (oObj.aData.inout_status == "1") {
-                                 return "Outgoing"
+                                 return localize.getLocalizedString("_cdrs.search.direction.option.out_");
                              } else if (oObj.aData.inout_status == "2") {
-                                 return "Incomming"
+                                 return localize.getLocalizedString("_cdrs.search.direction.option.in_");
                              } else if (oObj.aData.inout_status == "3") {
-                                 return "Internal"
+                                 return localize.getLocalizedString("_cdrs.search.direction.option.internal_");
                              } else {
-                                 oObj.aData.inout_status
+                                 return oObj.aData.inout_status
                              }
                          }
                      }];
