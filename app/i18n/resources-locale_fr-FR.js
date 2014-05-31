@@ -652,7 +652,7 @@
     },
     {
         "key":"_cdrs.details.title_",
-        "value": "Detaisl d'appel",
+        "value": "Details d'appel",
         "description":"Title de dialog de details cdr"        
     },
     {
@@ -689,8 +689,17 @@
         "key":"_cdrs.details.btn_close_",
         "value": "Fermer",
         "description":"Button fermer"        
+    },
+    {
+        "key":"_cdrs.details.title_from_",
+        "value": "de",
+        "description":"Title libellé de"        
+    },
+    {
+        "key":"_cdrs.details.title_to_",
+        "value": "au",
+        "description":"Title libellé au"        
     }
-
     
   
 

@@ -1,6 +1,12 @@
 <div class="modal-header">
-    <div class="alert alert-info"><span  class="span2" data-i18n="_cdrs.details.title_">Details for call from </span><span> {{currentCdr.clid_number}} <-> {{currentCdr.dst}}</span></div>
-</div>
+    <div class="alert alert-info">
+    <span  data-i18n="_cdrs.details.title_">Details for call from </span>
+    <span  data-i18n="_cdrs.details.title_from_"> from </span>    
+    <span> {{currentCdr.clid_number}} </span>
+    <span  data-i18n="_cdrs.details.title_to_"> to </span>
+    <span> {{currentCdr.dst}}</span>
+    </div>
+</div> 
 <div class="modal-body">
     <table class="table table-bordered table-condensed table-striped table-hover">
         <thead>

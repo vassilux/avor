@@ -640,9 +640,19 @@
         "value": "Peer",
         "description":"Column peer d'appel"        
     },
-     {
+    {
         "key":"_cdrs.details.btn_close_",
         "value": "Close",
         "description":"Button fermer"        
+    },
+    {
+        "key":"_cdrs.details.title_from_",
+        "value": "from",
+        "description":"Title libellé de"        
+    },
+    {
+        "key":"_cdrs.details.title_to_",
+        "value": "to",
+        "description":"Title libellé au"        
     }      
 ]
