@@ -1,0 +1,15 @@
+<VirtualHost *:82>
+   ServerAdmin webmaster@localhost
+
+   DocumentRoot /var/www/avor/current
+  <Directory /var/www/avor/current>
+    Options SymLinksIfOwnerMatch
+    AllowOverride All
+    Order deny,allow
+    allow from all
+  </Directory>
+  
+  ErrorLog ${APACHE_LOG_DIR}/avor_error.log
+  #
+  LogLevel debug
+</VirtualHost>

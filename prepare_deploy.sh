@@ -8,9 +8,9 @@
 
 set -e
 
-VER_MAJOR="1"
-VER_MINOR="0"
-VER_PATCH="0"
+VER_MAJOR="0"
+VER_MINOR="9"
+VER_PATCH="9"
 
 DEPLOY_DIR="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}"
 DEPLOY_FILE_NAME="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}.tar.gz"
@@ -19,9 +19,15 @@ if [ -d "$DEPLOY_DIR" ]; then
     rm -rf  "$DEPLOY_DIR"
 fi
 #
+if [ -f "$DEPLOY_FILE_NAME" ]; then
+    rm -rf  "$DEPLOY_FILE_NAME"
+fi
+#
 #
 mkdir "$DEPLOY_DIR"
-cp -aR app "$DEPLOY_DIR"
+cp -aR app/* "$DEPLOY_DIR"
+pandoc -o "$DEPLOY_DIR/Install.html" ./docs/Install.md
+pandoc -o "./Install.html" ./docs/Install.md
 
 tar cvzf "${DEPLOY_FILE_NAME}" "${DEPLOY_DIR}"
 
