@@ -26,33 +26,28 @@
     },
     {
         "key":"_header.menu.daily_",
-        "value":"Quotidian",
-        "description":"Menu de statisitus par jour"
+        "value":"Quotidien",
+        "description":"Menu des statistiques par jour"
     },
     {
         "key":"_header.menu.monthly_",
         "value":"Mensuel",
-        "description":"Menu de statisitus par mois"
+        "description":"Menu des statistiques par mois"
     },
     {
         "key":"_header.menu.yearly_",
         "value":"Annuel",
-        "description":"Menu de statisitus par an"
-    },
-    {
-        "key":"_header.menu.yearly_",
-        "value":"Annuel",
-        "description":"Menu de statisitus par an"
+        "description":"Menu des statistiques par an"
     },
     {
         "key":"_header.menu.calls_details_",
-        "value":"Details d'appels",
-        "description":"Menu de details d'appel "
+        "value":"Détails d'appels",
+        "description":"Menu des détails d'appel "
     },   
     {
         "key":"_header.menu.languages_",
         "value":"Langues",
-        "description":"Menu de chox de langue"
+        "description":"Menu du choix de langue"
     },
     {
         "key":"_header.menu.admin_",
@@ -71,8 +66,8 @@
     },
     {
         "key":"_header.menu.admin.peers_",
-        "value":"Peers",
-        "description":"Menu de utilisateur/peer"
+        "value":"Utilisateurs",
+        "description":"Menu des utilisateurs/peers"
     },
     {
         "key":"login.reason.notAuthorized",
@@ -96,7 +91,7 @@
     },
     {
         "key":"_login.form.title_",
-        "value": "S'il vous plaît entrer vos informations de connexion.",
+        "value": "S'il vous plaît entrez vos informations de connexion.",
         "description":"Login form message."
     },
     {
@@ -127,19 +122,19 @@
 
     {
         "key":"_chart.common.answered_",
-        "value":"Repondu",
-        "description":"Nom de serie des apples repondu"
+        "value":"Répondu",
+        "description":"Nom de série des appels répondus"
     },
     {
         "key":"_chart.common.non_answered_",
-        "value":"Non repondu",
-        "description":"Nom de serie des apples non repondu"
+        "value":"Non répondu",
+        "description":"Nom de série des appels non répondus"
     },
 
     {
         "key":"_chart.common.y_",
         "value":"Appels",
-        "description":"Y chart title"
+        "description":"Appels"
     },
 
     {
@@ -149,24 +144,24 @@
     },
     {
         "key":"_chart.common.peer.in.title_",
-        "value":"Appels entrant par Peer",
+        "value":"Appels entrants par utilisateur",
         "description":"Appels entrant par Peer chart title"
     },
     {
         "key":"_chart.common.peer.out.title_",
-        "value":"Appels sortant par Peer",
+        "value":"Appels sortants par utilisateur",
         "description":"Appels sortant par Peer chart title"
     },
 
     {
         "key":"_search.common.did_",
         "value":"SDA",
-        "description":"Labelde recherche par SDA"
+        "description":"Label de recherche par SDA"
     },
 
     {
         "key":"_search.common.peer_",
-        "value":"Peer",
+        "value":"Utilisateur",
         "description":"Label de recherche par Peer"
     },
 
@@ -184,7 +179,7 @@
 
     {
         "key":"_search.common.choise_peer_",
-        "value":"Choix de Peer",
+        "value":"Choix d'utilisateur",
         "description":"Label de choix par Peer"
     },
 
@@ -207,7 +202,7 @@
     
     {
         "key":"_cdrs.search.date.from_",
-        "value":"Date de debut de recherche",
+        "value":"Date de début de recherche",
         "description":"Label de date de debut"
     },
     {
@@ -252,23 +247,23 @@
     },
     {
         "key":"_cdrs.search.cause.option.answer_",
-        "value":"Repondu",
+        "value":"Répondu",
         "description":"Combox box option Answer"
     },
     {
         "key":"_cdrs.search.cause.option.non_answer_",
-        "value":"Non Repondu",
+        "value":"Non Répondu",
         "description":"Combox box option Non Answer"
     },
     {
         "key":"_cdrs.search.cause.option.busy_",
         "value":"Occupé",
-        "description":"Combox box option Non Busy"
+        "description":"Combox box option Busy"
     },
     {
         "key":"_cdrs.search.cause.option.cancel_",
         "value":"Annuler",
-        "description":"Combox box option Non Cancel"
+        "description":"Combox box option Cancel"
     },
     {
         "key":"_cdrs.search.cause.option.congestion_",
@@ -287,7 +282,7 @@
     },
     {
         "key":"_cdrs.search.option.equals_",
-        "value":"Egal",
+        "value":"Égal",
         "description":"Combox box option Equals"
     },
     {
@@ -318,7 +313,7 @@
     },
     {
         "key":"_cdrs.search.direction.option.internal_",
-        "value":"Intern",
+        "value":"Interne",
         "description":"direction des appels internts"
     },
     {
@@ -534,7 +529,7 @@
     },
     {
         "key":"_users.dialog.edit_user.title_",
-        "value": "Modificaiton d'utilisateur : ",
+        "value": "Modification d'utilisateur : ",
         "description":"User edition dialog title"
     },
     {
