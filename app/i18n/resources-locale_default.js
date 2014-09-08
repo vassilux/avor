@@ -66,7 +66,7 @@
     },
     {
         "key":"_header.menu.admin.peers_",
-        "value":"Utilisateurs",
+        "value":"Peers",
         "description":"Menu des utilisateurs/peers"
     },
     {
