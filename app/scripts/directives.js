@@ -105,12 +105,12 @@ directive('chartcalls', ['$filter', 'localize',
       },
       controller: function($scope, $element, $attrs) {
         var seriesDataAnswered = {
-          name: localize.getLocalizedString("_chart.common.answered_"), //"Answered",
+          name: localize.getLocalizedString("_chart.common.answered_"),
           data: [],
           type: "column"
         };
         var seriesDataNonAnswered = {
-          name: localize.getLocalizedString("_chart.common.non_answered_"), //"Non Answered",
+          name: localize.getLocalizedString("_chart.common.non_answered_"), 
           data: [],
           type: "column"
         };
@@ -199,6 +199,10 @@ directive('chartcalls', ['$filter', 'localize',
                 return '<b>' + this.series.name + '</b><br/>' + $scope.myTitle +
                   ' ' + this.y + ' <br/> Total : ' + this.point.stackTotal;
               }
+            },
+            exporting: {
+              enabled: true,
+              /*url : "http://192.168.1.1/exporting-server/",*/
             }
           },
           series: $scope.seriesDatas,
@@ -244,11 +248,8 @@ directive('chartcalls', ['$filter', 'localize',
             borderColor: '#CCC',
             borderWidth: 1,
             shadow: false,
-            enabled: true
-          },
-          exporting: {
             enabled: false
-          }
+          }        
 
         };
         //set callback into the parent controller
@@ -259,9 +260,6 @@ directive('chartcalls', ['$filter', 'localize',
       template: '<highchart config="chartConfig"></highchart>',
       link: function(scope, element, attrs, controller) {
         //
-        /*if(scope.myFormat == undefined){
-          scope.myFormat = "dd-MM-yyyy"
-        }*/
       }
     };
   }
@@ -282,7 +280,7 @@ directive('selendpoints', ['$rootScope', 'localize', 'appDataService',
           $scope.endpoints = appDataService.fetchEndPoints(endpoints);
           $scope.datas = $scope.endpoints.then(function(response) {
             $scope.values = angular.copy(response)
-            //console.log(" response : " + JSON.stringify($scope.values));
+            //
             var title = localize.getLocalizedString("_search.common.cbx_all_");
             $scope.values.unshift({
               "comment": "",

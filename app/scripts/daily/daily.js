@@ -39,6 +39,7 @@ angular.module('app')
                 $scope.myts = dailyService.fetchDidDatas(url);
                 $scope.didDatas = $scope.myts.then(function(response) {
                     $scope.directiveDidCallsFn(response);
+                    $scope.directiveDidCallsByHourFn(response);
                     return response;
                 });
             }
@@ -53,6 +54,10 @@ angular.module('app')
 
             $scope.setDidCallsDirectiveFn = function(directiveFn){
                 $scope.directiveDidCallsFn = directiveFn
+            }
+
+            $scope.setDidCallsByHourDirectiveFn = function(directiveFn){
+                $scope.directiveDidCallsByHourFn = directiveFn
             }
             // 
             $scope.fetchPeerDatas = function() {
