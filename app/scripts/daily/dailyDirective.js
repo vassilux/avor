@@ -532,26 +532,28 @@ angular.module('app')
                         $scope.seriesDatas.length = 0;
                         //
                         for (var i = 0; i < 24; i++) {
-                            seriesDataAnswered.data.push(i%2);
-                            seriesDataNonAnswered.data.push(i%3);
+                            seriesDataAnswered.data.push(0);
+                            seriesDataNonAnswered.data.push(0);
                         };
-                        /*for (var i = 0; i < calls.length; i++) {
-                            var endPoint = calls[i];
-                            $scope.categories.push(endPoint._id);
-                            var dispositions = endPoint.dispositions;
-                            var answered = 0
-                            var nonAnswered = 0;
-                            for (var j = 0; j < dispositions.length; j++) {
-                                var disposition = dispositions[j]
-                                if (disposition.status == 16) {
-                                    answered += disposition.callsCount;
-                                } else {
-                                    nonAnswered += disposition.callsCount;
+                        //
+                        for(var i= 0; i < calls.length; i++){
+                            var did = calls[i];
+                            //
+                            for(var j=0; j < did.dispositions.length; j++){
+                                var disposition = did.dispositions[j];
+                                //
+                                if(disposition.status == 16){
+                                    for(var k=0; k < 24;k++){
+                                        seriesDataAnswered.data[k] += disposition.callHourly[k];                                           
+                                    }                                    
+                                }else{
+                                   for(var k=0; k < 24;k++){
+                                        seriesDataNonAnswered.data[k] += disposition.callHourly[k];   
+                                    }   
                                 }
                             }
-                            seriesDataAnswered.data.push(answered);
-                            seriesDataNonAnswered.data.push(nonAnswered);
-                        }*/
+                                                       
+                        }
                         //
                         $scope.seriesDatas.push(seriesDataAnswered);
                         $scope.seriesDatas.push(seriesDataNonAnswered);
@@ -587,16 +589,7 @@ angular.module('app')
                                     pointInterval: 3600 * 1000,
                                 },
                                 stickyTracking: false,
-                                /*column: {
-                                    stacking: 'column',
-                                    dataLabels: {
-                                        enabled: false,
-                                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
-                                        style: {
-                                            textShadow: '0 0 3px black, 0 0 3px black'
-                                        }
-                                    }
-                                },*/
+                                
                                 tooltip: {
                                     yDecimals: 2
                                 }
@@ -604,8 +597,11 @@ angular.module('app')
                             },
                             tooltip: {
                                 formatter: function() {
+                                    var format = $scope.myFormat == undefined ? "dd-MM-yyyy HH:mm" : $scope.myFormat
+                                    //must be checked cause UTC used
+                                    //var mydate = $filter('date')(this.x - 3600 * 1000, format);
                                     return '<b>' + this.series.name + '</b><br/>' + $scope.myTitle +
-                                        ' ' + this.y + ' <br/> Total : ' + this.point.stackTotal;
+                                        ' ' + this.y + ' </br> ';
                                 }
                             },
                             exporting: {

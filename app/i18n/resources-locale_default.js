@@ -142,6 +142,13 @@
         "value":"Appel par SDA",
         "description":"Title de chart par SDA"
     },
+
+    {
+        "key":"_chart.common.sda.hour.title_",
+        "value":"Appel par heure",
+        "description":"Title de chart l'appel par heure"
+    },
+
     {
         "key":"_chart.common.peer.in.title_",
         "value":"Appels entrants par utilisateur",

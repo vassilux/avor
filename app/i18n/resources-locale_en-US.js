@@ -130,7 +130,13 @@
         "key": "_chart.common.sda.title_",
         "value": "Appel par SDA",
         "description": "Title de chart par SDA"
-    }, {
+    }, 
+    {
+        "key":"_chart.common.sda.hour.title_",
+        "value":"Calls by hours",
+        "description":"Title de chart l'appel par heure"
+    },
+    {
         "key": "_chart.common.peer.in.title_",
         "value": "Incomming calls by peer",
         "description": "Appels entrant par SDA chart title"
