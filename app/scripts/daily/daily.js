@@ -80,7 +80,7 @@ angular.module('app')
 
             $scope.fetchDidCallsByHoursDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/didincommingcallsbyhours/';
-                var didDate = $filter('date')($scope.dailyPeerDate, 'yyyy-MM-dd');
+                var didDate = $filter('date')($scope.dailyDidDate, 'yyyy-MM-dd');
                 url += didDate + 'T23:59:59Z';
                 if ($scope.choiseDid.value != "") {
                     url += "/" + $scope.choiseDid.value
