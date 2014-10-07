@@ -16,9 +16,9 @@ Créer le lien symbolic <b>ln -s /opt/avoir_[version] /var/www/avor/current</b>
 
 Modifier le fichier /etc/apache2/ports.conf pour ajouter le port (dans notre cas le port 81) Listen 81
 
-Activer le module d'apache rewrite: a2enmod rewrite. Ce module est utilsié pour la gestion de routage de html5.
+Activer le module d'apache rewrite: <b>a2enmod rewrite</b>. Ce module est utilsié pour la gestion de routage de html5.
 
-Redémarrer le serveur apache service apache2 restart
+Redémarrer le serveur apache <b>service apache2 restart</b>
 
 Créer le fichier dans /etc/apache2/sites-available/avor avec le contenu , l'example de port est 81
 
@@ -42,7 +42,7 @@ Créer le fichier dans /etc/apache2/sites-available/avor avec le contenu , l'exa
 
 Activer le site en executant commande <b>a2ensite avor</b>. 
 
+Note:
+En cas de desinstallation la desactivaziton de site peut se faire via commande <b>a2dissite avor</b>.
 
-Site associé à l'applicaiton avor peut être desactiver a2dissite avor.
-
-Redémarrer le serveur web apache pour la prise en compte de cette modification : /etc/init.d/apache2 restart
+Redémarrer le serveur web apache pour la prise en compte de cette modification : service apache2 restart<b>
