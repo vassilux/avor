@@ -10,7 +10,7 @@ Copier le fichier avoir_[version].tar.gz dans ce répertoire /opt.
 
 Decompresser le fichier avor_[version].tar.gz  <b>tar xzf avoir_[version].tar.gz</b>
 
-Créer le lien symbolic <b>ln -s /opt/avoir_[version] /var/www/avor/current</b>
+Créer le lien symbolic <b>ln -s /opt/avor_[version] /var/www/avor/current</b>
 
 ###Paramétrage de serveur apache
 
