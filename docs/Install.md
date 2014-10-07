@@ -4,17 +4,22 @@
 
 ###Installation de l'application avor et paramétrage de serveur apache.
 
-Créer le répertoire /var/www/avor/.
+Créer le répertoire  avoir <b>mkdir /var/www/avor</b>.
 
-Copier le fichier avoir_[version].tar.gz dans ce répertoire /var/www/avor/.
+Copier le fichier avoir_[version].tar.gz dans ce répertoire /opt.
 
-Placer dans le répertoire cd /var/www/avor
+Decompresser le fichier avoir_[version].tar.gz  <b>tar xzf avoir_[version].tar.gz</b>
 
-Decompresser le fichier avoir_[version].tar.gz
-
-Créer le lien symbolic ln -s /var/www/avoir/avoir_[version] /var/www/avor/current
+Créer le lien symbolic <b>ln -s /opt/avoir_[version] /var/www/avor/current</b>
 
 ###Paramétrage de serveur apache
+
+Modifier le fichier /etc/apache2/ports.conf pour ajouter le port (dans notre cas le port 81) Listen 81
+
+Activer le module d'apache rewrite: a2enmod rewrite. Ce module est utilsié pour la gestion de routage de html5.
+
+Redémarrer le serveur apache service apache2 restart
+
 Créer le fichier dans /etc/apache2/sites-available/avor avec le contenu , l'example de port est 81
 
 
@@ -33,11 +38,10 @@ Créer le fichier dans /etc/apache2/sites-available/avor avec le contenu , l'exa
 </VirtualHost>
 ```
 
-Modifier le fichier /etc/apache2/ports.conf pour ajouter le port (dans notre cas le port 81) Listen 81
 
-Activer le site a2ensite avor. 
 
-Activer le module d'apache rewrite: a2enmod rewrite. Ce module est utilsié pour la gestion de routage de html5.
+Activer le site en executant commande <b>a2ensite avor</b>. 
+
 
 Site associé à l'applicaiton avor peut être desactiver a2dissite avor.
 
