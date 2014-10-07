@@ -46,3 +46,6 @@ Note:
 En cas de desinstallation la desactivaziton de site peut se faire via commande <b>a2dissite avor</b>.
 
 Redémarrer le serveur web apache pour la prise en compte de cette modification : service apache2 restart<b>
+
+Editer le fichier config.json et changer l'adresse de serveur et le port de serveur pour l'adresse publique de serveur.
+
