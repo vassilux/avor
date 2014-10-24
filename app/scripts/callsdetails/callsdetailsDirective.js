@@ -105,7 +105,7 @@
                                  'sFileName': 'cdrs.pdf',
                                  'mColumns': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                              }],
-                             'sSwfPath': "http://cdnjs.cloudflare.com/ajax/libs/datatables-tabletools/2.1.5/swf/copy_csv_xls_pdf.swf"
+                             'sSwfPath': "vendor/datatables/swf/copy_csv_xls_pdf.swf"
                          },
                          "oLanguage": {
                              //"sUrl": langUrl

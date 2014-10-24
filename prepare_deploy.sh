@@ -27,7 +27,12 @@ fi
 mkdir "$DEPLOY_DIR"
 cp -aR app/* "$DEPLOY_DIR"
 pandoc -o "$DEPLOY_DIR/Install.html" ./docs/Install.md
-pandoc -o "./Install.html" ./docs/Install.md
+pandoc -o "$DEPLOY_DIR/docs/ReleaseNotes.html" ./docs/ReleaseNotes.md
+
+cp "$DEPLOY_DIR/docs/INSTALL.html" .
+cp "$DEPLOY_DIR/docs/ReleaseNotes.html" .
+
+rm -rf "$DEPLOY_DIR/bower_components.tar.gz"
 
 tar cvzf "${DEPLOY_FILE_NAME}" "${DEPLOY_DIR}"
 
