@@ -10,7 +10,7 @@ set -e
 
 VER_MAJOR="1"
 VER_MINOR="0"
-VER_PATCH="0"
+VER_PATCH="1"
 
 DEPLOY_DIR="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}"
 DEPLOY_FILE_NAME="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}.tar.gz"
@@ -26,7 +26,9 @@ fi
 #
 mkdir "$DEPLOY_DIR"
 cp -aR app/* "$DEPLOY_DIR"
-pandoc -o "$DEPLOY_DIR/Install.html" ./docs/Install.md
+mkdir "$DEPLOY_DIR/docs"
+sleep 1
+pandoc -o "$DEPLOY_DIR/docs/INSTALL.html" ./docs/INSTALL.md
 pandoc -o "$DEPLOY_DIR/docs/ReleaseNotes.html" ./docs/ReleaseNotes.md
 
 cp "$DEPLOY_DIR/docs/INSTALL.html" .
