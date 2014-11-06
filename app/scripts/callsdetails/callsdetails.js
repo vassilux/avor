@@ -149,6 +149,8 @@ angular.module('app')
                         return localize.getLocalizedString("_cdrs.search.cause.option.answer_");
                     }else if (data == "NO ANSWER") {
                         return localize.getLocalizedString("_cdrs.search.cause.option.non_answer_");
+                    }else if (data == "NOANSWER") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.non_answer_");
                     } else if (data == "BUSY") {
                         return localize.getLocalizedString("_cdrs.search.cause.option.busy_");
                     }else if (data == "CANCEL") {
@@ -158,7 +160,7 @@ angular.module('app')
                     }else if (data == "CONGESTION") {
                         return localize.getLocalizedString("_cdrs.search.cause.option.congestion_");
                     } else {
-                        return oObj.aData.disposition_str;
+                        return data;
                     }
                  }),
                 DTColumnBuilder.newColumn('inout_status').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_")).notSortable()
@@ -170,7 +172,7 @@ angular.module('app')
                     } else if (data == "3") {
                         return localize.getLocalizedString("_cdrs.search.direction.option.internal_");
                     }else {
-                        return oObj.aData.disposition_str;
+                        return data;
                     }
                  }),
             ];
@@ -178,6 +180,7 @@ angular.module('app')
         $scope.fetchCdrDetailsClickHandler = function(cdr) {
             if (cdr.uniqueId == undefined) {
                 console.log("Oups uniqueId is undefined.")
+                return
             }
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrdetails/" + cdr.uniqueId;            
 

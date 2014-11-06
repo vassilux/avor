@@ -100,13 +100,8 @@ angular.module('app')
                         var callsLength = calls.length
                         for (var i = 0; i < callsLength; i++) {
                             var monthData = calls[i];
-                            for(var j = 0; j < monthData.datas.length; j++){
-                                if(monthData.datas[j].status == 16){
-                                    seriesDataAnswered.data[monthData._id - 1][1] += monthData.datas[j].callsCount;
-                                }else{
-                                    seriesDataNonAnswered.data[monthData._id - 1][1] += monthData.datas[j].callsCount;
-                                }
-                            }
+                            seriesDataAnswered.data[monthData.month - 1][1] += monthData.calls - monthData.missing;
+                            seriesDataNonAnswered.data[monthData.month - 1][1] += monthData.missing;
                         }
                         //
                         $scope.seriesDatas.push(seriesDataAnswered);
@@ -116,7 +111,7 @@ angular.module('app')
 
                     function updateTitle() {
                         var format = $scope.myFormat == undefined ? "yyyy" : $scope.myFormat
-                        var text = $scope.myTitle + " " + $filter('date')($scope.myDate, format);
+                        var text = $scope.myTitle + " mmm " + $filter('date')($scope.myDate, format);
                         $scope.chartConfig.title.text = text
                     };
 
@@ -273,15 +268,11 @@ angular.module('app')
                         };
 
                         var callsLength = calls.length
+                       
                         for (var i = 0; i < callsLength; i++) {
                             var monthData = calls[i];
-                            for(var j = 0; j < monthData.datas.length; j++){
-                                if(monthData.datas[j].status == 16){
-                                    seriesDataAnswered.data[monthData._id - 1][1] += monthData.datas[j].callsCount;
-                                }else{
-                                    seriesDataNonAnswered.data[monthData._id - 1][1] += monthData.datas[j].callsCount;
-                                }
-                            }
+                            seriesDataAnswered.data[monthData.month - 1][1] += monthData.calls - monthData.missing;
+                            seriesDataNonAnswered.data[monthData.month - 1][1] += monthData.missing;
                         }
                         //
                         $scope.seriesDatas.push(seriesDataAnswered);

@@ -172,6 +172,159 @@ angular.module('app')
                 })
             ];
 
+            // peer in datas part
+            $scope.dtPeerInOptions = DTOptionsBuilder
+            .fromSource('testdata/yeardidcallsdataempty.json')
+            .withOption('createdRow', function(row, data, dataIndex) {
+                    // Recompiling so we can bind Angular directive to the DT
+                    $compile(angular.element(row).contents())($scope);
+            })
+            .withLanguage({
+                sUrl: langUrl
+            })
+            .withBootstrap()
+            // Overriding the classes
+            .withBootstrapOptions({
+                TableTools: {
+                    classes: {
+                        container: 'btn-group',
+                        buttons: {
+                            normal: 'btn btn-danger'
+                        }
+                    }
+                },
+                ColVis: {
+                    classes: {
+                        masterButton: 'btn btn-primary'
+                    }
+                }
+            })
+            // Add ColVis compatibility
+            .withColVis()
+            //make grouping by DID
+            .withOption('fnDrawCallback', function ( oSettings  ) {
+                var api = this.api();
+                var rows = api.rows( {page:'current'} ).nodes();
+                var last=null;
+                 
+                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+                    if ( last !== group ) {
+                        $(rows).eq( i ).before(
+                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
+                            + localize.getLocalizedString("_search.common.peer_") + ': ' +group+'</i></td></tr>');
+                            last = group;
+                    }
+                } );
+                            
+                            
+            })
+            .withPaginationType('full_numbers')
+            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+            .withTableToolsButtons([
+                'copy',
+                'print', {
+                    'sExtends': 'collection',
+                    'sButtonText': 'Save',
+                    'aButtons': ['csv', 'xls', 'pdf']
+                }
+            ]);
+
+            $scope.dtPeerInColumnDefs = [
+                DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_search.common.peer_")).notVisible(),
+                DTColumnBuilder.newColumn('month').withTitle(localize.getLocalizedString("_year_dids_table_column_month_"))
+                .renderWith(function(data, type, full, meta) {
+                    var monthKey = "_year_month_" + data + "_"
+                    return localize.getLocalizedString(monthKey);
+                }),
+                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
+                DTColumnBuilder.newColumn('missing').withTitle(localize.getLocalizedString("_year_dids_table_column_missing_")),
+                DTColumnBuilder.newColumn('percent').withTitle('%')
+                .renderWith(function(data, type, full, meta) {                    
+                    return  Math.round(data) + "%" ;
+                }),
+                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
+                .renderWith(function(data, type, full, meta) {                    
+                    return $scope.SecondsToHMS(data);
+                })
+            ];
+            // peer in datas part end
+
+            //peer out datas part
+             $scope.dtPeerOutOptions = DTOptionsBuilder
+            .fromSource('testdata/yeardidcallsdataempty.json')
+            .withOption('createdRow', function(row, data, dataIndex) {
+                    // Recompiling so we can bind Angular directive to the DT
+                    $compile(angular.element(row).contents())($scope);
+            })
+            .withLanguage({
+                sUrl: langUrl
+            })
+            .withBootstrap()
+            // Overriding the classes
+            .withBootstrapOptions({
+                TableTools: {
+                    classes: {
+                        container: 'btn-group',
+                        buttons: {
+                            normal: 'btn btn-danger'
+                        }
+                    }
+                },
+                ColVis: {
+                    classes: {
+                        masterButton: 'btn btn-primary'
+                    }
+                }
+            })
+            // Add ColVis compatibility
+            .withColVis()
+            //make grouping by DID
+            .withOption('fnDrawCallback', function ( oSettings  ) {
+                var api = this.api();
+                var rows = api.rows( {page:'current'} ).nodes();
+                var last=null;
+                 
+                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+                    if ( last !== group ) {
+                        $(rows).eq( i ).before(
+                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
+                            + localize.getLocalizedString("_search.common.peer_") + ': ' +group+'</i></td></tr>');
+                            last = group;
+                    }
+                } );
+                            
+                            
+            })
+            .withPaginationType('full_numbers')
+            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+            .withTableToolsButtons([
+                'copy',
+                'print', {
+                    'sExtends': 'collection',
+                    'sButtonText': 'Save',
+                    'aButtons': ['csv', 'xls', 'pdf']
+                }
+            ]);
+
+            $scope.dtPeerOutColumnDefs = [
+                DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_search.common.peer_")).notVisible(),
+                DTColumnBuilder.newColumn('month').withTitle(localize.getLocalizedString("_year_dids_table_column_month_"))
+                .renderWith(function(data, type, full, meta) {
+                    var monthKey = "_year_month_" + data + "_"
+                    return localize.getLocalizedString(monthKey);
+                }),
+                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
+                DTColumnBuilder.newColumn('missing').withTitle(localize.getLocalizedString("_year_dids_table_column_missing_")),
+                DTColumnBuilder.newColumn('percent').withTitle('%')
+                .renderWith(function(data, type, full, meta) {                    
+                    return  Math.round(data) + "%" ;
+                }),
+                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
+                .renderWith(function(data, type, full, meta) {                    
+                    return $scope.SecondsToHMS(data);
+                })
+            ];
+            //peer out datas part end 
             $scope.fetchDidDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/yearly/didincomming/';
                 var didDate = $filter('date')($scope.didDate, 'yyyy');
@@ -195,16 +348,13 @@ angular.module('app')
                     $scope.DidCallsYearDirectiveFn(monthlyResponse);
                     return monthlyResponse;
                 });
-                //just
+                //
                 var sUrlDids = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/yearly/did/bymonth/calls/" + didDate
                 if ($scope.choiseDid.value != "") {
                     sUrlDids += "/" + $scope.choiseDid.value
                 }
-                //sUrlDids += "/" + new Date().getTime();
-               // $scope.dtOptions.sAjaxSource = sUrlDids; //'testdata/yeardidcallsdata.json'
-                //$scope.dtOptions.withDataProp('testdata/yeardidcallsdata.json')
-                //$scope.dtOptions.sAjaxSource = 'testdata/cdrsempty.json'
-                //$scope.dtOptions.reloadData();
+                //workaround for jquery ajax cache
+                sUrlDids += "/" + (new Date()).getTime();
                 $scope.dtOptions.sAjaxSource = sUrlDids;
                 $scope.dtOptions.reloadData();
             }
@@ -231,7 +381,6 @@ angular.module('app')
                 }
                 $scope.byPeerInMonth = yearlyService.fetchDidDatas(monthInUrl);
                 $scope.peerInMonthDatas = $scope.byPeerInMonth.then(function(peerInCalls) {
-                    console.log("response by byPeerInMonth : " + JSON.stringify(peerInCalls));
                     $scope.directiveInCallsYearFn(peerInCalls);
                     return peerInCalls;
                 });
@@ -244,10 +393,27 @@ angular.module('app')
 
                 $scope.byPeerOutMonth = yearlyService.fetchDidDatas(monthOutUrl);
                 $scope.peerOutMonthDatas = $scope.byPeerOutMonth.then(function(peerOutCalls) {
-                    console.log("response by byPeerOutMonth : " + JSON.stringify(peerOutCalls));
                     $scope.directiveOutCallsYearFn(peerOutCalls);
                     return peerOutCalls;
                 });
+                //
+                var sUrlPeerInDatas = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/yearly/peer/bymonth/incalls/" + peerDate
+                if ($scope.choisePeer.value != "") {
+                    sUrlDids += "/" + $scope.choisePeer.value
+                }
+                //workaround for jquery ajax cache
+                sUrlPeerInDatas += "/" + (new Date()).getTime();
+                $scope.dtPeerInOptions.sAjaxSource = sUrlPeerInDatas;
+                $scope.dtPeerOutOptions.reloadData();
+                //
+                var sUrlPeerOutDatas = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/yearly/peer/bymonth/outcalls/" + peerDate
+                if ($scope.choisePeer.value != "") {
+                    sUrlPeerOutDatas += "/" + $scope.choisePeer.value
+                }
+                //workaround for jquery ajax cache
+                sUrlPeerOutDatas += "/" + (new Date()).getTime();
+                $scope.dtPeerOutOptions.sAjaxSource = sUrlPeerOutDatas;
+                $scope.dtPeerOutOptions.reloadData();
             }
 
 
