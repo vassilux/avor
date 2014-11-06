@@ -6,7 +6,7 @@
                 <div class="row-fluid">
                     <div class="span12 bgcolor" ng-show="searchShowError">
                         <div class="alert alert-error">
-                            <a href="#" class="close" data-dismiss="alert">×</a>
+                            <a href="#" class="close" data-dismiss="alert">Ã—</a>
                             Error Messages.
                         </div>
                     </div>
@@ -31,7 +31,6 @@
                                 <span class="help-block" data-i18n="_search.common.choise_date_">Choise peer search date</span>
                             </div>
                         </div>
-                        <!--/span-->
                     </div>
                     <!--/row-->
                     <div class="row-fluid">
@@ -54,7 +53,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--/span-->
                     </div>
                     <!--/row-->
 
@@ -87,57 +85,74 @@
     </form>
     </div>
     <div class="row-fluid ">
-        <!--<button class="btn pull-right" ng-class="{true: 'btn-info', false: 'btn-danger'}[!searchShow]" ng-click="searchShow = !searchShow"><i ng-class="{true: 'icon-arrow-down icon-white', false: 'icon-arrow-up icon-white'}[!searchShow]" class="icon-arrow-up icon-white"></i>{{!searchShow && 'Show' || 'Hide'}}</button>-->
-        <bnshowhide value="searchShow"></bnshowhide>
+         <bnshowhide value="searchShow"></bnshowhide>
     </div>
     <div class="row-fluid">
         </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_common.label.did.incomming_">Appels entrants par SDA </p> </h1>
+        </div>
         </br>
     </div>
 
     <div class="row-fluid">
-        <div class="span4">
+        <div class="span6">
             <div>
-                <!-- <didcalls my-date='dailyDidDate' set-fn="setDidCallsDirectiveFn(theDirFn)"></didcalls> -->
                 <chartcalls my-date='dailyDidDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartcalls>
             </div>
         </div>
 
-        <div class="span4">
+        <div class="span6">
             <div>
-                <!-- <peerincalls my-date='dailyPeerDate' set-fn="setInCallsDirectiveFn(theDirFn)"></peerincalls> -->
+                <chartdidcallsbyhour my-date='dailyDidDate' set-fn="setDidCallsByHourDirectiveFn(theDirFn)" my-title='titleDIDCallsByHours'></chartdidcallsbyhour>
+            </div>
+        </div>        
+    </div>
+    <div class="row-fluid">
+        </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_chart.common.peer.in.title_">Appels entrants</p> </h1>
+        </div>
+        </br>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span6">
+            <div>
                 <chartcalls my-date='dailyPeerDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls'></chartcalls>
             </div>
         </div>
 
-        <div class="span4">
-            <div>
-                <!--<peeroutcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)"></peeroutcalls>-->
-                <chartcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls'></chartcalls>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-    <div class="row-fluid">
-        </br>
-        </br>
-    </div>
-
-    <div class="row-fluid">
-        <div class="span4">
-            <div>
-                <chartdidcallsbyhour my-date='dailyDidDate' set-fn="setDidCallsByHourDirectiveFn(theDirFn)" my-title='titleDIDCallsByHours'></chartdidcallsbyhour>
-            </div>
-        </div>
-
-        <div class="span4">
+        <div class="span6">
             <div>
                 <chartpeerincallsbyhour my-date='dailyPeerDate' set-fn="setPeerInCallsByHourDirectiveFn(theDirFn)" my-title='titleDIDCallsByHours'></chartpeerincallsbyhour>
             </div>
         </div>
 
+       
+    </div>
+
+    <div class="row-fluid">
+        </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_chart.common.peer.out.title_" >Appels sortants</p> </h1>
+        </div>
+        </br>
+    </div>
+
+    <div class="row-fluid">
+         <div class="span6">
+            <div>
+                <chartcalls my-date='dailyPeerDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls'></chartcalls>
+            </div>
+        </div>         
+
+        <div class="span6">
+            <div>
+                <chartpeeroutcallsbyhour my-date='dailyPeerDate' set-fn="setPeerOutCallsByHourDirectiveFn(theDirFn)" my-title='titleDIDCallsByHours'></chartpeeroutcallsbyhour>
+            </div>
+        </div>
+        
     </div>
 
     <div class="row-fluid">

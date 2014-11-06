@@ -11,7 +11,6 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
   'networkNotificaitonService', 'localize', 'authentication', 'configuration',
   function($rootScope, $scope, configurationService, currentUser, i18nNotifications, localizedMessages,  
     networkNotificaitonService, localize, authentication, configuration) {
-    console.log("create AppCtrl");
     var config = configurationService.doStuff();
     if (config != null) {
       console.log("start AppCtrl and get data : " + JSON.stringify(config.host));
@@ -29,7 +28,7 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
     };
 
     $rootScope.setWindowTitle = function(title) {
-      $rootScope.windowTitle = "Odin : " + title;
+      $rootScope.windowTitle = "Avor : " + title;
     };
 
     $scope.$on('$routeChangeError', function(event, current, previous, rejection) {
@@ -50,7 +49,7 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
         isAdmin: currentUser.isAdmin()
       };
      
-      $scope.setWindowTitle("Odin : Please login");
+      $scope.setWindowTitle("avoir: Please login");
     });
 
     
@@ -70,8 +69,6 @@ angular.module('app').controller('AppCtrl', ['$rootScope', '$scope', 'configurat
 
 angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$cookieStore', '$route', 'currentUser', 'breadcrumbs', 'notifications', 'localize',
   function($scope, $location, $cookieStore, $route, currentUser, breadcrumbs, notifications, localize) {
-    console.log("create HeaderCtrl");
-
     $scope.location = $location;
     $scope.currentUser = currentUser;
 
@@ -87,10 +84,8 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$cookieS
 
     $scope.home = function() {
       if ($scope.currentUser.isAuthenticated()) {
-        console.log("HeaderCtrl $scope.home user Authenticated")
         $location.path('/dashboard');
       } else {
-        console.log("HeaderCtrl $scope.home user not Authenticated")
         $location.path('/home');
         $scope.windowTitle = "Vor : home";
       }

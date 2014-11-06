@@ -89,36 +89,72 @@
     </form>
     </div>
     <div class="row-fluid ">
-        <!--<button class="btn pull-right" ng-class="{true: 'btn-info', false: 'btn-danger'}[!searchShow]" ng-click="searchShow = !searchShow"><i ng-class="{true: 'icon-arrow-down icon-white', false: 'icon-arrow-up icon-white'}[!searchShow]" class="icon-arrow-up icon-white"></i>{{!searchShow && 'Show' || 'Hide'}}</button>-->
         <bnshowhide value="searchShow"></bnshowhide>
     </div>
     <div class="row-fluid">
         </br>
         </br>
     </div>
+    <div class="row-fluid">
+        </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_common.label.did.incomming_">Appels entrants par SDA </p> </h1>
+        </div>
+        </br>
+    </div>
 
     <div class="row-fluid">
-        <div class="span4">
+        <div class="span6">
             <div>
-                <!--<highchart id="dailyDidChart" config="chartDIDConfig"></highchart> -->
-                 <chartcalls my-date='didDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls' my-format="myFormat"></chartcalls>
+                <chartcalls my-date='didDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls' my-format="myFormat"></chartcalls>
             </div>
         </div>
-
-        <div class="span4">
+        <div class="span6">
             <div>
-                <!--<highchart id="dailyChart2" config="chartPeersInCallsConfig"></highchart>-->
-                 <chartcalls my-date='peerDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls' my-format="myFormat"></chartcalls>
+                <chartmonthcallsbydays my-date='didDate' set-fn="setDidCallsMonthDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartmonthcallsbydays>
             </div>
         </div>
+    </div>
 
-        <div class="span4">
+    <div class="row-fluid">
+        </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_chart.common.peer.in.title_">Appels entrants</p> </h1>
+        </div>
+        </br>
+    </div>
+     <div class="row-fluid">
+       <div class="span6">
             <div>
-                <!--<highchart id="dailyChart3" config="chartPeersOutCallsConfig"></highchart>-->
+                <chartcalls my-date='peerDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls' my-format="myFormat"></chartcalls>
+            </div>
+        </div>
+        <div class="span6">
+            <div>
+                <chartmonthcallsbydays my-date='peerDate' set-fn="setInCallsMonthDaysDirectiveFn(theDirFn)" my-title='titleInCalls'></chartmonthcallsbydays>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_chart.common.peer.out.title_" >Appels sortants</p> </h1>
+        </div>
+        </br>
+    </div>
+
+    <div class="row-fluid">  
+        <div class="span6">
+            <div>
                 <chartcalls my-date='peerDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls' my-format="myFormat"></chartcalls>
             </div>
         </div>
-
+        <div class="span6">
+            <div>
+                <chartmonthcallsbydays my-date='peerDate' set-fn="setOutCallsMonthDaysDirectiveFn(theDirFn)" my-title='titleOutCalls'></chartmonthcallsbydays>
+            </div>
+        </div>
 
     </div>
     <div class="row-fluid">

@@ -1,7 +1,10 @@
 'use strict';
 // Declare app level module which depends on filters, and services
-angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'localization', 'ui.bootstrap', 
-  'ui.bootstrap.collapse', 'plunker',
+angular.module('app', ['datatables', 'ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'localization', 
+  'ui.bootstrap', 
+  'dialogs.main',
+  'ui.bootstrap.collapse', 
+  'plunker',
   'app.filters',
   'app.services',
   'app.directives',
@@ -31,7 +34,6 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'loca
             //AppCtrl initialise rootScope variable config
             configuration: (['configurationService',
               function(configurationService) {
-                console.log("app routeProvider configuration for / route");
                 return configurationService.promise;
               }
             ])
@@ -48,7 +50,23 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'loca
       return $locationProvider.html5Mode(true); //.hashPrefix("#");
     }
   ])
-  .run(function($rootScope, $location, currentUser) {
+  .run(function($rootScope, $location, currentUser, DTDefaultOptions) {
+    //
+     DTDefaultOptions.setBootstrapOptions({
+        TableTools: {
+            classes: {
+                container: 'btn-group',
+                buttons: {
+                    normal: 'btn btn-danger'
+                }
+            }
+        },
+        ColVis: {
+            classes: {
+                masterButton: 'btn btn-primary'
+            }
+        }
+    });
     // register listener to watch route changes
     $rootScope.$on("$routeChangeStart", function(event, next, current) {
       if (currentUser.userInfo == null) {

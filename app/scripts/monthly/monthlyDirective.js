@@ -139,11 +139,8 @@ angular.module('app')
 
                 ngModel.$formatters.push(function(data){
                     var dt = $filter('date')(data, 'MM-yyyy');
-                    console.log(" ngModel formatters "  + dt);
                     return dt
                 });
-
-
 
                 var monthpicker = $(element).datepicker({
                     changeYear: true,
@@ -158,22 +155,15 @@ angular.module('app')
                         var ngModelName = this.attributes['ng-model'].value;
                         scope[ngModelName] = date;
                         scope.$apply();
-                        console.log("onChangeMonthYear leave")
-
                     },
-                    onSelect: function(date) {
-                        
-                        console.log("onSelect leave " + date);
+                    onSelect: function(date) {                        
                         var month = $(".ui-datepicker-month :selected").val()
                         var year = $(".ui-datepicker-year :selected").val()
-                        console.log(" month " + month + " year " + year)
                         $(this).datepicker('setDate', new Date(year, month, 1))
                         var ngModelName = this.attributes['ng-model'].value;
                         scope[ngModelName] = new Date(year, month, 1);
                         scope.$apply();
-
                     }
-
                 });
 
                 monthpicker.focus(function(){
@@ -182,4 +172,194 @@ angular.module('app')
             }
         };
     }
+    ])
+    .directive('chartmonthcallsbydays', ['$filter', 'localize',
+        function($filter, localize) {
+            return {
+                restrict: 'E',
+                scope: {
+                    myDate: '=myDate',
+                    myTitle: '=myTitle',
+                    myFormat: '=myFormat',
+                    setFn: '&',
+                },
+                controller: function($scope, $element, $attrs) {
+                    var seriesDataAnswered = {
+                        name: localize.getLocalizedString("_chart.common.answered_"),
+                        data: [],
+                        type: "spline"
+                    };
+                    var seriesDataNonAnswered = {
+                        name: localize.getLocalizedString("_chart.common.non_answered_"),
+                        data: [],
+                        type: "spline"
+                    };
+
+                    $scope.seriesDatas = [];
+                    $scope.categories = [];
+
+                    $scope.seriesDatas.push(seriesDataAnswered);
+                    $scope.seriesDatas.push(seriesDataNonAnswered);
+                    //
+                    //
+
+                    function processData(calls) {
+                        seriesDataAnswered.data.length = 0;
+                        seriesDataNonAnswered.data.length = 0;
+                        //
+                        $scope.categories.length = 0;
+                        $scope.seriesDatas.length = 0;
+                        //
+                        var year = $filter('date')($scope.myDate, 'yyyy');
+                        var month = $filter('date')($scope.myDate, 'MM') ;
+                        //javascript month  == month -1 
+                        //get the days number for the given month
+                        var daysInMonth = 32 - new Date(year, month-1, 32).getDate();
+                        
+                        for (var i = 0; i <= daysInMonth; i++) {
+                            var initDate = Date.UTC(year, month-1, i+1)
+                            seriesDataAnswered.data[i] = ([initDate,0]);
+                            seriesDataNonAnswered.data[i] = ([initDate,0]);
+                        };
+
+                        var callsLength = calls.length
+                        for (var i = 0; i < callsLength; i++) {
+                            var monthData = calls[i];
+                            for(var j = 0; j < monthData.datas.length; j++){
+                                //monthData._id define the disposition , means answered, unanswered etc by code
+                                if(monthData._id == 16){                                    
+                                    for (var k = 1; k <= daysInMonth; k++) {
+                                        if(monthData.datas[j].callsDaily[k]){
+                                            seriesDataAnswered.data[k][1] += monthData.datas[j].callsDaily[k];
+                                        }                                        
+                                    };                                    
+                                }else{
+                                    for (var k = 0; k <= daysInMonth; k++) {
+                                        if(monthData.datas[j].callsDaily[k]){
+                                            seriesDataNonAnswered.data[k][1] += monthData.datas[j].callsDaily[k];
+                                        } 
+                                    };                                    
+                                }
+                            }//for datas length
+                        }
+                        //
+                        //console.log("seriesDataNonAnswered : " + JSON.stringify(seriesDataNonAnswered))
+                        $scope.seriesDatas.push(seriesDataAnswered);
+                        $scope.seriesDatas.push(seriesDataNonAnswered);
+                        $scope.chartConfig.series = $scope.seriesDatas;
+                    };
+
+                    function updateTitle() {
+                        var format = $scope.myFormat == undefined ? "MM-yyyy" : $scope.myFormat
+                        var text = $scope.myTitle + " " + $filter('date')($scope.myDate, format);
+                        $scope.chartConfig.title.text = text
+                    };
+
+                    $scope.updateData = function(didCalls) {
+                        processData(didCalls);
+                        updateTitle();
+                    }
+                    //
+                    var d = new Date();
+                    $scope.chartConfig = {
+                        options: {
+                            chart: {
+                                marginRight: 10,
+                                events: {
+                                    load: function() {
+
+                                    }
+                                }
+                            },
+                            plotOptions: {
+                                series: {
+                                    cursor: 'ns-resize',
+                                },
+                                stickyTracking: false,
+                                
+                                tooltip: {
+                                    yDecimals: 2
+                                }
+
+                            },
+                            tooltip: {
+                                formatter: function() {
+                                    var format = $scope.myFormat == undefined ? "MM-yyyy" : $scope.myFormat
+                                    return '<b>' + this.series.name + '</b><br/>' + $scope.myTitle +
+                                        ' ' + this.y + ' </br> ';
+                                }
+                            },
+                            exporting: {
+                                enabled: false,
+                            }
+                        },
+                        series: $scope.seriesDatas,
+                        title: {
+                            text: $scope.myTitle
+                        },
+                        credits: {
+                            enabled: true
+                        },
+                        loading: false,
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%e. %b',
+                                week: '%e. %b',
+                                month: '%b', //month formatted as month only
+                                year: '%Y'
+                            },
+                            labels: {
+                                formatter: function() {
+                                    return Highcharts.dateFormat('%e. %b', this.value);
+                                },
+                                rotation: -45,
+                                align: 'right',
+                                style: {
+                                    fontSize: '13px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                            }
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: localize.getLocalizedString("_chart.common.y_")
+                            },
+                            stackLabels: {
+                                enabled: true,
+                                style: {
+                                    fontWeight: 'bold',
+                                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                }
+                            }
+                        },
+                        legend: {
+                            align: 'right',
+                            x: -70,
+                            verticalAlign: 'top',
+                            y: 20,
+                            floating: true,
+                            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                            borderColor: '#CCC',
+                            borderWidth: 1,
+                            shadow: false,
+                            enabled: false
+                        }
+
+                    };
+                    //set callback into the parent controller
+                    $scope.setFn({
+                        theDirFn: $scope.updateData
+                    });
+                },
+                template: '<highchart config="chartConfig"></highchart>',
+                link: function(scope, element, attrs, controller) {
+                    //
+                }
+            };
+        }
     ]);

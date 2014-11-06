@@ -19,7 +19,6 @@ var fadeToggleDirective = function() {
 angular.module('app.directives', []).
 directive('appVersion', ['version',
   function(version) {
-    console.log("app.directives appVersion");
     return function(scope, elm, attrs) {
       elm.text(version);
     };
@@ -27,7 +26,6 @@ directive('appVersion', ['version',
 ]).
 directive('ngDsFade', function() {
   return function(scope, element, attrs) {
-    console.log("ngDsFade");
     element.css('display', 'none');
     scope.$watch(attrs.ngDsFade, function(value) {
       if (value) {

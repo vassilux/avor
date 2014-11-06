@@ -10,8 +10,9 @@ angular.module('app')
             });
         }
     ])
-    .controller('CallsDetailsCtrl', ['$rootScope', '$scope', '$timeout', '$filter', '$dialog', 'cdrService' ,
-     function($rootScope, $scope, $timeout, $filter, $dialog, cdrService) {
+    .controller('CallsDetailsCtrl', ['$rootScope', '$scope', '$timeout', '$filter', '$dialog', 
+        'cdrService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'localize', 'dialogs',
+     function($rootScope, $scope, $timeout, $filter, $dialog, cdrService, DTOptionsBuilder, DTColumnBuilder, $compile, localize, dialogs) {
         //
         $scope.dialogCallDetailsOptions = {
             backdrop: true,
@@ -53,60 +54,147 @@ angular.module('app')
 
         $scope.message = '';
 
-        function format(d) {
-            // `d` is the original data object for the row
-            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                '<tr>' +
-                '<td>Full name:</td>' +
-                '<td>' + d.name + '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Extension number:</td>' +
-                '<td>' + d.extn + '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>Extra info:</td>' +
-                '<td>And any further details here (images etc)...</td>' +
-                '</tr>' +
-                '</table>';
-        }
+            var langUrl = "i18n/datatable_en-US.json";
+            if (localize.language == "fr-FR") {
+                langUrl = "i18n/datatable_fr-FR.json"
+            }
 
-
-        $scope.cdrSearchCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            $('td:eq(0)', nRow).bind('dblclick', function() {
-                $scope.$apply(function() {
-                    $scope.fetchCdrDetailsClickHandler(aData);
+            $scope.dtOptions = DTOptionsBuilder
+            .fromSource('')
+            .withOption('createdRow', function(row, data, dataIndex) {
+                    // Recompiling so we can bind Angular directive to the DT
+                    $compile(angular.element(row).contents())($scope);
+            })
+            .withOption('rowCallback', function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            // Unbind first in order to avoid any duplicate handler (see https://github.com/l-lin/angular-datatables/issues/87)
+                $('td', nRow).unbind('click');
+                $('td', nRow).bind('click', function() {
+                    $scope.fetchCdrDetailsClickHandler(aData)
                 });
-            });
-            return nRow;
-        };
+                return nRow;
+            })
+            .withLanguage({
+                sUrl: langUrl
+            })
+            .withBootstrap()
+            // Overriding the classes
+            .withBootstrapOptions({
+                TableTools: {
+                    classes: {
+                        container: 'btn-group',
+                        buttons: {
+                            normal: 'btn btn-danger'
+                        }
+                    }
+                },
+                ColVis: {
+                    classes: {
+                        masterButton: 'btn btn-primary'
+                    }
+                }
+            })
+            // Add ColVis compatibility
+            .withColVis()
+            //make grouping by DID
+            .withOption('fnDrawCallback1', function ( oSettings  ) {
+                var api = this.api();
+                var rows = api.rows( {page:'current'} ).nodes();
+                var last=null;
+                 
+                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+                    if ( last !== group ) {
+                        $(rows).eq( i ).before(
+                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> DID : '+group+'</i></td></tr>');
+                        last = group;
+                    }
+                });       
+            })
+            .withPaginationType('full_numbers')
+            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+            .withTableToolsButtons([
+                'copy',
+                'print', {
+                    'sExtends': 'collection',
+                    'sButtonText': 'Save',
+                    'aButtons': ['csv', 'xls', 'pdf']
+                }
+            ]);
+           
+            $scope.dtColumnDefs = [
+                 DTColumnBuilder.newColumn('call_date').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.call_date_"))
+                 .renderWith(function(data, type, full, meta) {
+                     var jsDate = new Date(data);
+                             jsDate = $filter('date')(jsDate, 'dd-MM-yyyy HH:mm:ss');
+                             return "<div class='date'><i class='icon-zoom-in icon-white'></i>" + jsDate + "</div>";
+                 }),
+                 DTColumnBuilder.newColumn('clid_name').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_name_")),
+                 DTColumnBuilder.newColumn('clid_number').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_number_")),
+                 DTColumnBuilder.newColumn('dst').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.destination_")),
+                 DTColumnBuilder.newColumn('dnid').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.did_")),
+                 DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.duration_")).notSortable()
+                 .renderWith(function(data, type, full, meta) {
+                    return data + 's';
+                 }),
+                 DTColumnBuilder.newColumn('billsec').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.bill_")).notSortable()
+                 .renderWith(function(data, type, full, meta) {
+                    return data + 's';
+                 }),
+                 DTColumnBuilder.newColumn('answer_wait_time').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
+                 .renderWith(function(data, type, full, meta) {
+                    return data + 's';
+                 }),
+                 DTColumnBuilder.newColumn('disposition_str').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_")).notSortable()
+                 .renderWith(function(data, type, full, meta) {
+                    if (data == "ANSWERED") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.answer_");
+                    }else if (data == "NO ANSWER") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.non_answer_");
+                    } else if (data == "BUSY") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.busy_");
+                    }else if (data == "CANCEL") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.cancel_");
+                    }else if (data == "FAILED") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.failed_");
+                    }else if (data == "CONGESTION") {
+                        return localize.getLocalizedString("_cdrs.search.cause.option.congestion_");
+                    } else {
+                        return oObj.aData.disposition_str;
+                    }
+                 }),
+                DTColumnBuilder.newColumn('inout_status').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_")).notSortable()
+                 .renderWith(function(data, type, full, meta) {
+                    if (data == "1") {
+                        return localize.getLocalizedString("_cdrs.search.direction.option.out_");
+                    }else if (data == "2") {
+                        return localize.getLocalizedString("_cdrs.search.direction.option.in_");
+                    } else if (data == "3") {
+                        return localize.getLocalizedString("_cdrs.search.direction.option.internal_");
+                    }else {
+                        return oObj.aData.disposition_str;
+                    }
+                 }),
+            ];
 
         $scope.fetchCdrDetailsClickHandler = function(cdr) {
             if (cdr.uniqueId == undefined) {
                 console.log("Oups uniqueId is undefined.")
             }
-            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrdetails/" + cdr.uniqueId;
+            var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/cdrdetails/" + cdr.uniqueId;            
+
             $scope.cdrDetails = cdrService.fetchDetails(url);
             $scope.pollcdrDetailsData = $scope.cdrDetails.then(function(response) {
                 var callDetails = response[0].callDetails;
-                $scope.cdrDetails.length = 0;
-                var newCdrDetails = [];
-                for (var i = 0; i < callDetails.length; i++) {
-                    newCdrDetails.push(callDetails[i]);
-                }
-                $scope.cdrDetails = newCdrDetails;
-                $scope.message = 'Get ' + $scope.cdrDetails.length + " details for the call with uniqueid " + cdr.uniqueId;
-                //
-                angular.copy(cdr, $scope.currentCdr);
-                //
-                var d = $dialog.dialog($scope.dialogCallDetailsOptions)
-                d.open()
-                    .then(function(result) {
+                           
+                var data = {'currentCdr': cdr, 'cdrDetails': callDetails}
 
-                        newCdrDetails = undefined;
+                var dlg = dialogs.create('scripts/callsdetails/calldetailsdialog.tpl.html','CallDetailsCtrl', data,
+                    {}, {size:'lg'});
+                    dlg.result.then(function(){
+                        
+                    },function(){
+                        
                     });
 
-                //
                 return response;
             });
 
@@ -144,7 +232,7 @@ angular.module('app')
                 request += "&duration," + $scope.durationCondition + "," + $scope.duration;
             }
             if ($scope.destination.length > 0) {
-                console.log("$scope.destinationCondition : " + $scope.destinationCondition)
+
                 if ($scope.destinationCondition == "") {
                     request += "&destination,," + $scope.destination;
                 } else {
@@ -154,7 +242,7 @@ angular.module('app')
 
             };
             if ($scope.callerId.length > 0) {
-                console.log("$scope.callerId : " + $scope.callerId)
+
                 if ($scope.callerIdCondition == "") {
                     request += "&callerid,," + $scope.callerId;
                 } else {
@@ -165,30 +253,24 @@ angular.module('app')
             };
             //
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
-            //"/cdrs/" + stringDateFrom + 'T00:00:00Z/' + stringDateTo + 'T23:59:59Z';
-            $scope.cdrs = cdrService.fetch(url);
-            $scope.pollData = $scope.cdrs.then(function(response) {
-                var newCdrs = [];
-                for (var i = 0; i < response.length; i++) {
-                    newCdrs.push(response[i]);
-                }
-                $scope.cdrCategories = newCdrs;
-                return response;
-            });
-
+            //
+            $scope.dtOptions.sAjaxSource = url
+            $scope.dtOptions.reloadData();
         };
     }
     ])
 
-.controller('CallDetailsCtrl',['$rootScope','$scope', '$timeout', '$filter', 'dialog', 'items', 'cdr',
-    function($rootScope, $scope, $timeout, $filter, dialog, items, cdr) {
-    $scope.callDetails = items;
-    $scope.currentCdr = cdr;
-    console.log(" $scope.callDetails :  " + JSON.stringify($scope.callDetails))
-    console.log('CallDetailsCtrl create')
-
-    $scope.close = function() {
-        dialog.close(undefined);
-    };
-}
-]);
+.controller('CallDetailsCtrl',['$scope','$modalInstance', 'data', function($scope,$modalInstance, data){
+        $scope.currentCdr = data.currentCdr;
+        $scope.callDetails = data.cdrDetails;        
+        console.log("data : " + JSON.stringify(data));
+       
+        $scope.close = function(){
+            $modalInstance.close();
+        }; 
+        
+        $scope.hitEnter = function(evt){
+            $scope.close();
+        };
+    }
+    ]);

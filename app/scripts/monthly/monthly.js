@@ -32,26 +32,53 @@ angular.module('app')
                 $scope.directiveInCallsFn = directiveFn
             }
 
+            $scope.setInCallsMonthDaysDirectiveFn = function(directiveFn){
+                $scope.directiveInCallsByDaysFn = directiveFn
+            }
+            
+
             $scope.setOutCallsDirectiveFn = function(directiveFn){
                 $scope.directiveOutCallsFn = directiveFn
+            }
+
+            $scope.setOutCallsMonthDaysDirectiveFn = function(directiveFn){
+                $scope.directiveOutCallsByDaysFn = directiveFn
             }
 
             $scope.setDidCallsDirectiveFn = function(directiveFn){
                 $scope.directiveDidCallsFn = directiveFn
             }
 
+            $scope.setDidCallsMonthDirectiveFn = function(directiveFn){
+                $scope.directiveDidMonthCallsFn = directiveFn
+            }
+
+            
+
             $scope.fetchDidDatas = function() {
-                console.log("$scope.fetchDidDatas : " + $scope.didDate)
+                //console.log("$scope.fetchDidDatas : " + $scope.didDate)
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/monthly/didincomming/';
                 var didDate = $filter('date')($scope.didDate, 'yyyy-MM-dd');
                 url += didDate + 'T23:59:59Z';
                 if ($scope.choiseDid.value != "") {
                     url += "/" + $scope.choiseDid.value
                 }
-                $scope.myts = monthlyService.fetchDidDatas(url);
-                $scope.didDatas = $scope.myts.then(function(response) {
-                    console.log("response : " + JSON.stringify(response));
+                $scope.myDidts = monthlyService.fetchDidDatas(url);
+                $scope.didDatas = $scope.myDidts.then(function(response) {
+                    //console.log("response : " + JSON.stringify(response));
                     $scope.directiveDidCallsFn(response)
+                    return response;
+                });
+                //
+                var urlDidBDays = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/monthly/did/in/bydays/';
+                urlDidBDays += didDate + 'T23:59:59Z';
+                if ($scope.choiseDid.value != "") {
+                    urlDidBDays += "/" + $scope.choiseDid.value
+                }
+                $scope.myDidDaysts = monthlyService.fetchDidDatas(urlDidBDays);
+                $scope.didDatas = $scope.myDidDaysts.then(function(response) {
+                    //console.log("response : " + JSON.stringify(response));
+                    $scope.directiveDidMonthCallsFn(response)
                     return response;
                 });
             }
@@ -63,11 +90,34 @@ angular.module('app')
                 if ($scope.choisePeer.value != "") {
                     url += "/" + $scope.choisePeer.value
                 }
-                $scope.myts = monthlyService.fetchPeerDatas(url);
-                $scope.didDatas = $scope.myts.then(function(response) {
+                $scope.mytPeersData = monthlyService.fetchPeerDatas(url);
+                $scope.peersDatas = $scope.mytPeersData.then(function(response) {
                     $scope.directiveInCallsFn(response.inCalls);
                     $scope.directiveOutCallsFn(response.outCalls);
                     return response;
+                });
+                //
+                
+                var urlInPeerByDays = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/monthly/peer/in/bydays/';
+                urlInPeerByDays += peerDate + 'T23:59:59Z';
+                 if ($scope.choisePeer.value != "") {
+                    urlInPeerByDays += "/" + $scope.choisePeer.value
+                }
+                $scope.mytPeersInByDaysData = monthlyService.fetchPeerDatas(urlInPeerByDays);
+                $scope.peersDatasByDays = $scope.mytPeersInByDaysData.then(function(peerInDataResponse) {
+                    $scope.directiveInCallsByDaysFn(peerInDataResponse);
+                    return peerInDataResponse;
+                });
+
+                var urlOutPeerByDays = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/monthly/peer/out/bydays/';
+                urlOutPeerByDays += peerDate + 'T23:59:59Z';
+                 if ($scope.choisePeer.value != "") {
+                    urlOutPeerByDays += "/" + $scope.choisePeer.value
+                }
+                $scope.mytPeersOutByDaysData = monthlyService.fetchPeerDatas(urlOutPeerByDays);
+                $scope.peersDatasByDays = $scope.mytPeersOutByDaysData.then(function(peerOutDataResponse) {
+                    $scope.directiveOutCallsByDaysFn(peerOutDataResponse);
+                    return peerOutDataResponse;
                 });
             }
 

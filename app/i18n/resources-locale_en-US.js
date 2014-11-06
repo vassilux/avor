@@ -10,6 +10,11 @@
         "description":"Label cacher"
     },
     {
+        "key":"_common.label.did.incomming_",
+        "value":"Calls by DID",
+        "description":"Label cacher"
+    },
+    {
         "key": "_toolbar.login_",
         "value": "Login",
         "description": "Login button text"
@@ -660,5 +665,90 @@
         "key":"_cdrs.details.title_to_",
         "value": "to",
         "description":"Title libellé au"        
-    }      
+    },
+    {
+        "key":"_year_month_1_",
+        "value": "January",
+        "description":"month 2"        
+    },
+    {
+        "key":"_year_month_2_",
+        "value": "February",
+        "description":"month 2"        
+    },
+    {
+        "key":"_year_month_3_",
+        "value": "Mars",
+        "description":"month 3"        
+    },
+    {
+        "key":"_year_month_4_",
+        "value": "April",
+        "description":"month 4"        
+    },
+        {
+        "key":"_year_month_5_",
+        "value": "May",
+        "description":"month 5"        
+    },
+    {
+        "key":"_year_month_6_",
+        "value": "June",
+        "description":"month 6"        
+    },
+    {
+        "key":"_year_month_7_",
+        "value": "July",
+        "description":"month 7"        
+    },
+    {
+        "key":"_year_month_8_",
+        "value": "August",
+        "description":"month 8"        
+    },
+    {
+        "key":"_year_month_9_",
+        "value": "September",
+        "description":"month 9"        
+    },
+    {
+        "key":"_year_month_10_",
+        "value": "October",
+        "description":"month 10"        
+    },
+    {
+        "key":"_year_month_11_",
+        "value": "November",
+        "description":"month 11"        
+    },
+    {
+        "key":"_year_month_12_",
+        "value": "December",
+        "description":"month 12"        
+    },
+    {
+        "key":"_year_dids_table_column_did_",
+        "value": "DID",
+        "description":"SDA column"        
+    },
+    {
+        "key":"_year_dids_table_column_month_",
+        "value": "Month",
+        "description":"month column"        
+    },
+    {
+        "key":"_year_dids_table_column_calls_",
+        "value": "Calls",
+        "description":"calls column"        
+    },
+    {
+        "key":"_year_dids_table_column_missing_",
+        "value": "Missing",
+        "description":"missing column"        
+    },
+    {
+        "key":"_year_dids_table_column_duration_",
+        "value": "Duration(hh::mm:ss)",
+        "description":"Duration column"        
+    }
 ]

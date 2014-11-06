@@ -65,6 +65,10 @@ angular.module('app')
                 $scope.directivePeerInCallsByHourFn = directiveFn
             }
 
+            $scope.setPeerOutCallsByHourDirectiveFn = function(directiveFn) {
+                $scope.directivePeerOutCallsByHourFn = directiveFn
+            }
+
             // 
             $scope.fetchPeerDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/peerdatas/';
@@ -79,7 +83,8 @@ angular.module('app')
                     //console.log("response : " + JSON.stringify(response));
                     $scope.directiveInCallsFn(response.inCalls);
                     $scope.directiveOutCallsFn(response.outCalls);
-                    $scope.directivePeerInCallsByHourFn(response.hourlyCalls);
+                    $scope.directivePeerInCallsByHourFn(response.hourlyInCalls);
+                    $scope.directivePeerOutCallsByHourFn(response.hourlyOutCalls);
                     return response;
                 });
             }
