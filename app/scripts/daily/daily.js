@@ -10,8 +10,8 @@ angular.module('app')
             });
         }
     ])
-    .controller('DailyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'dailyService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile',
-        function($rootScope, $scope, $filter, localize, dailyService, DTOptionsBuilder, DTColumnBuilder, $compile) {
+    .controller('DailyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'dailyService', 'toolsService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile',
+        function($rootScope, $scope, $filter, localize, dailyService, toolsService, DTOptionsBuilder, DTColumnBuilder, $compile) {
             //set urls targes please check the backoffice routes configuration
             $scope.didsTarget = "dids"
             $scope.peersTarget = "peers"
@@ -39,7 +39,7 @@ angular.module('app')
             }
 
             $scope.dtOptions = DTOptionsBuilder
-            .fromSource('testdata/yeardidcallsdataempty.json')
+            .fromSource('')
             .withOption('createdRow', function(row, data, dataIndex) {
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
@@ -98,15 +98,178 @@ angular.module('app')
                 DTColumnBuilder.newColumn('did').withTitle(localize.getLocalizedString("_year_dids_table_column_did_")).notVisible(),
                 DTColumnBuilder.newColumn('disposition').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_"))
                 .renderWith(function(data, type, full, meta) {
-                    return data
+                    return toolsService.getLabelForHangupCause(data)
                 }),
                 DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
                 
                 DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
                 .renderWith(function(data, type, full, meta) {                    
-                    return data //$scope.SecondsToHMS(data);
+                    return toolsService.secondsToHMS(data);
+                }),
+                DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
+                .renderWith(function(data, type, full, meta) {    
+                    if(full.disposition == 16 ){
+                        return toolsService.secondsToHMS(data);
+                    }
+                    return ""
                 })
             ];
+            // incomming peer table
+            $scope.dtPeerInOptions = DTOptionsBuilder
+            .fromSource('')
+            .withOption('createdRow', function(row, data, dataIndex) {
+                    // Recompiling so we can bind Angular directive to the DT
+                    $compile(angular.element(row).contents())($scope);
+            })
+            .withLanguage({
+                sUrl: langUrl
+            })
+            .withBootstrap()
+            // Overriding the classes
+            .withBootstrapOptions({
+                TableTools: {
+                    classes: {
+                        container: 'btn-group',
+                        buttons: {
+                            normal: 'btn btn-danger'
+                        }
+                    }
+                },
+                ColVis: {
+                    classes: {
+                        masterButton: 'btn btn-primary'
+                    }
+                }
+            })
+            // Add ColVis compatibility
+            .withColVis()
+            //make grouping by DID
+            .withOption('fnDrawCallback', function ( oSettings  ) {
+                var api = this.api();
+                var rows = api.rows( {page:'current'} ).nodes();
+                var last=null;
+                 
+                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+                    if ( last !== group ) {
+                        $(rows).eq( i ).before(
+                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
+                            + localize.getLocalizedString("_year_dids_table_column_did_") + ': ' +group+'</i></td></tr>');
+                            last = group;
+                    }
+                } );
+                            
+                            
+            })
+            .withPaginationType('full_numbers')
+            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+            .withTableToolsButtons([
+                'copy',
+                'print', {
+                    'sExtends': 'collection',
+                    'sButtonText': 'Save',
+                    'aButtons': ['csv', 'xls', 'pdf']
+                }
+            ]);
+
+            $scope.dtPeerInColumnDefs = [
+                DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_year_dids_table_column_peer_")).notVisible(),
+                DTColumnBuilder.newColumn('disposition').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_"))
+                .renderWith(function(data, type, full, meta) {
+                    return toolsService.getLabelForHangupCause(data)
+                }),
+                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
+                
+                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
+                .renderWith(function(data, type, full, meta) {                    
+                    return toolsService.secondsToHMS(data);
+                }),
+                DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
+                .renderWith(function(data, type, full, meta) {    
+                    if(full.disposition == 16 ){
+                        return toolsService.secondsToHMS(data);
+                    }
+                    return ""
+                })
+            ];
+            //end of incomming table
+            //outgoing table 
+            $scope.dtPeerOutOptions = DTOptionsBuilder
+            .fromSource('')
+            .withOption('createdRow', function(row, data, dataIndex) {
+                    // Recompiling so we can bind Angular directive to the DT
+                    $compile(angular.element(row).contents())($scope);
+            })
+            .withLanguage({
+                sUrl: langUrl
+            })
+            .withBootstrap()
+            // Overriding the classes
+            .withBootstrapOptions({
+                TableTools: {
+                    classes: {
+                        container: 'btn-group',
+                        buttons: {
+                            normal: 'btn btn-danger'
+                        }
+                    }
+                },
+                ColVis: {
+                    classes: {
+                        masterButton: 'btn btn-primary'
+                    }
+                }
+            })
+            // Add ColVis compatibility
+            .withColVis()
+            //make grouping by DID
+            .withOption('fnDrawCallback', function ( oSettings  ) {
+                var api = this.api();
+                var rows = api.rows( {page:'current'} ).nodes();
+                var last=null;
+                 
+                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
+                    if ( last !== group ) {
+                        $(rows).eq( i ).before(
+                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
+                            + localize.getLocalizedString("_year_dids_table_column_did_") + ': ' +group+'</i></td></tr>');
+                            last = group;
+                    }
+                } );
+                            
+                            
+            })
+            .withPaginationType('full_numbers')
+            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
+            .withTableToolsButtons([
+                'copy',
+                'print', {
+                    'sExtends': 'collection',
+                    'sButtonText': 'Save',
+                    'aButtons': ['csv', 'xls', 'pdf']
+                }
+            ]);
+
+            $scope.dtPeerOutColumnDefs = [
+                DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_year_dids_table_column_peer_")).notVisible(),
+                DTColumnBuilder.newColumn('disposition').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_"))
+                .renderWith(function(data, type, full, meta) {
+                    return toolsService.getLabelForHangupCause(data)
+                }),
+                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
+                
+                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
+                .renderWith(function(data, type, full, meta) {                    
+                    return toolsService.secondsToHMS(data);
+                }),
+                DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
+                .renderWith(function(data, type, full, meta) {    
+                    if(full.disposition == 16 ){
+                        return toolsService.secondsToHMS(data);
+                    }
+                    return ""
+                })
+            ];
+            //end of outgoing table 
             //
             $scope.fetchDidDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/did/in/';
@@ -130,6 +293,8 @@ angular.module('app')
                 sUrlDids += "/" + (new Date()).getTime();
                 $scope.dtOptions.sAjaxSource = sUrlDids;
                 $scope.dtOptions.reloadData();
+                //
+               
             }
             //callbacks for the direectives controllers
             $scope.setInCallsDirectiveFn = function(directiveFn) {
@@ -174,6 +339,21 @@ angular.module('app')
                     $scope.directivePeerOutCallsByHourFn(response.hourlyOutCalls);
                     return response;
                 });
+                //
+                $scope.loadPeersByDayCalls($scope.dtPeerInOptions, "/daily/peer/in/genstats/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
+                //
+                $scope.loadPeersByDayCalls($scope.dtPeerOutOptions, "/daily/peer/out/genstats/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
+            }
+
+            $scope.loadPeersByDayCalls = function(dtOptions, url, peerDate, peer) {
+                var sUrlPeer = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + url + peerDate
+                if (peer != "") {
+                    sUrlPeer += "/" + peer
+                }
+                //workaround for jquery ajax cache
+                sUrlPeer += "/" + (new Date()).getTime();
+                dtOptions.sAjaxSource = sUrlPeer;
+                dtOptions.reloadData();
             }
 
             $scope.fetchDidCallsByHoursDatas = function() {

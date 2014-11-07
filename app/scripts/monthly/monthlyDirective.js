@@ -243,16 +243,16 @@ angular.module('app')
                             }//for datas length
                         }
                         //
-                        //console.log("seriesDataNonAnswered : " + JSON.stringify(seriesDataNonAnswered))
                         $scope.seriesDatas.push(seriesDataAnswered);
                         $scope.seriesDatas.push(seriesDataNonAnswered);
                         $scope.chartConfig.series = $scope.seriesDatas;
                     };
 
                     function updateTitle() {
-                        var format = $scope.myFormat == undefined ? "MM-yyyy" : $scope.myFormat
-                        var text = $scope.myTitle + " " + $filter('date')($scope.myDate, format);
-                        $scope.chartConfig.title.text = text
+                        var month = $filter('date')($scope.myDate, "MM")
+                        var year = $filter('date')($scope.myDate, "yyyy")
+                        var key = "_year_month_" + month +"_"
+                        $scope.chartConfig.title.text = $scope.myTitle + " " + localize.getLocalizedString(key) + " " + year
                     };
 
                     $scope.updateData = function(didCalls) {

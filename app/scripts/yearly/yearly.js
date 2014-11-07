@@ -10,8 +10,8 @@ angular.module('app')
             });
         }
     ])
-    .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter','localize','yearlyService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile',
-        function($rootScope, $scope, $filter, localize, yearlyService, DTOptionsBuilder, DTColumnBuilder, $compile) {
+    .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter','localize','yearlyService', 'toolsService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile',
+        function($rootScope, $scope, $filter, localize, yearlyService, toolsService, DTOptionsBuilder, DTColumnBuilder, $compile) {
             //
             $scope.didsTarget = "dids"
             $scope.peersTarget = "peers"
@@ -21,37 +21,6 @@ angular.module('app')
             $scope.titleDIDCalls =  localize.getLocalizedString("_chart.common.sda.title_");
             $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
-
-            //
-            /**
-            Helpers for formating calls duration
-            */
-            $scope.SecondsToHMS = function (d)
-            {
-                d = Number(d);
-                var h = Math.floor(d / 3600);
-                var m = Math.floor(d % 3600 / 60);
-                var s = Math.floor(d % 3600 % 60);
-                var hr = $scope.format(h);
-                var min = $scope.format(m);
-                var sec = $scope.format(s);
-                var val = hr + ':' + min + ':' + sec;
-                return val;
-            }
-                         
-            $scope.format = function(num)
-            {
-                var val='0'
-                if (num > 0){
-                    if (num >= 10)
-                        val = num;
-                    else
-                        val = '0' + num;
-                    }
-                    else
-                        val = '00';
-                        return val;
-            }
 
             //
             $scope.didDate = new Date();
@@ -98,7 +67,7 @@ angular.module('app')
             }
 
             $scope.dtOptions = DTOptionsBuilder
-            .fromSource('testdata/yeardidcallsdataempty.json')
+            .fromSource('')
             .withOption('createdRow', function(row, data, dataIndex) {
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
@@ -168,13 +137,13 @@ angular.module('app')
                 }),
                 DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
                 .renderWith(function(data, type, full, meta) {                    
-                    return $scope.SecondsToHMS(data);
+                    return toolsService.secondsToHMS(data);
                 })
             ];
 
             // peer in datas part
             $scope.dtPeerInOptions = DTOptionsBuilder
-            .fromSource('testdata/yeardidcallsdataempty.json')
+            .fromSource('')
             .withOption('createdRow', function(row, data, dataIndex) {
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
@@ -244,14 +213,14 @@ angular.module('app')
                 }),
                 DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
                 .renderWith(function(data, type, full, meta) {                    
-                    return $scope.SecondsToHMS(data);
+                    return toolsService.secondsToHMS(data);
                 })
             ];
             // peer in datas part end
 
             //peer out datas part
-             $scope.dtPeerOutOptions = DTOptionsBuilder
-            .fromSource('testdata/yeardidcallsdataempty.json')
+            $scope.dtPeerOutOptions = DTOptionsBuilder
+            .fromSource('') // empty dummy source
             .withOption('createdRow', function(row, data, dataIndex) {
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
@@ -321,7 +290,7 @@ angular.module('app')
                 }),
                 DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
                 .renderWith(function(data, type, full, meta) {                    
-                    return $scope.SecondsToHMS(data);
+                    return toolsService.secondsToHMS(data);
                 })
             ];
             //peer out datas part end 
@@ -344,7 +313,6 @@ angular.module('app')
                 }
                 $scope.bymonth = yearlyService.fetchDidDatas(monthUrl);
                 $scope.didMonthDatas = $scope.bymonth.then(function(monthlyResponse) {
-                    //console.log("response by month : " + JSON.stringify(monthlyResponse));
                     $scope.DidCallsYearDirectiveFn(monthlyResponse);
                     return monthlyResponse;
                 });
@@ -368,7 +336,6 @@ angular.module('app')
                 }
                 $scope.myts = yearlyService.fetchPeerDatas(url);
                 $scope.didDatas = $scope.myts.then(function(response) {
-                    //console.log("response : " + JSON.stringify(response));
                     $scope.directiveInCallsFn(response.inCalls);
                     $scope.directiveOutCallsFn(response.outCalls);
                     return response;
@@ -396,24 +363,22 @@ angular.module('app')
                     $scope.directiveOutCallsYearFn(peerOutCalls);
                     return peerOutCalls;
                 });
-                //
-                var sUrlPeerInDatas = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/yearly/peer/bymonth/incalls/" + peerDate
-                if ($scope.choisePeer.value != "") {
-                    sUrlDids += "/" + $scope.choisePeer.value
+                //in calls for peer(s)
+                $scope.loadPeersByMonthCalls($scope.dtPeerInOptions, "/yearly/peer/in/bymonth/calls/", peerDate, $scope.choisePeer.value)
+                 //out calls for peer(s)
+                $scope.loadPeersByMonthCalls($scope.dtPeerOutOptions, "/yearly/peer/out/bymonth/calls/", peerDate, $scope.choisePeer.value)
+                
+            }
+
+            $scope.loadPeersByMonthCalls = function(dtOptions, url, peerDate, peer) {
+                var sUrlPeer = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + url + peerDate
+                if (peer != "") {
+                    sUrlPeer += "/" + peer
                 }
                 //workaround for jquery ajax cache
-                sUrlPeerInDatas += "/" + (new Date()).getTime();
-                $scope.dtPeerInOptions.sAjaxSource = sUrlPeerInDatas;
-                $scope.dtPeerOutOptions.reloadData();
-                //
-                var sUrlPeerOutDatas = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/yearly/peer/bymonth/outcalls/" + peerDate
-                if ($scope.choisePeer.value != "") {
-                    sUrlPeerOutDatas += "/" + $scope.choisePeer.value
-                }
-                //workaround for jquery ajax cache
-                sUrlPeerOutDatas += "/" + (new Date()).getTime();
-                $scope.dtPeerOutOptions.sAjaxSource = sUrlPeerOutDatas;
-                $scope.dtPeerOutOptions.reloadData();
+                sUrlPeer += "/" + (new Date()).getTime();
+                dtOptions.sAjaxSource = sUrlPeer;
+                dtOptions.reloadData();
             }
 
 

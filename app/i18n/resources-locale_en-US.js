@@ -729,7 +729,12 @@
     {
         "key":"_year_dids_table_column_did_",
         "value": "DID",
-        "description":"SDA column"        
+        "description":"DID column"        
+    },
+    {
+        "key":"_year_dids_table_column_peer_",
+        "value": "Utilisateur",
+        "description":"Peer column"        
     },
     {
         "key":"_year_dids_table_column_month_",
