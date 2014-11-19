@@ -10,7 +10,7 @@ set -e
 
 VER_MAJOR="1"
 VER_MINOR="0"
-VER_PATCH="2"
+VER_PATCH="3"
 
 DEPLOY_DIR="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}"
 DEPLOY_FILE_NAME="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}.tar.gz"
@@ -38,7 +38,7 @@ cp "$DEPLOY_DIR/docs/ReleaseNotes.html" .
 rm -rf "$DEPLOY_DIR/bower_components.tar.gz"
 rm -rf "$DEPLOY_DIR/bower_components"
 
-find ${DEPLOY_DIR} -name CVS -prune -exec rm -rf {} \;
+#find ${DEPLOY_DIR} -name CVS -prune -exec rm -rf {} \;
 
 tar cvzf "${DEPLOY_FILE_NAME}" "${DEPLOY_DIR}"
 

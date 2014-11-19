@@ -853,7 +853,7 @@
     },
     {
         "key":"_total_",
-        "value": "Totale",
+        "value": "Total",
         "description":"Total"        
     }
 
