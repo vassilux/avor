@@ -53,8 +53,8 @@ angular.module('app')
             };
         }
     ])
-   .directive('chartdidcallsbyear', ['$filter', 'localize',
-        function($filter, localize) {
+   .directive('chartdidcallsbyear', ['$filter', 'localize', 'configurationService', 
+        function($filter, localize, configurationService) {
             return {
                 restrict: 'E',
                 scope: {
@@ -111,7 +111,7 @@ angular.module('app')
 
                     function updateTitle() {
                         var format = $scope.myFormat == undefined ? "yyyy" : $scope.myFormat
-                        var text = $scope.myTitle + " mmm " + $filter('date')($scope.myDate, format);
+                        var text = $scope.myTitle + " " + $filter('date')($scope.myDate, format);
                         $scope.chartConfig.title.text = text
                     };
 
@@ -150,7 +150,7 @@ angular.module('app')
                                 }
                             },
                             exporting: {
-                                enabled: false,
+                                enabled: configurationService.isChartExportEnabled(),
                             }
                         },
                         series: $scope.seriesDatas,
@@ -223,8 +223,8 @@ angular.module('app')
             };
         }
     ])
-    .directive('chartpeercallsbyear', ['$filter', 'localize',
-        function($filter, localize) {
+    .directive('chartpeercallsbyear', ['$filter', 'localize', 'configurationService',
+        function($filter, localize, configurationService) {
             return {
                 restrict: 'E',
                 scope: {
@@ -321,7 +321,7 @@ angular.module('app')
                                 }
                             },
                             exporting: {
-                                enabled: false,
+                                enabled: configurationService.isChartExportEnabled(),
                             }
                         },
                         series: $scope.seriesDatas,

@@ -14,6 +14,7 @@ angular.module('app')
         'cdrService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'localize', 'dialogs',
      function($rootScope, $scope, $timeout, $filter, $dialog, cdrService, DTOptionsBuilder, DTColumnBuilder, $compile, localize, dialogs) {
         //
+        $scope.didsTarget = "dids"
         $scope.dialogCallDetailsOptions = {
             backdrop: true,
             keyboard: true,
@@ -44,6 +45,7 @@ angular.module('app')
         $scope.cdrDetails = []
         $scope.currentCdr = {};
         $scope.searchShow = true;
+        $scope.choiseDid = ""
 
         $scope.dateOptions = {
             changeYear: true,
@@ -254,8 +256,13 @@ angular.module('app')
                 }
 
             };
+            if ($scope.choiseDid.value != "") {
+                    request += "&did,=," + $scope.choiseDid.value
+            }
             //
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
+            //
+            console.debug(" url : " + url)
             //
             $scope.dtOptions.sAjaxSource = url
             $scope.dtOptions.reloadData();

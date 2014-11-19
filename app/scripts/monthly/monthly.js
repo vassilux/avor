@@ -17,7 +17,7 @@ angular.module('app')
             $scope.peersTarget = "peers"
             $scope.choiseDid = {};
             $scope.choisePeer = {};
-            $scope.myFormat = "MM yyyy"
+            $scope.myFormat = "MM-yyyy"
             $scope.titleDIDCalls =  localize.getLocalizedString("_chart.common.sda.title_");
             $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");

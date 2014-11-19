@@ -7,7 +7,7 @@
 // In this case it is a simple value service.
 var services = angular.module('app.services', []);
 
-services.value('version', '1.0.1');
+services.value('version', '1.0.2');
 
 services.factory('networkNotificaitonService', ['$rootScope',
   function($rootScope) {
@@ -47,8 +47,23 @@ services.factory('configurationService', ['$http',
         myData = data;
       },
 
+      getData: function(){
+        return myData
+      },
+
       doStuff: function() {
         return myData;
+      },
+
+      isChartExportEnabled : function(){
+        if(myData == null || myData.chartExport == null){
+          return false
+        }
+        //
+        if(myData.chartExport.indexOf("true") > -1 ){
+          return true
+        }
+        return false
       }
     };
   }
@@ -153,6 +168,14 @@ services.factory('toolsService', ['$rootScope', 'localize',
         }else {
             return causeNumber;
         }
+      },
+
+      getDataTableLangUrl: function (){
+        var langUrl = "i18n/datatable_en-US.json";
+        if (localize.language == "fr-FR") {
+          langUrl = "i18n/datatable_fr-FR.json"
+        }
+        return langUrl
       }
      
     };

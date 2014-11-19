@@ -10,8 +10,10 @@ angular.module('app')
             });
         }
     ])
-    .controller('DailyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'dailyService', 'toolsService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile',
-        function($rootScope, $scope, $filter, localize, dailyService, toolsService, DTOptionsBuilder, DTColumnBuilder, $compile) {
+    .controller('DailyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'dailyService', 'toolsService', 
+        'dailyWeekDaysTableService', 'dailyCallsCauseTableService',
+        function($rootScope, $scope, $filter, localize, dailyService, toolsService, 
+            dailyWeekDaysTableService, dailyCallsCauseTableService) {
             //set urls targes please check the backoffice routes configuration
             $scope.didsTarget = "dids"
             $scope.peersTarget = "peers"
@@ -20,7 +22,6 @@ angular.module('app')
             $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
             $scope.titleDIDCallsByHours = localize.getLocalizedString("_chart.common.sda.hour.title_");
-
             //
             $scope.choiseDid = {};
             $scope.choisePeer = {};
@@ -33,242 +34,22 @@ angular.module('app')
             $scope.searchShow = true;
             $scope.searchShowError = false;
             //
-            var langUrl = "i18n/datatable_en-US.json";
-            if (localize.language == "fr-FR") {
-                langUrl = "i18n/datatable_fr-FR.json"
-            }
-
-            $scope.dtOptions = DTOptionsBuilder
-            .fromSource('')
-            .withOption('createdRow', function(row, data, dataIndex) {
-                    // Recompiling so we can bind Angular directive to the DT
-                    $compile(angular.element(row).contents())($scope);
-            })
-            .withLanguage({
-                sUrl: langUrl
-            })
-            .withBootstrap()
-            // Overriding the classes
-            .withBootstrapOptions({
-                TableTools: {
-                    classes: {
-                        container: 'btn-group',
-                        buttons: {
-                            normal: 'btn btn-danger'
-                        }
-                    }
-                },
-                ColVis: {
-                    classes: {
-                        masterButton: 'btn btn-primary'
-                    }
-                }
-            })
-            // Add ColVis compatibility
-            .withColVis()
-            //make grouping by DID
-            .withOption('fnDrawCallback', function ( oSettings  ) {
-                var api = this.api();
-                var rows = api.rows( {page:'current'} ).nodes();
-                var last=null;
-                 
-                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-                    if ( last !== group ) {
-                        $(rows).eq( i ).before(
-                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
-                            + localize.getLocalizedString("_year_dids_table_column_did_") + ': ' +group+'</i></td></tr>');
-                            last = group;
-                    }
-                } );
-                            
-                            
-            })
-            .withPaginationType('full_numbers')
-            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
-            .withTableToolsButtons([
-                'copy',
-                'print', {
-                    'sExtends': 'collection',
-                    'sButtonText': 'Save',
-                    'aButtons': ['csv', 'xls', 'pdf']
-                }
-            ]);
-
-            $scope.dtColumnDefs = [
-                DTColumnBuilder.newColumn('did').withTitle(localize.getLocalizedString("_year_dids_table_column_did_")).notVisible(),
-                DTColumnBuilder.newColumn('disposition').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_"))
-                .renderWith(function(data, type, full, meta) {
-                    return toolsService.getLabelForHangupCause(data)
-                }),
-                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
-                
-                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
-                .renderWith(function(data, type, full, meta) {                    
-                    return toolsService.secondsToHMS(data);
-                }),
-                DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
-                .renderWith(function(data, type, full, meta) {    
-                    if(full.disposition == 16 ){
-                        return toolsService.secondsToHMS(data);
-                    }
-                    return ""
-                })
-            ];
+            $scope.dtOptions = dailyCallsCauseTableService.buildDTOptions("did", $scope)
+            $scope.dtColumnDefs = dailyCallsCauseTableService.buildDTColumnDefs("did")
+            //did by week day and hours 
+            $scope.dtDidWeekDaysOptions = dailyWeekDaysTableService.buildDTOptions()
+            $scope.dtDidWeekDaysColumnDefs = dailyWeekDaysTableService.buildDTColumnDefs()
             // incomming peer table
-            $scope.dtPeerInOptions = DTOptionsBuilder
-            .fromSource('')
-            .withOption('createdRow', function(row, data, dataIndex) {
-                    // Recompiling so we can bind Angular directive to the DT
-                    $compile(angular.element(row).contents())($scope);
-            })
-            .withLanguage({
-                sUrl: langUrl
-            })
-            .withBootstrap()
-            // Overriding the classes
-            .withBootstrapOptions({
-                TableTools: {
-                    classes: {
-                        container: 'btn-group',
-                        buttons: {
-                            normal: 'btn btn-danger'
-                        }
-                    }
-                },
-                ColVis: {
-                    classes: {
-                        masterButton: 'btn btn-primary'
-                    }
-                }
-            })
-            // Add ColVis compatibility
-            .withColVis()
-            //make grouping by DID
-            .withOption('fnDrawCallback', function ( oSettings  ) {
-                var api = this.api();
-                var rows = api.rows( {page:'current'} ).nodes();
-                var last=null;
-                 
-                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-                    if ( last !== group ) {
-                        $(rows).eq( i ).before(
-                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
-                            + localize.getLocalizedString("_year_dids_table_column_did_") + ': ' +group+'</i></td></tr>');
-                            last = group;
-                    }
-                } );
-                            
-                            
-            })
-            .withPaginationType('full_numbers')
-            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
-            .withTableToolsButtons([
-                'copy',
-                'print', {
-                    'sExtends': 'collection',
-                    'sButtonText': 'Save',
-                    'aButtons': ['csv', 'xls', 'pdf']
-                }
-            ]);
-
-            $scope.dtPeerInColumnDefs = [
-                DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_year_dids_table_column_peer_")).notVisible(),
-                DTColumnBuilder.newColumn('disposition').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_"))
-                .renderWith(function(data, type, full, meta) {
-                    return toolsService.getLabelForHangupCause(data)
-                }),
-                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
-                
-                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
-                .renderWith(function(data, type, full, meta) {                    
-                    return toolsService.secondsToHMS(data);
-                }),
-                DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
-                .renderWith(function(data, type, full, meta) {    
-                    if(full.disposition == 16 ){
-                        return toolsService.secondsToHMS(data);
-                    }
-                    return ""
-                })
-            ];
+            $scope.dtPeerInOptions = dailyCallsCauseTableService.buildDTOptions("peer", $scope)
+            $scope.dtPeerInColumnDefs = dailyCallsCauseTableService.buildDTColumnDefs("peer")
+            $scope.dtPeerInCallsWeekDaysOptions = dailyWeekDaysTableService.buildDTOptions()
+            $scope.dtPeerInCallsWeekDaysColumnDefs = dailyWeekDaysTableService.buildDTColumnDefs()
             //end of incomming table
             //outgoing table 
-            $scope.dtPeerOutOptions = DTOptionsBuilder
-            .fromSource('')
-            .withOption('createdRow', function(row, data, dataIndex) {
-                    // Recompiling so we can bind Angular directive to the DT
-                    $compile(angular.element(row).contents())($scope);
-            })
-            .withLanguage({
-                sUrl: langUrl
-            })
-            .withBootstrap()
-            // Overriding the classes
-            .withBootstrapOptions({
-                TableTools: {
-                    classes: {
-                        container: 'btn-group',
-                        buttons: {
-                            normal: 'btn btn-danger'
-                        }
-                    }
-                },
-                ColVis: {
-                    classes: {
-                        masterButton: 'btn btn-primary'
-                    }
-                }
-            })
-            // Add ColVis compatibility
-            .withColVis()
-            //make grouping by DID
-            .withOption('fnDrawCallback', function ( oSettings  ) {
-                var api = this.api();
-                var rows = api.rows( {page:'current'} ).nodes();
-                var last=null;
-                 
-                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-                    if ( last !== group ) {
-                        $(rows).eq( i ).before(
-                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> '
-                            + localize.getLocalizedString("_year_dids_table_column_did_") + ': ' +group+'</i></td></tr>');
-                            last = group;
-                    }
-                } );
-                            
-                            
-            })
-            .withPaginationType('full_numbers')
-            .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
-            .withTableToolsButtons([
-                'copy',
-                'print', {
-                    'sExtends': 'collection',
-                    'sButtonText': 'Save',
-                    'aButtons': ['csv', 'xls', 'pdf']
-                }
-            ]);
-
-            $scope.dtPeerOutColumnDefs = [
-                DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_year_dids_table_column_peer_")).notVisible(),
-                DTColumnBuilder.newColumn('disposition').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_"))
-                .renderWith(function(data, type, full, meta) {
-                    return toolsService.getLabelForHangupCause(data)
-                }),
-                DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
-                
-                DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_year_dids_table_column_duration_")).notSortable()
-                .renderWith(function(data, type, full, meta) {                    
-                    return toolsService.secondsToHMS(data);
-                }),
-                DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
-                .renderWith(function(data, type, full, meta) {    
-                    if(full.disposition == 16 ){
-                        return toolsService.secondsToHMS(data);
-                    }
-                    return ""
-                })
-            ];
+            $scope.dtPeerOutOptions = dailyCallsCauseTableService.buildDTOptions("peer", $scope)
+            $scope.dtPeerOutColumnDefs = dailyCallsCauseTableService.buildDTColumnDefs("peer")
+            $scope.dtPeerOutCallsWeekDaysOptions = dailyWeekDaysTableService.buildDTOptions()
+            $scope.dtPeerOutCallsWeekDaysColumnDefs = dailyWeekDaysTableService.buildDTColumnDefs()
             //end of outgoing table 
             //
             $scope.fetchDidDatas = function() {
@@ -294,6 +75,15 @@ angular.module('app')
                 $scope.dtOptions.sAjaxSource = sUrlDids;
                 $scope.dtOptions.reloadData();
                 //
+                var sUrlDidsWeekDays= "http://" + $rootScope.config.host + ":" + $rootScope.config.port + "/daily/did/week/" + didDate + 'T23:59:59Z';
+                if ($scope.choiseDid.value != "") {
+                    sUrlDidsWeekDays += "/" + $scope.choiseDid.value
+                }
+                //workaround for jquery ajax cache
+                sUrlDidsWeekDays += "/" + (new Date()).getTime();
+                $scope.dtDidWeekDaysOptions.sAjaxSource = sUrlDidsWeekDays;
+                $scope.dtDidWeekDaysOptions.reloadData();
+
                
             }
             //callbacks for the direectives controllers
@@ -332,7 +122,7 @@ angular.module('app')
                 $scope.myts = dailyService.fetchPeerDatas(url);
                 /* */
                 $scope.peersDatas = $scope.myts.then(function(response) {
-                    //console.log("response : " + JSON.stringify(response));
+                    //
                     $scope.directiveInCallsFn(response.inCalls);
                     $scope.directiveOutCallsFn(response.outCalls);
                     $scope.directivePeerInCallsByHourFn(response.hourlyInCalls);
@@ -341,8 +131,9 @@ angular.module('app')
                 });
                 //
                 $scope.loadPeersByDayCalls($scope.dtPeerInOptions, "/daily/peer/in/genstats/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
-                //
                 $scope.loadPeersByDayCalls($scope.dtPeerOutOptions, "/daily/peer/out/genstats/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
+                $scope.loadPeersByDayCalls($scope.dtPeerInCallsWeekDaysOptions, "/daily/peer/in/week/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
+                $scope.loadPeersByDayCalls($scope.dtPeerOutCallsWeekDaysOptions, "/daily/peer/out/week/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
             }
 
             $scope.loadPeersByDayCalls = function(dtOptions, url, peerDate, peer) {

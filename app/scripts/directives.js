@@ -91,8 +91,8 @@ directive('context', [
     };
   }
 ]).
-directive('chartcalls', ['$filter', 'localize',
-  function($filter, localize) {
+directive('chartcalls', ['$filter', 'localize', 'configurationService',
+  function($filter, localize, configurationService) {
     return {
       restrict: 'E',
       scope: {
@@ -153,7 +153,18 @@ directive('chartcalls', ['$filter', 'localize',
 
         function updateTitle() {
           var format = $scope.myFormat == undefined ? "dd-MM-yyyy" : $scope.myFormat
-          var text = $scope.myTitle + " " + $filter('date')($scope.myDate, format);
+          console.log("format : " + format)
+          var text = $scope.myTitle 
+          if(format.indexOf("dd-") > - 1 ){
+            text += " " + $filter('date')($scope.myDate, format)
+          }else if(format.indexOf("MM-yyyy") > - 1){
+             var month = $filter('date')($scope.myDate, "MM")
+             var year = $filter('date')($scope.myDate, "yyyy")
+             var key = "_year_month_" + month +"_"
+             text += " " + localize.getLocalizedString(key) + " " + year
+          }else if (format.indexOf("yyyy") > -1){
+             text += " " + $filter('date')($scope.myDate, format);
+          }
           $scope.chartConfig.title.text = text
         };
 
@@ -199,7 +210,7 @@ directive('chartcalls', ['$filter', 'localize',
               }
             },
             exporting: {
-              enabled: true,
+              enabled: configurationService.isChartExportEnabled(),
               /*url : "http://192.168.1.1/exporting-server/",*/
             }
           },

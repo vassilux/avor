@@ -144,7 +144,12 @@
 
     {
         "key":"_chart.common.sda.title_",
-        "value":"Appel par SDA",
+        "value":"Appels entrants(SDA)",
+        "description":"Title de chart par SDA"
+    },
+    {
+        "key":"_chart.year.sda.title_",
+        "value":"Appels entrants  pour l'an  ",
         "description":"Title de chart par SDA"
     },
 
@@ -156,15 +161,24 @@
 
     {
         "key":"_chart.common.peer.in.title_",
-        "value":"Appels entrants par utilisateur",
+        "value":"Appels entrants (utilisateurs)",
         "description":"Appels entrant par Peer chart title"
     },
     {
+        "key":"_chart.year.peer.in.title_",
+        "value":"Appels entrants  pour l'an  ",
+        "description":"Title de chart par SDA"
+    },
+    {
         "key":"_chart.common.peer.out.title_",
-        "value":"Appels sortants par utilisateur",
+        "value":"Appels sortants (utilisateurs)",
         "description":"Appels sortant par Peer chart title"
     },
-
+    {
+        "key":"_chart.year.peer.out.title_",
+        "value":"Appels sortants  pour l'an  ",
+        "description":"Title de chart par SDA"
+    },
     {
         "key":"_search.common.did_",
         "value":"SDA",
@@ -796,5 +810,51 @@
         "key":"_year_dids_table_column_duration_",
         "value": "Durée(hh::mm:ss)",
         "description":"Duration column"        
+    },
+    {
+        "key":"_week_day_1_",
+        "value": "Samedi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_2_",
+        "value": "Dimanche",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_3_",
+        "value": "Lundi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_4_",
+        "value": "Mardi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_5_",
+        "value": "Mercredi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_6_",
+        "value": "Jeudi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_7_",
+        "value": "Vendredi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_hour_",
+        "value": "Heure",
+        "description":"Heure"        
+    },
+    {
+        "key":"_total_",
+        "value": "Totale",
+        "description":"Total"        
     }
+
 ]

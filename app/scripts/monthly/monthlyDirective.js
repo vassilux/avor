@@ -173,8 +173,8 @@ angular.module('app')
         };
     }
     ])
-    .directive('chartmonthcallsbydays', ['$filter', 'localize',
-        function($filter, localize) {
+    .directive('chartmonthcallsbydays', ['$filter', 'localize', 'configurationService',
+        function($filter, localize, configurationService) {
             return {
                 restrict: 'E',
                 scope: {
@@ -290,7 +290,7 @@ angular.module('app')
                                 }
                             },
                             exporting: {
-                                enabled: false,
+                                enabled: configurationService.isChartExportEnabled(),
                             }
                         },
                         series: $scope.seriesDatas,
