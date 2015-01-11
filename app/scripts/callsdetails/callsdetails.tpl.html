@@ -8,8 +8,9 @@
                         <div class="control-group">
 
                             <div class="controls ">
-                                <span><i class="icon-calendar"></i>
-                                </span>
+                                <span><i class="fa fa-calendar" id="cal"></i></span>
+                                <!--<span><i class="icon-calendar" id="cal"></i>
+                                </span>-->
                                 <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateFrom" id="inputDateFrom"></input>
                                 <label></label>
                                 <span class="help-block" data-i18n="_cdrs.search.date.from_">Choise start date</span>
@@ -19,7 +20,8 @@
                     <div class="span3 bgcolor">
                         <div class="control-group">
                             <div class="controls ">
-                                <span><i class="icon-calendar"></i>
+                                <span><i class="fa fa-calendar" id="cal"></i></span>
+                                <!--<span><i class="icon-calendar"></i>-->
                                 </span>
                                 <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateTo" id="inputDateTo"></input>
                                 <label></label>
@@ -51,11 +53,13 @@
                                 <select class="selectpicker" id="choiseDuration" data-width="30px" ng-model="durationCondition">
                                     <option value="">==</option>
                                     <option value="$lt">
-                                        <</option>
-                                            <option value="$lte">
-                                                <=</option>
-                                                    <option value="$gt">></option>
-                                                    <option value="$gte">>=</option>
+                                        <
+                                    </option>
+                                    <option value="$lte">
+                                        <=
+                                    </option>
+                                    <option value="$gt">></option>
+                                    <option value="$gte">>=</option>
                                 </select>
                                 <label for="inputDuration" data-i18n="_cdrs.search.duration_">Duration</label>
                             </div>

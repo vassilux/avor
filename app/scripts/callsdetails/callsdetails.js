@@ -127,7 +127,7 @@ angular.module('app')
                  .renderWith(function(data, type, full, meta) {
                      var jsDate = new Date(data);
                              jsDate = $filter('date')(jsDate, 'dd-MM-yyyy HH:mm:ss');
-                             return "<div class='date'><i class='icon-zoom-in icon-white'></i>" + jsDate + "</div>";
+                             return "<div class='date'><i class='fa fa-eye'></i>&nbsp;" + jsDate + "</div>";
                  }),
                  DTColumnBuilder.newColumn('clid_name').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_name_")),
                  DTColumnBuilder.newColumn('clid_number').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_number_")),
