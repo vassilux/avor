@@ -7,7 +7,7 @@
 // In this case it is a simple value service.
 var services = angular.module('app.services', []);
 
-services.value('version', '1.0.4');
+services.value('version', '1.0.5');
 
 services.factory('networkNotificaitonService', ['$rootScope',
   function($rootScope) {

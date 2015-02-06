@@ -813,37 +813,37 @@
     },
     {
         "key":"_week_day_1_",
-        "value": "Samedi",
-        "description":"day of the week"        
-    },
-    {
-        "key":"_week_day_2_",
-        "value": "Dimanche",
-        "description":"day of the week"        
-    },
-    {
-        "key":"_week_day_3_",
         "value": "Lundi",
         "description":"day of the week"        
     },
     {
-        "key":"_week_day_4_",
+        "key":"_week_day_2_",
         "value": "Mardi",
         "description":"day of the week"        
     },
     {
-        "key":"_week_day_5_",
+        "key":"_week_day_3_",
         "value": "Mercredi",
         "description":"day of the week"        
     },
     {
-        "key":"_week_day_6_",
+        "key":"_week_day_4_",
         "value": "Jeudi",
         "description":"day of the week"        
     },
     {
-        "key":"_week_day_7_",
+        "key":"_week_day_5_",
         "value": "Vendredi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_6_",
+        "value": "Samedi",
+        "description":"day of the week"        
+    },
+    {
+        "key":"_week_day_7_",
+        "value": "Dimanche",
         "description":"day of the week"        
     },
     {

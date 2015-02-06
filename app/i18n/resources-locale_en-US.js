@@ -774,17 +774,17 @@
     },
      {
         "key":"_week_day_1_",
-        "value": "Saturday",
+        "value": "Monday",
         "description":"day of the week"        
     },
     {
         "key":"_week_day_2_",
-        "value": "Sunday",
+        "value": "Tuesday",
         "description":"day of the week"        
     },
     {
         "key":"_week_day_3_",
-        "value": "Monday",
+        "value": "Wednesday",
         "description":"day of the week"        
     },
     {
@@ -794,17 +794,17 @@
     },
     {
         "key":"_week_day_5_",
-        "value": "Wednesday",
+        "value": "Friday",
         "description":"day of the week"        
     },
     {
         "key":"_week_day_6_",
-        "value": "Thursday",
+        "value": "Saturday",
         "description":"day of the week"        
     },
     {
         "key":"_week_day_7_",
-        "value": "Friday",
+        "value": "Sunday",
         "description":"day of the week"        
     },
     {
