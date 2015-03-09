@@ -34,6 +34,7 @@ angular.module('app')
         //
         $scope.dateFrom = new Date();
         $scope.dateTo = new Date();
+        $scope.timeFrom = new Date();
         $scope.hangupdCause = ""
         $scope.duration = ""
         $scope.durationCondition = ""
@@ -222,10 +223,10 @@ angular.module('app')
         }
 
         $scope.fetchCdrDatasClickHandler = function() {
-            var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-dd');
-            var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-dd');
-            var request = "/cdrs/startdate,$gte," + stringDateFrom + 'T00:00:00Z';
-            request += "&enddate,$lte," + stringDateTo + 'T23:59:59Z';
+            var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-ddTHH:mm:ss');
+            var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-ddTHH:mm:ss');
+            var request = "/cdrs/startdate,$gte," + stringDateFrom + 'Z'; // + 'T00:00:00Z';
+            request += "&enddate,$lte," + stringDateTo + 'Z'; // + 'T23:59:59';
             if ($scope.hangupdCause.length > 0) {
                 request += "&disposition,," + $scope.hangupdCause;
             }

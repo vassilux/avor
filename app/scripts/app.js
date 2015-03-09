@@ -18,8 +18,8 @@ angular.module('app', ['datatables', 'ngRoute', 'ngCookies', 'ui.date', 'ui.dire
   'authentication',
   'services.i18nNotifications',
   'services.localizedMessages',
-  'highcharts-ng'
-
+  'highcharts-ng',
+  'ui.bootstrap.datetimepicker'
 ])
   .config(['$routeProvider', '$httpProvider',
     function($routeProvider, $httpProvider) {

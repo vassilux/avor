@@ -8,24 +8,42 @@
                         <div class="control-group">
 
                             <div class="controls ">
-                                <span><i class="fa fa-calendar" id="cal"></i></span>
-                                <!--<span><i class="icon-calendar" id="cal"></i>
-                                </span>-->
-                                <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateFrom" id="inputDateFrom"></input>
+                                <!--<span><i class="fa fa-calendar" id="cal"></i></span>
+                                
+                                <input ui-date="{ dateFormat: 'dd-mm-yy'}" ng-model="dateFrom" id="inputDateFrom"></input>
+                               
                                 <label></label>
-                                <span class="help-block" data-i18n="_cdrs.search.date.from_">Choise start date</span>
+                                
+                                <span class=" help-block" data-i18n="_cdrs.search.date.from_">Choise start date</span> -->
+                                <span><i class="fa fa-calendar" id="cal"></i></span>
+                                <span>{{ dateFrom | date:'dd-MM-yyyy HH:mm' }}</span>
+                                <div class="dropdown">
+                                    <a  class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#"> <span class=" help-block" data-i18n="_cdrs.search.date.from_">Choise start date</span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <datetimepicker data-ng-model="dateFrom" data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }"/>
+                                    </ul>
+                                </div>
+                                
                             </div>
+
                         </div>
                     </div>
                     <div class="span3 bgcolor">
                         <div class="control-group">
                             <div class="controls ">
-                                <span><i class="fa fa-calendar" id="cal"></i></span>
-                                <!--<span><i class="icon-calendar"></i>-->
+                                <!--<span><i class="fa fa-calendar" id="cal"></i></span>
                                 </span>
                                 <input ui-date="{ dateFormat: 'dd-mm-yy' }" ng-model="dateTo" id="inputDateTo"></input>
                                 <label></label>
-                                <span class="help-block" data-i18n="_cdrs.search.date.to_">Choise end date</span>
+                                <span class="help-block" data-i18n="_cdrs.search.date.to_">Choise end date</span> -->
+                                <span><i class="fa fa-calendar" id="cal"></i></span>
+                                <span>{{ dateTo | date:'dd-MM-yyyy HH:mm' }}</span>
+                                <div class="dropdown">
+                                    <a  class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#"> <span class=" help-block" data-i18n="_cdrs.search.date.to_">Choise end date</span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <datetimepicker data-ng-model="dateTo" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

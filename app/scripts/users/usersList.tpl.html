@@ -17,13 +17,14 @@
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td>{{user.isAdmin}}</td>
-            <td><button class="btn btn-info" ng-click="editUser(user)"><i class="icon-edit icon-white"></i></button></td>
-            <td><button class="btn btn-danger remove" ng-click="removeUser(user)"><i class="icon-trash icon-white"></i></button></td>
+            <td><button class="btn btn-info" ng-click="editUser(user)"><i class="fa fa-pencil-square-o"></i></button></td>
+            <td><button class="btn btn-danger remove" ng-click="removeUser(user)"><i class="fa fa-trash"></i></button></td>
         </tr>
     </tbody>
 </table>
 <div class="well">
-    <button class="btn btn-primary" ng-click="addNewUser()"><i class="icon-plus icon-white"></i></button>
+    
+    <button class="btn btn-primary" ng-click="addNewUser()"><i class="fa fa-user-plus"></i></button>
 </div>
 
 </div>

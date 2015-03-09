@@ -72,12 +72,16 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$cookieS
     $scope.location = $location;
     $scope.currentUser = currentUser;
 
+    
+
     $scope.setEnglishLanguage = function() {
       localize.setLanguage('en-US');
+      moment.locale('en');
     };
 
     $scope.setFrenchLanguage = function() {
       localize.setLanguage('fr-FR');
+      moment.locale('fr');
       
     };
 
@@ -87,7 +91,7 @@ angular.module('app').controller('HeaderCtrl', ['$scope', '$location', '$cookieS
         $location.path('/dashboard');
       } else {
         $location.path('/home');
-        $scope.windowTitle = "Vor : home";
+        $scope.windowTitle = "avor : home";
       }
     };
 
