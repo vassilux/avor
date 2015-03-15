@@ -216,8 +216,9 @@ angular.module('app')
                         //get the days number for the given month
                         var daysInMonth = 32 - new Date(year, month-1, 32).getDate();
                         
-                        for (var i = 0; i <= daysInMonth; i++) {
-                            var initDate = Date.UTC(year, month-1, i+1)
+                        for (var i = 0; i < daysInMonth; i++) {
+                            var initDate = Date.UTC(year, month - 1, i+1)
+                            
                             seriesDataAnswered.data[i] = ([initDate,0]);
                             seriesDataNonAnswered.data[i] = ([initDate,0]);
                         };
@@ -229,14 +230,16 @@ angular.module('app')
                                 //monthData._id define the disposition , means answered, unanswered etc by code
                                 if(monthData._id == 16){                                    
                                     for (var k = 1; k <= daysInMonth; k++) {
+                                        
                                         if(monthData.datas[j].callsDaily[k]){
-                                            seriesDataAnswered.data[k][1] += monthData.datas[j].callsDaily[k];
+                                            //inde of date is 0 based
+                                            seriesDataAnswered.data[k-1][1] += monthData.datas[j].callsDaily[k];
                                         }                                        
                                     };                                    
                                 }else{
-                                    for (var k = 0; k <= daysInMonth; k++) {
+                                    for (var k = 1; k <= daysInMonth; k++) {
                                         if(monthData.datas[j].callsDaily[k]){
-                                            seriesDataNonAnswered.data[k][1] += monthData.datas[j].callsDaily[k];
+                                            seriesDataNonAnswered.data[k-1][1] += monthData.datas[j].callsDaily[k];
                                         } 
                                     };                                    
                                 }

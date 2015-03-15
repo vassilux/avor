@@ -133,7 +133,7 @@ angular.module('app')
                  DTColumnBuilder.newColumn('clid_name').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_name_")),
                  DTColumnBuilder.newColumn('clid_number').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_number_")),
                  DTColumnBuilder.newColumn('dst').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.destination_")),
-                 DTColumnBuilder.newColumn('dnid').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.did_")),
+                 DTColumnBuilder.newColumn('did').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.did_")),
                  DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.duration_")).notSortable()
                  .renderWith(function(data, type, full, meta) {
                     return data + 's';
@@ -166,7 +166,7 @@ angular.module('app')
                         return data;
                     }
                  }),
-                DTColumnBuilder.newColumn('inout_status').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.hangup_cause_")).notSortable()
+                DTColumnBuilder.newColumn('inout_status').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.direction_")).notSortable()
                  .renderWith(function(data, type, full, meta) {
                     if (data == "1") {
                         return localize.getLocalizedString("_cdrs.search.direction.option.out_");
@@ -225,8 +225,8 @@ angular.module('app')
         $scope.fetchCdrDatasClickHandler = function() {
             var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-ddTHH:mm:ss');
             var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-ddTHH:mm:ss');
-            var request = "/cdrs/startdate,$gte," + stringDateFrom + 'Z'; // + 'T00:00:00Z';
-            request += "&enddate,$lte," + stringDateTo + 'Z'; // + 'T23:59:59';
+            var request = "/cdrs/startdate,$gte," + stringDateFrom + 'Z';
+            request += "&enddate,$lte," + stringDateTo + 'Z';
             if ($scope.hangupdCause.length > 0) {
                 request += "&disposition,," + $scope.hangupdCause;
             }
@@ -274,7 +274,6 @@ angular.module('app')
 .controller('CallDetailsCtrl',['$scope','$modalInstance', 'data', function($scope,$modalInstance, data){
         $scope.currentCdr = data.currentCdr;
         $scope.callDetails = data.cdrDetails;        
-        console.log("data : " + JSON.stringify(data));
        
         $scope.close = function(){
             $modalInstance.close();

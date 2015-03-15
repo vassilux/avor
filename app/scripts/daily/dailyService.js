@@ -193,9 +193,11 @@ angular.module('app')
                             .renderWith(function(data, type, full, meta) {                    
                                 return toolsService.secondsToHMS(data);
                             }),
-                            DTColumnBuilder.newColumn('"answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
+                            DTColumnBuilder.newColumn('answerWaitTime').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.answer_wait_time_")).notSortable()
                             .renderWith(function(data, type, full, meta) {    
                                 if(full.disposition == 16 ){
+                                    //console.log("full" + JSON.stringify(full))
+                                    //return toolsService.secondsToHMS(data/full.calls);
                                     return toolsService.secondsToHMS(data);
                                 }
                                 return ""
