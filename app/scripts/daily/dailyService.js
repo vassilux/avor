@@ -197,8 +197,8 @@ angular.module('app')
                             .renderWith(function(data, type, full, meta) {    
                                 if(full.disposition == 16 ){
                                     //console.log("full" + JSON.stringify(full))
-                                    //return toolsService.secondsToHMS(data/full.calls);
-                                    return toolsService.secondsToHMS(data);
+                                    return toolsService.secondsToHMS(data/full.calls);
+                                    //return toolsService.secondsToHMS(data);
                                 }
                                 return ""
                             })

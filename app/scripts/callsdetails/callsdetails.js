@@ -262,11 +262,12 @@ angular.module('app')
             }
             //
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
-            //
-            console.debug(" url : " + url)
-            //
+                       
+            
+            $scope.dtOptions = $scope.dtOptions.reloadData();
             $scope.dtOptions.sAjaxSource = url
-            $scope.dtOptions.reloadData();
+
+            
         };
     }
     ])

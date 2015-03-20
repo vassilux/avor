@@ -126,7 +126,7 @@ angular.module('app')
                 DTColumnBuilder.newColumn('did').withTitle(localize.getLocalizedString("_year_dids_table_column_did_")).notVisible(),
                 DTColumnBuilder.newColumn('month').withTitle(localize.getLocalizedString("_year_dids_table_column_month_"))
                 .renderWith(function(data, type, full, meta) {
-                    var monthKey = "_year_month_" + data + "_"
+                    var monthKey = "_year_month_" + toolsService.format(data) + "_"
                     return localize.getLocalizedString(monthKey);
                 }),
                 DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),

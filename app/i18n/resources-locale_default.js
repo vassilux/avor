@@ -1,17 +1,37 @@
 [
     {
         "key":"_common.label.show_",
-        "value":"Afficher",
+        "value":"Afficher recherche",
         "description":"Label afficher"
     },
     {
         "key":"_common.label.hide_",
-        "value":"Cacher",
+        "value":"Cacher recherche",
+        "description":"Label cacher"
+    },
+    {
+        "key":"_common.label.show_sda_",
+        "value":"Afficher sda",
+        "description":"Label afficher"
+    },
+    {
+        "key":"_common.label.hide_sda_",
+        "value":"Cacher sda",
+        "description":"Label cacher"
+    },
+     {
+        "key":"_common.label.show_peer_",
+        "value":"Afficher peers",
+        "description":"Label afficher"
+    },
+    {
+        "key":"_common.label.hide_peer_",
+        "value":"Cacher peers",
         "description":"Label cacher"
     },
     {
         "key":"_common.label.did.incomming_",
-        "value":"Appels par SDA",
+        "value":"Appels entrants(SDA)",
         "description":"Label cacher"
     },
     {
@@ -161,7 +181,7 @@
 
     {
         "key":"_chart.common.peer.in.title_",
-        "value":"Appels entrants (utilisateurs)",
+        "value":"Appels entrants (peers)",
         "description":"Appels entrant par Peer chart title"
     },
     {
@@ -171,7 +191,7 @@
     },
     {
         "key":"_chart.common.peer.out.title_",
-        "value":"Appels sortants (utilisateurs)",
+        "value":"Appels sortants",
         "description":"Appels sortant par Peer chart title"
     },
     {
@@ -205,7 +225,7 @@
 
     {
         "key":"_search.common.choise_peer_",
-        "value":"Choix d'utilisateur",
+        "value":"Choix de Peer",
         "description":"Label de choix par Peer"
     },
 

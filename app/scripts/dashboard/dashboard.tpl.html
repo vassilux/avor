@@ -1,28 +1,23 @@
-<div class="row-fluid">
-    <div class="span4">
-        <div>
-            <!-- <highchart id="chart1" config="chartDIDConfig"></highchart> -->
-            <chartcalls my-date='dailyDate' set-fn="setDidtCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartcalls>
-        </div>
-    </div>
+<div class="container-fluid">
 
-    <div class="span4">
-        <div>
-            <!-- <highchart id="chart2" config="chartPeersInCallsConfig"></highchart> -->
-            <chartcalls my-date='dailyDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls'></chartcalls>
-        </div>
-    </div>
- 
-     <div class="span4">
-        <div>
-            <!--<highchart id="chart3" config="chartPeersOutCallsConfig"></highchart>-->
-            <chartcalls my-date='dailyDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls'></chartcalls>
-        </div>
-    </div>
-
-
+<div class="row">
+    <chartcalls my-date='dailyDate' set-fn="setDidtCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartcalls>
 </div>
+</br>
+</br>
+<div class="row">
+    <chartcalls my-date='dailyDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls'></chartcalls>
+</div>
+</br>
+</br>
+<div class="row">
+     <chartcalls my-date='dailyDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls'></chartcalls>
+</div>
+</br>
+</br>
 <div class="row-fluid">
     </br>
     </br>
+</div>
+
 </div>

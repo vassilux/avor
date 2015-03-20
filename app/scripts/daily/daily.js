@@ -32,6 +32,8 @@ angular.module('app')
             $scope.dailyDidDate = yesterday
             $scope.dailyPeerDate = yesterday
             $scope.searchShow = true;
+            $scope.sdaShow = true;
+            $scope.peerShow = true;
             $scope.searchShowError = false;
             //
             $scope.dtOptions = dailyCallsCauseTableService.buildDTOptions("did", $scope)

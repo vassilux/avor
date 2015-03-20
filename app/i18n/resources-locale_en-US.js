@@ -1,17 +1,37 @@
 [
      {
         "key":"_common.label.show_",
-        "value":"Show",
+        "value":"Show search",
         "description":"Label afficher"
     },
     {
         "key":"_common.label.hide_",
-        "value":"Hide",
+        "value":"Hide search",
+        "description":"Label cacher"
+    },
+     {
+        "key":"_common.label.show_sda_",
+        "value":"Show dids",
+        "description":"Label afficher"
+    },
+    {
+        "key":"_common.label.hide_sda_",
+        "value":"Hide dids",
+        "description":"Label cacher"
+    },
+     {
+        "key":"_common.label.show_peer_",
+        "value":"Show peers",
+        "description":"Label afficher"
+    },
+    {
+        "key":"_common.label.hide_peer_",
+        "value":"Hide peers",
         "description":"Label cacher"
     },
     {
         "key":"_common.label.did.incomming_",
-        "value":"Calls by DID",
+        "value":"Incomming calls(DID)",
         "description":"Label cacher"
     },
     {
@@ -159,12 +179,12 @@
     },
      {
         "key": "_chart.common.peer.out.title_",
-        "value": "Outgoing calls by peer",
+        "value": "Outgoing calls",
         "description": "Appels sortant par peer chart title"
     },
     {
         "key":"_chart.year.peer.out.title_",
-        "value":"Outgoing calls to the year  ",
+        "value":"Outgoing calls by year  ",
         "description":"Title de chart par SDA"
     },
     {

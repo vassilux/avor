@@ -307,7 +307,7 @@ directive('selendpoints', ['$rootScope', 'localize', 'appDataService',
     };
   }
 ])
-  .directive('bnshowhide', ['$rootScope', 'localize',
+.directive('bnshowhide', ['$rootScope', 'localize',
     function($rootScope, localize) {
       return {
         template: '<button ng-class="class" ng-click="onShowHide()"><i ng-class="iconClass"></i>{{!searchShow && showString || hideString}} </button>',
@@ -348,6 +348,87 @@ directive('selendpoints', ['$rootScope', 'localize', 'appDataService',
     }
   ])
 
+.directive('bnsdashowhide', ['$rootScope', 'localize',
+    function($rootScope, localize) {
+      return {
+        template: '<button ng-class="class" ng-click="onSdaShowHide()"><i ng-class="iconClass"></i>{{!sdaShow && showString || hideString}}</button>',
+        restrict: 'E',
+        scope: {
+          sdaShow: '=value'
+        },
+        controller: function($scope, $element, $attrs) {
+          $scope.updateString = function(){
+            $scope.showString = localize.getLocalizedString("_common.label.show_sda_");
+            $scope.hideString = localize.getLocalizedString("_common.label.hide_sda_");
+          }
+
+          $scope.class = "btn pull-right btn-info";
+          $scope.iconClass = "icon-arrow-up icon-white";
+
+          $scope.onSdaShowHide = function(){
+            $scope.sdaShow = !$scope.sdaShow;
+            if($scope.sdaShow){
+              $scope.class = "btn pull-right btn-info";
+              $scope.iconClass = "icon-arrow-up icon-white";
+              
+            }else{
+               $scope.class = "btn pull-right btn-danger";
+               $scope.iconClass = "icon-arrow-down icon-white";
+            }
+          }
+          $scope.updateString();
+
+        },
+        link: function(scope, elem, attrs) {
+          
+          scope.$on('localizeResourcesUpdates', function() {
+            scope.updateString();
+          });
+        }
+      };
+    }
+  ])
+
+.directive('bnpeershowhide', ['$rootScope', 'localize',
+    function($rootScope, localize) {
+      return {
+        template: '<button ng-class="class" ng-click="onPeerShowHide()"><i ng-class="iconClass"></i>{{!peerShow && showString || hideString}}</button>',
+        restrict: 'E',
+        scope: {
+          peerShow: '=value'
+        },
+        controller: function($scope, $element, $attrs) {
+          $scope.updateString = function(){
+            $scope.showString = localize.getLocalizedString("_common.label.show_peer_");
+            $scope.hideString = localize.getLocalizedString("_common.label.hide_peer_");
+          }
+
+          $scope.class = "btn pull-right btn-info";
+          $scope.iconClass = "icon-arrow-up icon-white";
+
+          $scope.onPeerShowHide = function(){
+            $scope.peerShow = !$scope.peerShow;
+            if($scope.peerShow){
+              $scope.class = "btn pull-right btn-info";
+              $scope.iconClass = "icon-arrow-up icon-white";
+              
+            }else{
+               $scope.class = "btn pull-right btn-danger";
+               $scope.iconClass = "icon-arrow-down icon-white";
+            }
+          }
+          $scope.updateString();
+
+        },
+        link: function(scope, elem, attrs) {
+          
+          scope.$on('localizeResourcesUpdates', function() {
+            scope.updateString();
+          });
+        }
+      };
+    }
+  ])
 .directive("repeatPassword", function() {
   return {
     require: "ngModel",
