@@ -1,7 +1,19 @@
 <div class="container-fluid">
 
 <div class="row">
-    <chartcalls my-date='dailyDate' set-fn="setDidtCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartcalls>
+    <chartcalls my-date='dailyDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls'></chartcalls>
+</div>
+</br>
+</br>
+<div class="row-fluid">
+	<span class="span6">
+    	<chartdispositioncalls my-date='dailyDate' set-fn="setInCallsDispositionDirectiveFn(theDirFn)" my-title='titleInCallsDisposition'></chartdispositioncalls>
+	</span>
+
+	<span class="span6">
+    	<chartdispositioncalls my-date='dailyDate' set-fn="setOutCallsDispositionDirectiveFn(theDirFn)" my-title='titleOutCallsDisposition'></chartdispositioncalls>
+	</span>
+
 </div>
 </br>
 </br>

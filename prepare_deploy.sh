@@ -8,12 +8,11 @@
 
 set -e
 
-VER_MAJOR="1"
-VER_MINOR="0"
-VER_PATCH="7"
+VERSION=$(cat VERSION)
 
-DEPLOY_DIR="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}"
-DEPLOY_FILE_NAME="avor_${VER_MAJOR}.${VER_MINOR}.${VER_PATCH}.tar.gz"
+
+DEPLOY_DIR="avor_${VERSION}"
+DEPLOY_FILE_NAME="avor_${VERSION}.tar.gz"
 
 if [ -d "$DEPLOY_DIR" ]; then
     rm -rf  "$DEPLOY_DIR"

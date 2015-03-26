@@ -16,6 +16,9 @@ angular.module('app')
             $scope.titleDIDCalls =  localize.getLocalizedString("_chart.common.sda.title_");
             $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
+
+            $scope.titleInCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.in.title_");
+            $scope.titleOutCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.out.title_");
             //
             $scope.dailyDate = new Date();
 
@@ -28,8 +31,16 @@ angular.module('app')
                 $scope.directiveOutCallsFn = directiveFn
             }
 
-            $scope.setDidtCallsDirectiveFn = function(directiveFn) {
+            $scope.setDidCallsDirectiveFn = function(directiveFn) {
                 $scope.directiveDidCallsFn = directiveFn
+            }
+
+            $scope.setInCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveInCallsDispositionFn = directiveFn
+            }
+
+            $scope.setOutCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveOutCallsDispositionFn = directiveFn
             }
 
 
@@ -57,6 +68,14 @@ angular.module('app')
                 $scope.directiveOutCallsFn(peerOutCalls);
             };
 
+            function processPeerIncommingDispositionData(data) {
+                $scope.directiveInCallsDispositionFn(data)
+            };
+
+             function processPeerOutcommingDispositionData(data) {
+                $scope.directiveOutCallsDispositionFn(data)
+            };
+
             var Repeater = function() {
                 $scope.dailyDate = new Date();
                 $scope.myts = Poller.poll(url);
@@ -65,10 +84,16 @@ angular.module('app')
                     processDidData(jsonData.didCalls);
                     processPeerIncommingData(jsonData.peerInCalls);
                     processPeerOutgoingData(jsonData.peerOutCalls);
+                    var d = []
+                    processPeerIncommingDispositionData(jsonData.peerInCallsDisp)
+                    processPeerOutcommingDispositionData(jsonData.peerOutCallsDisp)
                     return response.data;
                 });
             };
-            $scope.poller = $interval(Repeater, 5000);
+
+            Repeater()
+
+            $scope.poller = $interval(Repeater, 10000);
             //polling stop when leave controller scope
             $scope.$on('$destroy', function() {
 

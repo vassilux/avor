@@ -88,14 +88,14 @@
             <!--/row-->
     </form>
     </div>
-    <div class="row-fluid ">
-        <bnshowhide value="searchShow"></bnshowhide>
+   
+    <div class="row">
+        <span class="span2"><bnsdashowhide value="sdaShow"></bnsdashowhide></span>
+        <span class="span2"><bnpeershowhide value="peerShow"></bnpeershowhide></span>
+        <span class="span2"><bnshowhide value="searchShow"></bnshowhide></span>
     </div>
-    <div class="row-fluid">
-        </br>
-        </br>
-    </div>
-    <div class="row-fluid">
+
+    <div class="row-fluid" ng-show="sdaShow">
         </br>
         <div class="span12">
             <h1> <p class="center-in-span" data-i18n="_common.label.did.incomming_">Appels entrants par SDA </p> </h1>
@@ -103,7 +103,7 @@
         </br>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid" ng-show="sdaShow">
         <div class="span6">
             <div>
                 <chartcalls my-date='didDate' set-fn="setDidCallsDirectiveFn(theDirFn)" my-title='titleDIDCalls' my-format="myFormat"></chartcalls>
@@ -116,14 +116,39 @@
         </div>
     </div>
 
+    <div class="row-fluid" ng-show="peerShow">
+        </br>
+        <div class="span12">
+            <h1> <p class="center-in-span" data-i18n="_chart.common.peer.disposition.title_">Répartitions des appels</p> </h1>
+        </div>
+        </br>
+    </div>
+
+   
+
+    <div class="row-fluid" ng-show="peerShow">
+        <span class="span6">
+        <chartdispositioncalls my-date='peerDate' set-fn="setInCallsDispositionDirectiveFn(theDirFn)" my-title='titleInCallsDisposition' my-format="myFormat"></chartdispositioncalls>
+    </span>
+
+    <span class="span6">
+        <chartdispositioncalls my-date='peerDate' set-fn="setOutCallsDispositionDirectiveFn(theDirFn)" my-title='titleOutCallsDisposition' my-format="myFormat"></chartdispositioncalls>
+    </span>
+    </div>
     <div class="row-fluid">
+        <br/>
+        <h1></h1>
+    </div>
+    
+     <div class="row-fluid" ng-show="peerShow">
         </br>
         <div class="span12">
             <h1> <p class="center-in-span" data-i18n="_chart.common.peer.in.title_">Appels entrants</p> </h1>
         </div>
         </br>
     </div>
-     <div class="row-fluid">
+    
+     <div class="row-fluid" ng-show="peerShow">
        <div class="span6">
             <div>
                 <chartcalls my-date='peerDate' set-fn="setInCallsDirectiveFn(theDirFn)" my-title='titleInCalls' my-format="myFormat"></chartcalls>
@@ -136,7 +161,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row-fluid" ng-show="peerShow">
         </br>
         <div class="span12">
             <h1> <p class="center-in-span" data-i18n="_chart.common.peer.out.title_" >Appels sortants</p> </h1>
@@ -144,7 +169,7 @@
         </br>
     </div>
 
-    <div class="row-fluid">  
+    <div class="row-fluid" ng-show="peerShow">  
         <div class="span6">
             <div>
                 <chartcalls my-date='peerDate' set-fn="setOutCallsDirectiveFn(theDirFn)" my-title='titleOutCalls' my-format="myFormat"></chartcalls>

@@ -1,6 +1,6 @@
 'use strict';
 // Declare app level module which depends on filters, and services
-angular.module('app', ['datatables', 'ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'localization', 
+angular.module('app', ['ngResource', 'datatables', 'ngRoute', 'ngCookies', 'ui.date', 'ui.directives', 'localization', 
   'ui.bootstrap', 
   'dialogs.main',
   'ui.bootstrap.collapse', 

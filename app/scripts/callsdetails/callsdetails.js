@@ -10,10 +10,11 @@ angular.module('app')
             });
         }
     ])
-    .controller('CallsDetailsCtrl', ['$rootScope', '$scope', '$timeout', '$filter', '$dialog', 
+    .controller('CallsDetailsCtrl', ['$rootScope', '$scope', '$resource', '$timeout', '$http', '$q', '$filter', '$dialog', 
         'cdrService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'localize', 'dialogs',
-     function($rootScope, $scope, $timeout, $filter, $dialog, cdrService, DTOptionsBuilder, DTColumnBuilder, $compile, localize, dialogs) {
+     function($rootScope, $scope, $resource, $timeout, $http, $q, $filter, $dialog, cdrService, DTOptionsBuilder, DTColumnBuilder, $compile, localize, dialogs) {
         //
+
         $scope.didsTarget = "dids"
         $scope.dialogCallDetailsOptions = {
             backdrop: true,
@@ -54,7 +55,6 @@ angular.module('app')
             yearRange: '1900:-0'
         };
 
-
         $scope.message = '';
 
             var langUrl = "i18n/datatable_en-US.json";
@@ -64,6 +64,18 @@ angular.module('app')
 
             $scope.dtOptions = DTOptionsBuilder
             .fromSource('')
+           /* .fromFnPromise(function() {
+                var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-ddTHH:mm:ss');
+                var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-ddTHH:mm:ss');
+                var request = "/cdrs/startdate,$gte," + stringDateFrom + 'Z';
+                request += "&enddate,$lte," + stringDateTo + 'Z';
+                var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
+                console.log("Url before promise : " + url)
+               
+                return $resource(url).query().$promise;
+
+
+            })*/
             .withOption('createdRow', function(row, data, dataIndex) {
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
@@ -132,6 +144,7 @@ angular.module('app')
                  }),
                  DTColumnBuilder.newColumn('clid_name').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_name_")),
                  DTColumnBuilder.newColumn('clid_number').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_number_")),
+                 DTColumnBuilder.newColumn('peer').withTitle("Peer"),
                  DTColumnBuilder.newColumn('dst').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.destination_")),
                  DTColumnBuilder.newColumn('did').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.did_")),
                  DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.duration_")).notSortable()
@@ -222,6 +235,15 @@ angular.module('app')
             return result
         }
 
+        $scope.changeData = function(url) {
+           
+            if (url == $scope.dtOptions.sAjaxSource) {
+                $scope.dtOptions.reloadData();
+            }else {
+                $scope.dtOptions.sAjaxSource = url
+            }
+        }
+
         $scope.fetchCdrDatasClickHandler = function() {
             var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-ddTHH:mm:ss');
             var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-ddTHH:mm:ss');
@@ -262,10 +284,8 @@ angular.module('app')
             }
             //
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
-                       
             
-            $scope.dtOptions = $scope.dtOptions.reloadData();
-            $scope.dtOptions.sAjaxSource = url
+            $scope.changeData(url)
 
             
         };

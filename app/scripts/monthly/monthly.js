@@ -22,10 +22,15 @@ angular.module('app')
             $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
 
+            $scope.titleInCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.in.title_");
+            $scope.titleOutCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.out.title_");
+
             //
             $scope.didDate = new Date();
             $scope.peerDate = new Date();
             $scope.searchShow = true;
+            $scope.sdaShow = true;
+            $scope.peerShow = true;
             $scope.searchShowError = false;
             //
             $scope.setInCallsDirectiveFn = function(directiveFn){
@@ -51,6 +56,31 @@ angular.module('app')
 
             $scope.setDidCallsMonthDirectiveFn = function(directiveFn){
                 $scope.directiveDidMonthCallsFn = directiveFn
+            }
+
+            $scope.setInCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveInCallsDispositionFn = directiveFn
+            }
+
+            $scope.setOutCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveOutCallsDispositionFn = directiveFn
+            }
+
+            function loadCallsDispositions (inout, peerDate, peer,  fn){
+                var callsdispurl = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/monthly/peer/' + inout + '/disposition/' + 
+                peerDate + 'T23:59:59Z';
+
+                if (peer != "") {
+                    callsdispurl += "/" + peer
+                }
+                
+                callsdispurl += "/" + (new Date()).getTime();
+
+                var callsdisp = monthlyService.fetchPeerDatas(callsdispurl);
+                callsdisp.then(function(response) {
+                    //
+                    fn(response)
+                });
             }
 
             
@@ -81,6 +111,8 @@ angular.module('app')
                     $scope.directiveDidMonthCallsFn(response)
                     return response;
                 });
+
+
             }
 
             $scope.fetchPeerDatas = function() {
@@ -119,6 +151,9 @@ angular.module('app')
                     $scope.directiveOutCallsByDaysFn(peerOutDataResponse);
                     return peerOutDataResponse;
                 });
+
+                loadCallsDispositions("in", peerDate, $scope.choisePeer.value, $scope.directiveInCallsDispositionFn) 
+                loadCallsDispositions("out", peerDate, $scope.choisePeer.value, $scope.directiveOutCallsDispositionFn) 
             }
 
 

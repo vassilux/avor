@@ -22,6 +22,10 @@ angular.module('app')
             $scope.titleInCalls = localize.getLocalizedString("_chart.common.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.common.peer.out.title_");
             $scope.titleDIDCallsByHours = localize.getLocalizedString("_chart.common.sda.hour.title_");
+
+            $scope.titleInCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.in.title_");
+            $scope.titleOutCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.out.title_");
+
             //
             $scope.choiseDid = {};
             $scope.choisePeer = {};
@@ -113,6 +117,14 @@ angular.module('app')
                 $scope.directivePeerOutCallsByHourFn = directiveFn
             }
 
+            $scope.setInCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveInCallsDispositionFn = directiveFn
+            }
+
+            $scope.setOutCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveOutCallsDispositionFn = directiveFn
+            }
+
             // 
             $scope.fetchPeerDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/peerdatas/';
@@ -132,10 +144,31 @@ angular.module('app')
                     return response;
                 });
                 //
+
+                loadCallsDispositions("in", peerDate, $scope.choisePeer.value, $scope.directiveInCallsDispositionFn) 
+                loadCallsDispositions("out", peerDate, $scope.choisePeer.value, $scope.directiveOutCallsDispositionFn) 
+
                 $scope.loadPeersByDayCalls($scope.dtPeerInOptions, "/daily/peer/in/genstats/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
                 $scope.loadPeersByDayCalls($scope.dtPeerOutOptions, "/daily/peer/out/genstats/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
                 $scope.loadPeersByDayCalls($scope.dtPeerInCallsWeekDaysOptions, "/daily/peer/in/week/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
                 $scope.loadPeersByDayCalls($scope.dtPeerOutCallsWeekDaysOptions, "/daily/peer/out/week/", peerDate + 'T23:59:59Z', $scope.choisePeer.value);
+            }
+
+            function loadCallsDispositions (inout, peerDate, peer,  fn){
+                var callsdispurl = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/daily/peer/' + inout + '/disposition/' + 
+                peerDate + 'T23:59:59Z';
+
+                if (peer != "") {
+                    callsdispurl += "/" + peer
+                }
+                
+                callsdispurl += "/" + (new Date()).getTime();
+
+                var callsdisp = dailyService.fetchPeerDatas(callsdispurl);
+                callsdisp.then(function(response) {
+                    //
+                    fn(response)
+                });
             }
 
             $scope.loadPeersByDayCalls = function(dtOptions, url, peerDate, peer) {

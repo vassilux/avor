@@ -184,6 +184,19 @@
         "value":"Appels entrants (peers)",
         "description":"Appels entrant par Peer chart title"
     },
+
+    {
+        "key":"_chart.common.peer.disposition.title_",
+        "value":"Répartition des appels (peers)",
+        "description":"Répartition des appels  par Peer chart title"
+    },
+
+    {
+        "key":"_chart.common.peer.disposition.in.title_",
+        "value":"Répartition des appels entrants (peers)",
+        "description":"Répartition des appels entrants par Peer chart title"
+    },
+
     {
         "key":"_chart.year.peer.in.title_",
         "value":"Appels entrants  pour l'an  ",
@@ -192,6 +205,12 @@
     {
         "key":"_chart.common.peer.out.title_",
         "value":"Appels sortants",
+        "description":"Appels sortant par Peer chart title"
+    },
+
+    {
+        "key":"_chart.common.peer.disposition.out.title_",
+        "value":"Répartition des appels sortants (peers)",
         "description":"Appels sortant par Peer chart title"
     },
     {

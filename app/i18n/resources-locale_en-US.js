@@ -169,8 +169,20 @@
     },
     {
         "key": "_chart.common.peer.in.title_",
-        "value": "Incomming calls by peer",
+        "value": "Incomming calls(peers)",
         "description": "Appels entrant par SDA chart title"
+    },
+
+     {
+        "key":"_chart.common.peer.disposition.title_",
+        "value":"Calls disposition (peers)",
+        "description":"Répartition des appels  par Peer chart title"
+    },
+
+    {
+        "key":"_chart.common.peer.disposition.in.title_",
+        "value":"Incomming calls disposition (peers)",
+        "description":"Répartition des appels entrants par Peer chart title"
     },
     {
         "key":"_chart.year.peer.in.title_",
@@ -182,6 +194,13 @@
         "value": "Outgoing calls",
         "description": "Appels sortant par peer chart title"
     },
+
+    {
+        "key":"_chart.common.peer.disposition.out.title_",
+        "value":"Ougoing calls dispositions (peers)",
+        "description":"Appels sortant par Peer chart title"
+    },
+
     {
         "key":"_chart.year.peer.out.title_",
         "value":"Outgoing calls by year  ",

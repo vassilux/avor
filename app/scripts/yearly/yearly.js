@@ -22,10 +22,17 @@ angular.module('app')
             $scope.titleInCalls = localize.getLocalizedString("_chart.year.peer.in.title_");
             $scope.titleOutCalls = localize.getLocalizedString("_chart.year.peer.out.title_");
 
+            $scope.titleInCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.in.title_");
+            $scope.titleOutCallsDisposition = localize.getLocalizedString("_chart.common.peer.disposition.out.title_");
+
             //
             $scope.didDate = new Date();
             $scope.peerDate = new Date();
             $scope.searchShow = true;
+            $scope.sdaShow = true;
+            $scope.peerShow = true;
+            $scope.sdaShow = true;
+            $scope.peerShow = true;
             $scope.searchShowError = false;
             //
             $scope.setInCallsDirectiveFn = function(directiveFn) {
@@ -50,6 +57,14 @@ angular.module('app')
 
             $scope.setDidCallsYearDirectiveFn = function(directiveFn) {
                 $scope.DidCallsYearDirectiveFn = directiveFn
+            }
+
+            $scope.setInCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveInCallsDispositionFn = directiveFn
+            }
+
+            $scope.setOutCallsDispositionDirectiveFn = function(directiveFn){
+                $scope.directiveOutCallsDispositionFn = directiveFn
             }
 
             $scope.didCallsTableSearchCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -202,7 +217,7 @@ angular.module('app')
                 DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_search.common.peer_")).notVisible(),
                 DTColumnBuilder.newColumn('month').withTitle(localize.getLocalizedString("_year_dids_table_column_month_"))
                 .renderWith(function(data, type, full, meta) {
-                    var monthKey = "_year_month_" + data + "_"
+                    var monthKey = "_year_month_" + toolsService.format(data) + "_"
                     return localize.getLocalizedString(monthKey);
                 }),
                 DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
@@ -279,7 +294,7 @@ angular.module('app')
                 DTColumnBuilder.newColumn('peer').withTitle(localize.getLocalizedString("_search.common.peer_")).notVisible(),
                 DTColumnBuilder.newColumn('month').withTitle(localize.getLocalizedString("_year_dids_table_column_month_"))
                 .renderWith(function(data, type, full, meta) {
-                    var monthKey = "_year_month_" + data + "_"
+                    var monthKey = "_year_month_" + toolsService.format(data) + "_"
                     return localize.getLocalizedString(monthKey);
                 }),
                 DTColumnBuilder.newColumn('calls').withTitle(localize.getLocalizedString("_year_dids_table_column_calls_")),
@@ -293,7 +308,26 @@ angular.module('app')
                     return toolsService.secondsToHMS(data);
                 })
             ];
+
             //peer out datas part end 
+
+            function loadCallsDispositions (inout, peerDate, peer,  fn){
+                var callsdispurl = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/yearly/peer/' + inout + '/disposition/' + 
+                peerDate;
+
+                if (peer != "") {
+                    callsdispurl += "/" + peer
+                }
+                
+                callsdispurl += "/" + (new Date()).getTime();
+
+                var callsdisp = yearlyService.fetchDidDatas(callsdispurl);
+                callsdisp.then(function(response) {
+                    //
+                    fn(response)
+                });
+            }
+
             $scope.fetchDidDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/yearly/didincomming/';
                 var didDate = $filter('date')($scope.didDate, 'yyyy');
@@ -367,6 +401,9 @@ angular.module('app')
                 $scope.loadPeersByMonthCalls($scope.dtPeerInOptions, "/yearly/peer/in/bymonth/calls/", peerDate, $scope.choisePeer.value)
                  //out calls for peer(s)
                 $scope.loadPeersByMonthCalls($scope.dtPeerOutOptions, "/yearly/peer/out/bymonth/calls/", peerDate, $scope.choisePeer.value)
+
+                loadCallsDispositions("in", peerDate, $scope.choisePeer.value, $scope.directiveInCallsDispositionFn) 
+                loadCallsDispositions("out", peerDate, $scope.choisePeer.value, $scope.directiveOutCallsDispositionFn) 
                 
             }
 
