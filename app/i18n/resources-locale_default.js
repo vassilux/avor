@@ -894,6 +894,51 @@
         "key":"_total_",
         "value": "Total",
         "description":"Total"        
+    },
+    {
+        "key":"_general_stats_title_",
+        "value": "Statistiques générales(peers)",
+        "description":"General Statistics title"        
+    },
+    {
+        "key":"_general_stats_col_out_calls_nbr_",
+        "value": "N° d'appels sortants",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_out_calls_duration_",
+        "value": "Durée d'appels sortant",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_out_calls_avg_duration_",
+        "value": "Durée moyenne d'appels sortant",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_nbr_",
+        "value": "N° d'appels entrants",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_answered_",
+        "value": "N° d'appels entrants repondu",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_duration_",
+        "value": "Durée d'appels entrants",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_avg_duration_",
+        "value": "Durée moyenne d'appels entrants",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_avg_wait_answer_time_",
+        "value": "Temps d'attente moyen d'appels entrants",
+        "description":""        
     }
-
+    
 ]

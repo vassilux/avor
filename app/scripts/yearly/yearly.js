@@ -10,7 +10,8 @@ angular.module('app')
             });
         }
     ])
-    .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter','localize','yearlyService', 'toolsService', 'DTOptionsBuilder', 'DTColumnBuilder', '$compile',
+    .controller('YearlyCtrl', ['$rootScope', '$scope', '$filter','localize','yearlyService', 'toolsService', 'DTOptionsBuilder', 
+        'DTColumnBuilder', '$compile',
         function($rootScope, $scope, $filter, localize, yearlyService, toolsService, DTOptionsBuilder, DTColumnBuilder, $compile) {
             //
             $scope.didsTarget = "dids"
@@ -34,6 +35,8 @@ angular.module('app')
             $scope.sdaShow = true;
             $scope.peerShow = true;
             $scope.searchShowError = false;
+
+            $scope.peersGlobalStats = {}
             //
             $scope.setInCallsDirectiveFn = function(directiveFn) {
                 $scope.directiveInCallsFn = directiveFn
@@ -328,6 +331,30 @@ angular.module('app')
                 });
             }
 
+            function loadPeersGeneralStats(peerDate, peer) {
+                var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/yearly/peer/globalstats/' +
+                    peerDate;
+
+                if (peer != "") {
+                    url += "/" + peer
+                }
+
+                url += "/" + (new Date()).getTime();
+
+                var promiseGenStats = yearlyService.fetchPeerDatas(url);
+                promiseGenStats.then(function(response) {
+                    //
+
+                    angular.copy(response, $scope.peersGlobalStats);
+                    $scope.peersGlobalStats.outCallsDuration = toolsService.secondsToHMS(response.outCallsDuration)
+                    $scope.peersGlobalStats.outCallsAvgDuration = toolsService.secondsToHMS(response.outCallsAvgDuration)
+                    $scope.peersGlobalStats.inCallsDuration = toolsService.secondsToHMS(response.inCallsDuration)
+                    $scope.peersGlobalStats.inCallsAvgDuration = toolsService.secondsToHMS(response.inCallsAvgDuration)
+                    $scope.peersGlobalStats.inCallsAvgWaitAnswerTime = toolsService.secondsToHMS(response.inCallsAvgWaitAnswerTime)
+                });
+
+            }
+
             $scope.fetchDidDatas = function() {
                 var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/yearly/didincomming/';
                 var didDate = $filter('date')($scope.didDate, 'yyyy');
@@ -404,7 +431,8 @@ angular.module('app')
 
                 loadCallsDispositions("in", peerDate, $scope.choisePeer.value, $scope.directiveInCallsDispositionFn) 
                 loadCallsDispositions("out", peerDate, $scope.choisePeer.value, $scope.directiveOutCallsDispositionFn) 
-                
+
+                loadPeersGeneralStats(peerDate, $scope.choisePeer.value)
             }
 
             $scope.loadPeersByMonthCalls = function(dtOptions, url, peerDate, peer) {

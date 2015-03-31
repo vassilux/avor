@@ -42,7 +42,7 @@ angular.module('app')
             $scope.setOutCallsDispositionDirectiveFn = function(directiveFn){
                 $scope.directiveOutCallsDispositionFn = directiveFn
             }
-
+            
 
             //Just to start
             var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/poll';

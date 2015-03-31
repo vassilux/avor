@@ -855,6 +855,51 @@
         "key":"_total_",
         "value": "Total",
         "description":"Total"        
+    },
+    {
+        "key":"_general_stats_title_",
+        "value": "General Statistics(peers)",
+        "description":"General Statistics title"        
+    },
+    {
+        "key":"_general_stats_col_out_calls_nbr_",
+        "value": "N° outgoing calls",
+        "description":"N° d'appels sortants"        
+    },
+    {
+        "key":"_general_stats_col_out_calls_duration_",
+        "value": "Outgoing call duration",
+        "description":"Durée d'appels sortants"        
+    },
+    {
+        "key":"_general_stats_col_out_calls_avg_duration_",
+        "value": "Average outgoing calls Time",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_nbr_",
+        "value": "N° incoming calls",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_answered_",
+        "value": "No. of incoming calls answered",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_duration_",
+        "value": "Inbound call duration",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_avg_duration_",
+        "value": "Average duration of incoming calls",
+        "description":""        
+    },
+    {
+        "key":"_general_stats_col_in_calls_avg_wait_answer_time_",
+        "value": "Average wait time for incoming calls",
+        "description":""        
     }
 
 ]

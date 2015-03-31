@@ -10,8 +10,8 @@ angular.module('app')
             });
         }
     ])
-    .controller('MonthlyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'monthlyService',
-        function($rootScope, $scope, $filter, localize, monthlyService) {
+    .controller('MonthlyCtrl', ['$rootScope', '$scope', '$filter', 'localize', 'monthlyService', 'toolsService',
+        function($rootScope, $scope, $filter, localize, monthlyService, toolsService) {
             //
             $scope.didsTarget = "dids"
             $scope.peersTarget = "peers"
@@ -32,6 +32,7 @@ angular.module('app')
             $scope.sdaShow = true;
             $scope.peerShow = true;
             $scope.searchShowError = false;
+            $scope.peersGlobalStats = {}
             //
             $scope.setInCallsDirectiveFn = function(directiveFn){
                 $scope.directiveInCallsFn = directiveFn
@@ -83,7 +84,29 @@ angular.module('app')
                 });
             }
 
-            
+            function loadPeersGeneralStats(peerDate, peer) {
+                var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + '/monthly/peer/globalstats/' +
+                    peerDate + 'T23:59:59Z';
+
+                if (peer != "") {
+                    url += "/" + peer
+                }
+
+                url += "/" + (new Date()).getTime();
+
+                var promiseGenStats = monthlyService.fetchPeerDatas(url);
+                promiseGenStats.then(function(response) {
+                    //
+
+                    angular.copy(response, $scope.peersGlobalStats);
+                    $scope.peersGlobalStats.outCallsDuration = toolsService.secondsToHMS(response.outCallsDuration)
+                    $scope.peersGlobalStats.outCallsAvgDuration = toolsService.secondsToHMS(response.outCallsAvgDuration)
+                    $scope.peersGlobalStats.inCallsDuration = toolsService.secondsToHMS(response.inCallsDuration)
+                    $scope.peersGlobalStats.inCallsAvgDuration = toolsService.secondsToHMS(response.inCallsAvgDuration)
+                    $scope.peersGlobalStats.inCallsAvgWaitAnswerTime = toolsService.secondsToHMS(response.inCallsAvgWaitAnswerTime)
+                });
+
+            }
 
             $scope.fetchDidDatas = function() {
                 //console.log("$scope.fetchDidDatas : " + $scope.didDate)
@@ -154,6 +177,8 @@ angular.module('app')
 
                 loadCallsDispositions("in", peerDate, $scope.choisePeer.value, $scope.directiveInCallsDispositionFn) 
                 loadCallsDispositions("out", peerDate, $scope.choisePeer.value, $scope.directiveOutCallsDispositionFn) 
+
+                loadPeersGeneralStats(peerDate, $scope.choisePeer.value)
             }
 
 

@@ -64,19 +64,7 @@ angular.module('app')
 
             $scope.dtOptions = DTOptionsBuilder
             .fromSource('')
-           /* .fromFnPromise(function() {
-                var stringDateFrom = $filter('date')($scope.dateFrom, 'yyyy-MM-ddTHH:mm:ss');
-                var stringDateTo = $filter('date')($scope.dateTo, 'yyyy-MM-ddTHH:mm:ss');
-                var request = "/cdrs/startdate,$gte," + stringDateFrom + 'Z';
-                request += "&enddate,$lte," + stringDateTo + 'Z';
-                var url = "http://" + $rootScope.config.host + ":" + $rootScope.config.port + request
-                console.log("Url before promise : " + url)
-               
-                return $resource(url).query().$promise;
-
-
-            })*/
-            .withOption('createdRow', function(row, data, dataIndex) {
+           .withOption('createdRow', function(row, data, dataIndex) {
                     // Recompiling so we can bind Angular directive to the DT
                     $compile(angular.element(row).contents())($scope);
             })
@@ -88,6 +76,13 @@ angular.module('app')
                 });
                 return nRow;
             })
+           .withOption('processing', function() {
+                return true;
+            })            
+            .withOption('stateLoaded', function(settings, data) {
+                console.log( 'Saved filter was: '+data.oSearch.sSearch );
+            })
+
             .withLanguage({
                 sUrl: langUrl
             })
@@ -110,20 +105,6 @@ angular.module('app')
             })
             // Add ColVis compatibility
             .withColVis()
-            //make grouping by DID
-            .withOption('fnDrawCallback1', function ( oSettings  ) {
-                var api = this.api();
-                var rows = api.rows( {page:'current'} ).nodes();
-                var last=null;
-                 
-                api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-                    if ( last !== group ) {
-                        $(rows).eq( i ).before(
-                            '<tr class="group"><td colspan="5">  <i class="fa fa-phone"> DID : '+group+'</i></td></tr>');
-                        last = group;
-                    }
-                });       
-            })
             .withPaginationType('full_numbers')
             .withTableTools('vendor/datatables-tabletools/swf/copy_csv_xls_pdf.swf')
             .withTableToolsButtons([
@@ -144,8 +125,8 @@ angular.module('app')
                  }),
                  DTColumnBuilder.newColumn('clid_name').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_name_")),
                  DTColumnBuilder.newColumn('clid_number').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.caller_number_")),
-                 DTColumnBuilder.newColumn('peer').withTitle("Peer"),
                  DTColumnBuilder.newColumn('dst').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.destination_")),
+                 DTColumnBuilder.newColumn('peer').withTitle("Peer"),
                  DTColumnBuilder.newColumn('did').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.did_")),
                  DTColumnBuilder.newColumn('duration').withTitle(localize.getLocalizedString("_cdrs.search.datatables.column.duration_")).notSortable()
                  .renderWith(function(data, type, full, meta) {
