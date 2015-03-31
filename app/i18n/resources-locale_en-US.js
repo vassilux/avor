@@ -858,7 +858,7 @@
     },
     {
         "key":"_general_stats_title_",
-        "value": "General Statistics(peers)",
+        "value": "Global Statistics(peers)",
         "description":"General Statistics title"        
     },
     {
